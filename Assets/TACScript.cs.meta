@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: e8ac3cc496301d74487157a7e10ff90d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Module: {instanceID: 0}
+  - BombInfo: {instanceID: 0}
+  - Audio: {instanceID: 0}
+  - RuleSeedable: {instanceID: 0}
+  - Pawn: {fileID: 23727331044450820, guid: 56d6ca445c6948744ae25398351d04c0, type: 2}
+  - PawnObject: {fileID: 1470447637765376, guid: 56d6ca445c6948744ae25398351d04c0,
+      type: 2}
+  - Cards: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

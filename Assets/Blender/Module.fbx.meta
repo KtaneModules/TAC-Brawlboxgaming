@@ -1,0 +1,224 @@
+fileFormatVersion: 2
+guid: faf975616450914449f1c167218d619e
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: BlueLED
+    100002: BlueLEDRim
+    100004: Card1Back
+    100006: Card1Front
+    100008: Card2Back
+    100010: Card2Front
+    100012: Card3Back
+    100014: Card3Front
+    100016: Card4Back
+    100018: Card4Front
+    100020: Card5Back
+    100022: Card5Front
+    100024: Card6Back
+    100026: Card6Front
+    100028: GreenLED
+    100030: GreenLEDRim
+    100032: LED
+    100034: LEDRim
+    100036: ModelComponent
+    100038: //RootNode
+    100040: Pawn
+    100042: RedLED
+    100044: RedLEDRim
+    100046: SmallBoard
+    100048: TACButton
+    100050: YellowLED
+    100052: YellowLEDRim
+    400000: BlueLED
+    400002: BlueLEDRim
+    400004: Card1Back
+    400006: Card1Front
+    400008: Card2Back
+    400010: Card2Front
+    400012: Card3Back
+    400014: Card3Front
+    400016: Card4Back
+    400018: Card4Front
+    400020: Card5Back
+    400022: Card5Front
+    400024: Card6Back
+    400026: Card6Front
+    400028: GreenLED
+    400030: GreenLEDRim
+    400032: LED
+    400034: LEDRim
+    400036: ModelComponent
+    400038: //RootNode
+    400040: Pawn
+    400042: RedLED
+    400044: RedLEDRim
+    400046: SmallBoard
+    400048: TACButton
+    400050: YellowLED
+    400052: YellowLEDRim
+    2100000: Default OBJ
+    2100002: Icon
+    2100004: Card Back
+    2100006: Card Front
+    2100008: MetalMat
+    2100010: SmallBoard
+    2100012: Pawn
+    2300000: BlueLED
+    2300002: BlueLEDRim
+    2300004: Card1Back
+    2300006: Card1Front
+    2300008: Card2Back
+    2300010: Card2Front
+    2300012: Card3Back
+    2300014: Card3Front
+    2300016: Card4Back
+    2300018: Card4Front
+    2300020: Card5Back
+    2300022: Card5Front
+    2300024: Card6Back
+    2300026: Card6Front
+    2300028: GreenLED
+    2300030: GreenLEDRim
+    2300032: LED
+    2300034: LEDRim
+    2300036: ModelComponent
+    2300038: Pawn
+    2300040: RedLED
+    2300042: RedLEDRim
+    2300044: SmallBoard
+    2300046: TACButton
+    2300048: YellowLED
+    2300050: YellowLEDRim
+    3300000: BlueLED
+    3300002: BlueLEDRim
+    3300004: Card1Back
+    3300006: Card1Front
+    3300008: Card2Back
+    3300010: Card2Front
+    3300012: Card3Back
+    3300014: Card3Front
+    3300016: Card4Back
+    3300018: Card4Front
+    3300020: Card5Back
+    3300022: Card5Front
+    3300024: Card6Back
+    3300026: Card6Front
+    3300028: GreenLED
+    3300030: GreenLEDRim
+    3300032: LED
+    3300034: LEDRim
+    3300036: ModelComponent
+    3300038: Pawn
+    3300040: RedLED
+    3300042: RedLEDRim
+    3300044: SmallBoard
+    3300046: TACButton
+    3300048: YellowLED
+    3300050: YellowLEDRim
+    4300000: ModelComponent
+    4300002: TACButton
+    4300004: Card1Back
+    4300006: Card1Front
+    4300008: Card2Back
+    4300010: Card2Front
+    4300012: Card3Back
+    4300014: Card3Front
+    4300016: Card4Back
+    4300018: Card4Front
+    4300020: Card5Back
+    4300022: Card5Front
+    4300024: Card6Back
+    4300026: Card6Front
+    4300028: LED
+    4300030: LEDRim
+    4300032: SmallBoard
+    4300034: Pawn
+    4300036: YellowLED
+    4300038: YellowLEDRim
+    4300040: GreenLED
+    4300042: GreenLEDRim
+    4300044: BlueLED
+    4300046: BlueLEDRim
+    4300048: RedLED
+    4300050: RedLEDRim
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
