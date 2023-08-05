@@ -1,0 +1,702 @@
+﻿DEBUG 2023-08-05 18:40:23,466 [ModManager] Status: BuildingManual 0 of 0 ModName:  FilePath: 
+DEBUG 2023-08-05 18:40:28,728 [ModManager] Status: LoadComplete 0 of 0 ModName:  FilePath: 
+ INFO 2023-08-05 18:40:28,734 [ServicesSteam] Now tracking playtime for items: 2833612078,2794202199,2680901786,2646579895,2538046410,2539524999,2568793885,2562449383,2572408338,2585640061,2604427370,2164996443,1928649685,1928643180,1659583568,1649012246,2578826392,2578252628,2041536146,2504822393,2571531286,1307301431,1649097661,1595175238,2012092376,2003251353,1892878540,1577092853,1556008752,2503530693,1823231638,2466891963,1762883309,2281866799,2218779663,1772301425,1764738710,1758405750,1757530392,1757173794,1702384395,1551692607,1894958987,1847317926,1940088321,1286383144,2126700344,2337937548,1603848432,1632495656,1358839759,2037350348,1436848400,2173307998,1272897891,2448978294,1826123147,2290033698,1542509478,2387360571,2019102639,2202355959,2357332705,2176682017,2094742750,2147560061,2493026806,2035382736,2224076411,1940164898,2334684439,2395667320,1917177087,2404426336,2282635865,1877803535,2004382736,1966471261,2049918864,1352512916,1558110125,1531150080,1612847920,1649217354,1743335011,1743337361,1850003378,1749051896,1975632072,1986060019,2321640805,2333127456,2449157046,1263580126,1117239398,1563555397,1758247115,1844662069,1979252637,1639934170,1632675253,1667658195,1866367885,1905761012,1187303490,1600568352,1616014593,1951226054,1512556237,1503872624,1799471879,1558198220,2131267712,1581951941,1606172045,1797329175,1977063810,2287663080,2144494251,1224553628,1583817215,1673910132,1688518678,1563747054,2022692764,1127635313,1129411945,1669095833,2430630191,2489389031,1310880245,1276349396,1414215029,1406012108,1416853392,1370172381,1393450754,1358769694,1483210664,1309699497,1364017029,1356980757,1403740204,1425706154,1465429723,1269639288,1318015164,1406731234,1422986509,1392391174,1399615767,1392394292,1462370946,1332953027,1291601109,1323472620,1269387584,1357737271,1336607426,1428402632,1360126644,742005442,1289161023,1424425851,1364758032,1422870701,1292000968,1423743791,1290077112,1377269180,1286557615,1351926911,1352138977,1383222916,1419148882,1330441838,1293295745,1410663632,1279042705,1376375888,1307648687,1280808643,1314359857,1410652177,1355444912,1398997901,1377563237,1406694607,1469292731,1326285431,1326569296,1436637929,926122787,1433404483,1376732128,1447467753,1361535900,1360105608,1399287254,1355440777,1469593358,1411568554,1318968178,1431301224,1286297509,1415037641,1415424632,1429305542,1477710482,1139200290,1256418850,1185966688,1253515570,1242935367,1146194185,1190771256,1180077105,1159290886,1164200113,1143527507,1143024969,1145222040,1145292169,1126823634,1085289517,956081852,1081506516,930299025,1110997971,1107709535,850186070,1096036164,926836229,954003753,1102363790,1102360624,1078276453,985466399,961153662,960409429,739663396,955137794,952882149,949930700,946256499,932617090,925533475,924277980,923944270,907916539,897610745,889942198,877712069,849369200,848986128,846824461,844093428,843564671,836617860,835806625,833687997,825332799,822892956,822349841,817404979,814822565,814168200,808007332,806188270,805042374,804644203,803924558,803537557,802366358,798194678,794764799,793073877,788980366,786826903,783004078,778458559,777164508,776667407,776105833,770681654,769604567,769436101,764289972,762873683,756760364,751202722,751147696,750124224,748294028,747854140,747816940,746188921,745341328,745100131,744314607,744171602,743638627,743442301,743198269,737243865,733438645,731933084,731307620,729573295,729096093,723983165,720356976,720338853,838110334,806104225,801400247,767486703,731908781,805590147,885638564,916589421,945682169,961870485,1366808675,1453622997,1650854883,2026812994,2416640196,2993518984,1633427044
+ INFO 2023-08-05 18:40:29,413 [MenuScreen] Leaving screen ModLoadingScreen
+ INFO 2023-08-05 18:40:29,416 [MenuScreen] Entering screen ModManagerManualInstructionScreen
+DEBUG 2023-08-05 18:40:31,848 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_varied: "varied"
+DEBUG 2023-08-05 18:40:31,849 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_gazing: "gazing"
+DEBUG 2023-08-05 18:40:31,850 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_raids: "raids"
+DEBUG 2023-08-05 18:40:31,851 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_march: "march"
+DEBUG 2023-08-05 18:40:31,851 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_alter: "alter"
+DEBUG 2023-08-05 18:40:31,852 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_hardy: "hardy"
+DEBUG 2023-08-05 18:40:31,852 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_leave: "leave"
+DEBUG 2023-08-05 18:40:31,853 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_parent: "parent"
+DEBUG 2023-08-05 18:40:31,853 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_varies: "varies"
+DEBUG 2023-08-05 18:40:31,854 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_saving: "saving"
+DEBUG 2023-08-05 18:40:31,855 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_laying: "laying"
+DEBUG 2023-08-05 18:40:31,855 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_rails: "rails"
+DEBUG 2023-08-05 18:40:31,856 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_marsh: "marsh"
+DEBUG 2023-08-05 18:40:31,857 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_altar: "altar"
+DEBUG 2023-08-05 18:40:31,857 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_after: "after"
+DEBUG 2023-08-05 18:40:31,858 [Localization] Adding mod term: mod/VanillaRuleModifier_MorseCodeWord_faster: "faster"
+DEBUG 2023-08-05 18:40:32,135 [BombRules] BombRules: LanguageCode: en, ManualVersion: 1, LockCode: 241, Seed: 6502, Revision: 
+ WARN 2023-08-05 18:40:32,136 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,137 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,137 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,138 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,139 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,139 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,140 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,140 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,141 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,142 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,142 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,143 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,144 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,144 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,145 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,145 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,146 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+ WARN 2023-08-05 18:40:32,147 [Rule] Called ToString() without having previously cached this Rule's string! Could cause dropped frames during gameplay!
+DEBUG 2023-08-05 18:40:32,147 [BombRules] WireSet Rules:
+3 wires:
+Query: there is exactly one red wire and there are no white wires, Solution: cut the red wire
+Query: the last wire is black, Solution: cut the last wire
+Query: there is more than one black wire, Solution: cut the last black wire
+Query: , Solution: cut the first wire
+
+4 wires:
+Query: the last wire is black and there is an empty port plate present on the bomb, Solution: cut the third wire
+Query: there are no white wires and there is a RJ-45 port present on the bomb, Solution: cut the last wire
+Query: there is more than one blue wire, Solution: cut the last blue wire
+Query: , Solution: cut the second wire
+
+5 wires:
+Query: there are no black wires and there is a serial port present on the bomb, Solution: cut the second wire
+Query: there is more than one white wire and there is a DVI-D port present on the bomb, Solution: cut the first wire
+Query: the last wire is black, Solution: cut the second wire
+Query: there is exactly one blue wire, Solution: cut the blue wire
+Query: , Solution: cut the third wire
+
+6 wires:
+Query: there is exactly one black wire, Solution: cut the fifth wire
+Query: the last wire is yellow, Solution: cut the last wire
+Query: there is more than one black wire, Solution: cut the first black wire
+Query: there are no white wires, Solution: cut the third wire
+Query: , Solution: cut the last wire
+
+
+DEBUG 2023-08-05 18:40:32,148 [BombRules] Button Rules:
+Initial rules
+If the button is yellow and the button says "Detonate", hold the button and refer to "Releasing a Held Button".
+If there is a parallel port present on the bomb, press and immediately release the button.
+If the button is blue and there is a lit indicator with label IND, hold the button and refer to "Releasing a Held Button".
+If the button is white and there is a lit indicator with label SIG, press and immediately release when the two seconds digits on the timer match..
+If there is an empty port plate present on the bomb and the button says "Hold", press and immediately release when the two seconds digits on the timer match..
+If there is a RJ-45 port present on the bomb and the serial number starts with a letter, press and immediately release the button.
+If none of the above apply, hold the button and refer to "Releasing a Held Button".
+
+On Hold Rules
+If Yellow strip:, release when right most seconds digit is 9..
+If Red strip:, release when right most seconds digit is 6..
+If Blue strip:, release when right most seconds digit is 8..
+If Any other color strip:, release when the countdown timer has a 3 in any position..
+
+DEBUG 2023-08-05 18:40:32,149 [BombRules] Keypad Rules:
+Ӭ,Ѽ,Ϭ,Ͼ,Җ,ѣ,Ψ
+҂,Җ,ϫ,Ѽ,ϗ,Ӭ,Ϙ
+Ѭ,Ͽ,¿,ϫ,ϗ,ټ,Ϙ
+Ԇ,ѯ,¿,Ѭ,★,҂,Ѧ
+Ͽ,Ҋ,Ͼ,ƛ,҈,ζ,Ѧ
+ӕ,҈,☆,Ϭ,Ҩ,Ω,ѣ
+
+DEBUG 2023-08-05 18:40:32,149 [BombRules] Simon Rules:
+HASVOWEL:
+0 Strikes: Blue, Blue, Green, Red, 
+1 Strikes: Yellow, Green, Red, Green, 
+2 Strikes: Blue, Green, Yellow, Red, 
+OTHERWISE:
+0 Strikes: Blue, Red, Yellow, Blue, 
+1 Strikes: Blue, Blue, Yellow, Blue, 
+2 Strikes: Yellow, Yellow, Yellow, Red, 
+
+DEBUG 2023-08-05 18:40:32,150 [BombRules] Who's On First Rules:
+Display Word "Look At" Index:
+WhosOnFirst/rule_DISPLAY1 ("YES"): 2, WhosOnFirst/rule_DISPLAY2 ("FIRST"): 2, WhosOnFirst/rule_DISPLAY3 ("DISPLAY"): 4, WhosOnFirst/rule_DISPLAY4 ("OKAY"): 0, WhosOnFirst/rule_DISPLAY5 ("SAYS"): 5, WhosOnFirst/rule_DISPLAY6 ("NOTHING"): 4, WhosOnFirst/rule_DISPLAY7 (""): 1, WhosOnFirst/rule_DISPLAY8 ("BLANK"): 3, WhosOnFirst/rule_DISPLAY9 ("NO"): 1, WhosOnFirst/rule_DISPLAY10 ("LED"): 3, WhosOnFirst/rule_DISPLAY11 ("LEAD"): 4, WhosOnFirst/rule_DISPLAY12 ("READ"): 0, WhosOnFirst/rule_DISPLAY13 ("RED"): 1, WhosOnFirst/rule_DISPLAY14 ("REED"): 1, WhosOnFirst/rule_DISPLAY15 ("LEED"): 5, WhosOnFirst/rule_DISPLAY16 ("HOLD ON"): 1, WhosOnFirst/rule_DISPLAY17 ("YOU"): 2, WhosOnFirst/rule_DISPLAY18 ("YOU ARE"): 1, WhosOnFirst/rule_DISPLAY19 ("YOUR"): 5, WhosOnFirst/rule_DISPLAY20 ("YOU'RE"): 1, WhosOnFirst/rule_DISPLAY21 ("UR"): 5, WhosOnFirst/rule_DISPLAY22 ("THERE"): 5, WhosOnFirst/rule_DISPLAY23 ("THEY'RE"): 4, WhosOnFirst/rule_DISPLAY24 ("THEIR"): 0, WhosOnFirst/rule_DISPLAY25 ("THEY ARE"): 5, WhosOnFirst/rule_DISPLAY26 ("SEE"): 5, WhosOnFirst/rule_DISPLAY27 ("C"): 5, WhosOnFirst/rule_DISPLAY28 ("CEE"): 4, 
+
+Precedent Map:
+WhosOnFirst/rule_KEYPAD_group1_1 ("READY"): WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE")
+WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"): WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK")
+WhosOnFirst/rule_KEYPAD_group1_3 ("NO"): WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST")
+WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"): WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT")
+WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"): WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY")
+WhosOnFirst/rule_KEYPAD_group1_6 ("YES"): WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY")
+WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"): WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK")
+WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"): WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY")
+WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"): WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK")
+WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"): WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT")
+WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"): WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH")
+WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"): WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH")
+WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"): WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY")
+WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"): WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT")
+WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"): WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE")
+WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"): WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE")
+WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"): WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR")
+WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"): WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?")
+WhosOnFirst/rule_KEYPAD_group2_5 ("UR"): WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT")
+WhosOnFirst/rule_KEYPAD_group2_6 ("U"): WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?")
+WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"): WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_6 ("U")
+WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"): WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR")
+WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"): WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT")
+WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"): WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE")
+WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"): WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT")
+WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"): WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE")
+WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"): WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE")
+WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"): WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE")
+
+DEBUG 2023-08-05 18:40:32,151 [BombRules] Memory Rules:
+Stage 1:
+If the display is 1, press the button in the third position.
+If the display is 2, press the button in the first position.
+If the display is 3, press the button labeled "4".
+If the display is 4, press the button in the fourth position.
+
+Stage 2:
+If the display is 1, press the button in the same position as you pressed in stage 1.
+If the display is 2, press the button in the first position.
+If the display is 3, press the button in the second position.
+If the display is 4, press the button in the third position.
+
+Stage 3:
+If the display is 1, press the button with the same label you pressed in stage 1.
+If the display is 2, press the button with the same label you pressed in stage 2.
+If the display is 3, press the button labeled "4".
+If the display is 4, press the button in the fourth position.
+
+Stage 4:
+If the display is 1, press the button in the same position as you pressed in stage 2.
+If the display is 2, press the button in the same position as you pressed in stage 2.
+If the display is 3, press the button in the same position as you pressed in stage 1.
+If the display is 4, press the button in the same position as you pressed in stage 2.
+
+Stage 5:
+If the display is 1, press the button with the same label you pressed in stage 2.
+If the display is 2, press the button with the same label you pressed in stage 3.
+If the display is 3, press the button with the same label you pressed in stage 2.
+If the display is 4, press the button with the same label you pressed in stage 4.
+
+
+DEBUG 2023-08-05 18:40:32,152 [BombRules] Morse Code Rules:
+FrequencyTermMap: 
+mod/VanillaRuleModifier_MorseCodeWord_saving ("saving"): 3.502 MHz
+mod/VanillaRuleModifier_MorseCodeWord_rails ("rails"): 3.505 MHz
+mod/VanillaRuleModifier_MorseCodeWord_faster ("faster"): 3.512 MHz
+mod/VanillaRuleModifier_MorseCodeWord_gazing ("gazing"): 3.515 MHz
+mod/VanillaRuleModifier_MorseCodeWord_after ("after"): 3.525 MHz
+mod/VanillaRuleModifier_MorseCodeWord_march ("march"): 3.532 MHz
+mod/VanillaRuleModifier_MorseCodeWord_marsh ("marsh"): 3.535 MHz
+mod/VanillaRuleModifier_MorseCodeWord_hardy ("hardy"): 3.542 MHz
+mod/VanillaRuleModifier_MorseCodeWord_altar ("altar"): 3.545 MHz
+mod/VanillaRuleModifier_MorseCodeWord_varied ("varied"): 3.555 MHz
+mod/VanillaRuleModifier_MorseCodeWord_leave ("leave"): 3.562 MHz
+mod/VanillaRuleModifier_MorseCodeWord_raids ("raids"): 3.565 MHz
+mod/VanillaRuleModifier_MorseCodeWord_varies ("varies"): 3.575 MHz
+mod/VanillaRuleModifier_MorseCodeWord_laying ("laying"): 3.582 MHz
+mod/VanillaRuleModifier_MorseCodeWord_alter ("alter"): 3.585 MHz
+mod/VanillaRuleModifier_MorseCodeWord_parent ("parent"): 3.595 MHz
+
+DEBUG 2023-08-05 18:40:32,152 [BombRules] Venn Wire Rules:
+[Red:False Blue:False Symbol:False LED:False]: CutIfParallelPortPresent
+[Red:False Blue:False Symbol:False LED:True]: DoNotCut
+[Red:False Blue:False Symbol:True LED:False]: CutIfSerialEven
+[Red:False Blue:False Symbol:True LED:True]: CutIfTwoOrMoreBatteriesPresent
+[Red:False Blue:True Symbol:False LED:False]: Cut
+[Red:False Blue:True Symbol:False LED:True]: CutIfTwoOrMoreBatteriesPresent
+[Red:False Blue:True Symbol:True LED:False]: CutIfParallelPortPresent
+[Red:False Blue:True Symbol:True LED:True]: DoNotCut
+[Red:True Blue:False Symbol:False LED:False]: CutIfSerialEven
+[Red:True Blue:False Symbol:False LED:True]: Cut
+[Red:True Blue:False Symbol:True LED:False]: CutIfParallelPortPresent
+[Red:True Blue:False Symbol:True LED:True]: CutIfTwoOrMoreBatteriesPresent
+[Red:True Blue:True Symbol:False LED:False]: Cut
+[Red:True Blue:True Symbol:False LED:True]: DoNotCut
+[Red:True Blue:True Symbol:True LED:False]: CutIfSerialEven
+[Red:True Blue:True Symbol:True LED:True]: CutIfTwoOrMoreBatteriesPresent
+
+DEBUG 2023-08-05 18:40:32,152 [BombRules] Maze Rules:
+Maze 0: 6,320,256,384,256,400,416,224,96,320,160,320,288,336,32,224,448,160,96,96,224,320,256,416,96,64,288,96,96,320,160,224,192,160,192,128,416
+Maze 1: 6,320,288,320,384,256,288,224,192,32,320,160,96,320,288,224,96,352,96,112,192,288,96,192,160,80,288,192,160,320,288,224,192,384,384,160,224
+Maze 2: 6,448,384,288,448,256,288,320,288,192,288,224,96,96,96,352,192,400,32,96,192,32,336,416,96,96,448,128,160,320,160,192,384,384,384,128,416
+Maze 3: 6,448,384,384,256,288,352,320,288,320,176,96,96,96,192,160,352,96,96,96,320,384,160,96,112,96,192,384,384,32,96,192,384,384,416,192,160
+Maze 4: 6,320,416,320,384,384,288,64,400,160,352,352,112,64,384,384,160,96,96,96,320,384,384,160,96,96,192,288,320,384,32,192,416,192,160,448,160
+Maze 5: 6,352,320,288,320,384,288,192,160,192,128,288,96,320,384,288,320,160,96,224,352,96,96,320,160,320,32,96,224,192,304,224,208,128,384,384,160
+Maze 6: 6,320,400,256,384,384,304,96,352,192,384,288,96,96,192,256,288,96,224,192,288,224,96,192,288,352,192,288,64,416,96,192,384,128,160,448,160
+Maze 7: 6,448,256,384,416,320,288,320,160,448,384,160,96,64,384,288,320,384,160,192,288,208,160,320,416,352,96,320,288,192,288,192,128,160,192,400,160
+Maze 8: 6,320,384,256,384,384,288,192,288,192,384,288,224,320,144,400,416,64,288,96,320,384,288,224,96,96,192,416,192,288,96,192,384,384,416,192,160
+
+DEBUG 2023-08-05 18:40:32,153 [BombRules] Password Rules:
+Possibilities: BACON, BARON, BASIC, BONDS, BOOKS, BOOTS, CHIEF, FISTS, FORTH, HOOKS, LOOKS, LOOPS, LOSES, LOVER, LOVES, MENUS, MINES, MINUS, MOUSE, MYTHS, NAVAL, NOVEL, PANIC, PATIO, POOLS, PRESS, RIOTS, ROOMS, ROOTS, ROSES, SOCKS, TAXES, TOONS, VOCAL, VOWEL
+DEBUG 2023-08-05 18:40:32,153 [BombRules] Wire Sequence Rules:
+BLACK Wires: First: [C], Second: [A or C], Third: [B or C], Fourth: [B or C], Fifth: [B], Sixth: [], Seventh: [A], Eighth: [B], Ninth: [B], 
+BLUE Wires: First: [A, B or C], Second: [A or C], Third: [B], Fourth: [B or C], Fifth: [B], Sixth: [A, B or C], Seventh: [], Eighth: [A or C], Ninth: [A or B], 
+RED Wires: First: [C], Second: [B or C], Third: [], Fourth: [A or B], Fifth: [C], Sixth: [], Seventh: [A or C], Eighth: [A or B], Ninth: [A, B or C], 
+
+DEBUG 2023-08-05 18:40:32,154 [BombRules] Needy Knob Rules:
+Up Position:
+XOOXOO
+XXXXXX
+
+OOOOXX
+OXXOXO
+
+Down Position:
+XOOXOX
+XOOOOO
+
+XOOXOO
+OOXXOX
+
+Left Position:
+OXOOOX
+XXXXOO
+
+OOOOOX
+OXXOXO
+
+Right Position:
+XOOXOX
+OOXOXX
+
+OXOOXO
+XXXXOO
+
+
+DEBUG 2023-08-05 18:40:32,156 [BombRules] BombRules: LanguageCode: en, ManualVersion: 1, LockCode: 241, Seed: 6502, Revision: 
+DEBUG 2023-08-05 18:40:32,156 [BombRules] WireSet Rules:
+3 wires:
+Query: there is exactly one red wire and there are no white wires, Solution: cut the red wire
+Query: the last wire is black, Solution: cut the last wire
+Query: there is more than one black wire, Solution: cut the last black wire
+Query: , Solution: cut the first wire
+
+4 wires:
+Query: the last wire is black and there is an empty port plate present on the bomb, Solution: cut the third wire
+Query: there are no white wires and there is a RJ-45 port present on the bomb, Solution: cut the last wire
+Query: there is more than one blue wire, Solution: cut the last blue wire
+Query: , Solution: cut the second wire
+
+5 wires:
+Query: there are no black wires and there is a serial port present on the bomb, Solution: cut the second wire
+Query: there is more than one white wire and there is a DVI-D port present on the bomb, Solution: cut the first wire
+Query: the last wire is black, Solution: cut the second wire
+Query: there is exactly one blue wire, Solution: cut the blue wire
+Query: , Solution: cut the third wire
+
+6 wires:
+Query: there is exactly one black wire, Solution: cut the fifth wire
+Query: the last wire is yellow, Solution: cut the last wire
+Query: there is more than one black wire, Solution: cut the first black wire
+Query: there are no white wires, Solution: cut the third wire
+Query: , Solution: cut the last wire
+
+
+DEBUG 2023-08-05 18:40:32,157 [BombRules] Button Rules:
+Initial rules
+If the button is yellow and the button says "Detonate", hold the button and refer to "Releasing a Held Button".
+If there is a parallel port present on the bomb, press and immediately release the button.
+If the button is blue and there is a lit indicator with label IND, hold the button and refer to "Releasing a Held Button".
+If the button is white and there is a lit indicator with label SIG, press and immediately release when the two seconds digits on the timer match..
+If there is an empty port plate present on the bomb and the button says "Hold", press and immediately release when the two seconds digits on the timer match..
+If there is a RJ-45 port present on the bomb and the serial number starts with a letter, press and immediately release the button.
+If none of the above apply, hold the button and refer to "Releasing a Held Button".
+
+On Hold Rules
+If Yellow strip:, release when right most seconds digit is 9..
+If Red strip:, release when right most seconds digit is 6..
+If Blue strip:, release when right most seconds digit is 8..
+If Any other color strip:, release when the countdown timer has a 3 in any position..
+
+DEBUG 2023-08-05 18:40:32,157 [BombRules] Keypad Rules:
+Ӭ,Ѽ,Ϭ,Ͼ,Җ,ѣ,Ψ
+҂,Җ,ϫ,Ѽ,ϗ,Ӭ,Ϙ
+Ѭ,Ͽ,¿,ϫ,ϗ,ټ,Ϙ
+Ԇ,ѯ,¿,Ѭ,★,҂,Ѧ
+Ͽ,Ҋ,Ͼ,ƛ,҈,ζ,Ѧ
+ӕ,҈,☆,Ϭ,Ҩ,Ω,ѣ
+
+DEBUG 2023-08-05 18:40:32,158 [BombRules] Simon Rules:
+HASVOWEL:
+0 Strikes: Blue, Blue, Green, Red, 
+1 Strikes: Yellow, Green, Red, Green, 
+2 Strikes: Blue, Green, Yellow, Red, 
+OTHERWISE:
+0 Strikes: Blue, Red, Yellow, Blue, 
+1 Strikes: Blue, Blue, Yellow, Blue, 
+2 Strikes: Yellow, Yellow, Yellow, Red, 
+
+DEBUG 2023-08-05 18:40:32,159 [BombRules] Who's On First Rules:
+Display Word "Look At" Index:
+WhosOnFirst/rule_DISPLAY1 ("YES"): 2, WhosOnFirst/rule_DISPLAY2 ("FIRST"): 2, WhosOnFirst/rule_DISPLAY3 ("DISPLAY"): 4, WhosOnFirst/rule_DISPLAY4 ("OKAY"): 0, WhosOnFirst/rule_DISPLAY5 ("SAYS"): 5, WhosOnFirst/rule_DISPLAY6 ("NOTHING"): 4, WhosOnFirst/rule_DISPLAY7 (""): 1, WhosOnFirst/rule_DISPLAY8 ("BLANK"): 3, WhosOnFirst/rule_DISPLAY9 ("NO"): 1, WhosOnFirst/rule_DISPLAY10 ("LED"): 3, WhosOnFirst/rule_DISPLAY11 ("LEAD"): 4, WhosOnFirst/rule_DISPLAY12 ("READ"): 0, WhosOnFirst/rule_DISPLAY13 ("RED"): 1, WhosOnFirst/rule_DISPLAY14 ("REED"): 1, WhosOnFirst/rule_DISPLAY15 ("LEED"): 5, WhosOnFirst/rule_DISPLAY16 ("HOLD ON"): 1, WhosOnFirst/rule_DISPLAY17 ("YOU"): 2, WhosOnFirst/rule_DISPLAY18 ("YOU ARE"): 1, WhosOnFirst/rule_DISPLAY19 ("YOUR"): 5, WhosOnFirst/rule_DISPLAY20 ("YOU'RE"): 1, WhosOnFirst/rule_DISPLAY21 ("UR"): 5, WhosOnFirst/rule_DISPLAY22 ("THERE"): 5, WhosOnFirst/rule_DISPLAY23 ("THEY'RE"): 4, WhosOnFirst/rule_DISPLAY24 ("THEIR"): 0, WhosOnFirst/rule_DISPLAY25 ("THEY ARE"): 5, WhosOnFirst/rule_DISPLAY26 ("SEE"): 5, WhosOnFirst/rule_DISPLAY27 ("C"): 5, WhosOnFirst/rule_DISPLAY28 ("CEE"): 4, 
+
+Precedent Map:
+WhosOnFirst/rule_KEYPAD_group1_1 ("READY"): WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE")
+WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"): WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK")
+WhosOnFirst/rule_KEYPAD_group1_3 ("NO"): WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST")
+WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"): WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT")
+WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"): WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY")
+WhosOnFirst/rule_KEYPAD_group1_6 ("YES"): WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY")
+WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"): WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK")
+WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"): WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY")
+WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"): WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK")
+WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"): WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT")
+WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"): WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH")
+WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"): WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH")
+WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"): WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY")
+WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"): WhosOnFirst/rule_KEYPAD_group1_5 ("NOTHING"), WhosOnFirst/rule_KEYPAD_group1_9 ("LEFT"), WhosOnFirst/rule_KEYPAD_group1_14 ("PRESS"), WhosOnFirst/rule_KEYPAD_group1_12 ("OKAY"), WhosOnFirst/rule_KEYPAD_group1_1 ("READY"), WhosOnFirst/rule_KEYPAD_group1_2 ("FIRST"), WhosOnFirst/rule_KEYPAD_group1_8 ("UHHH"), WhosOnFirst/rule_KEYPAD_group1_4 ("BLANK"), WhosOnFirst/rule_KEYPAD_group1_13 ("WAIT"), WhosOnFirst/rule_KEYPAD_group1_11 ("MIDDLE"), WhosOnFirst/rule_KEYPAD_group1_6 ("YES"), WhosOnFirst/rule_KEYPAD_group1_10 ("RIGHT"), WhosOnFirst/rule_KEYPAD_group1_3 ("NO"), WhosOnFirst/rule_KEYPAD_group1_7 ("WHAT")
+WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"): WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE")
+WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"): WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE")
+WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"): WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR")
+WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"): WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?")
+WhosOnFirst/rule_KEYPAD_group2_5 ("UR"): WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT")
+WhosOnFirst/rule_KEYPAD_group2_6 ("U"): WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?")
+WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"): WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_6 ("U")
+WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"): WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR")
+WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"): WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT")
+WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"): WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE")
+WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"): WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT")
+WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"): WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE")
+WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"): WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE"), WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE")
+WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"): WhosOnFirst/rule_KEYPAD_group2_12 ("HOLD"), WhosOnFirst/rule_KEYPAD_group2_10 ("DONE"), WhosOnFirst/rule_KEYPAD_group2_3 ("YOUR"), WhosOnFirst/rule_KEYPAD_group2_1 ("YOU"), WhosOnFirst/rule_KEYPAD_group2_14 ("LIKE"), WhosOnFirst/rule_KEYPAD_group2_7 ("UH HUH"), WhosOnFirst/rule_KEYPAD_group2_8 ("UH UH"), WhosOnFirst/rule_KEYPAD_group2_5 ("UR"), WhosOnFirst/rule_KEYPAD_group2_9 ("WHAT?"), WhosOnFirst/rule_KEYPAD_group2_13 ("SURE"), WhosOnFirst/rule_KEYPAD_group2_6 ("U"), WhosOnFirst/rule_KEYPAD_group2_4 ("YOU'RE"), WhosOnFirst/rule_KEYPAD_group2_11 ("NEXT"), WhosOnFirst/rule_KEYPAD_group2_2 ("YOU ARE")
+
+DEBUG 2023-08-05 18:40:32,159 [BombRules] Memory Rules:
+Stage 1:
+If the display is 1, press the button in the third position.
+If the display is 2, press the button in the first position.
+If the display is 3, press the button labeled "4".
+If the display is 4, press the button in the fourth position.
+
+Stage 2:
+If the display is 1, press the button in the same position as you pressed in stage 1.
+If the display is 2, press the button in the first position.
+If the display is 3, press the button in the second position.
+If the display is 4, press the button in the third position.
+
+Stage 3:
+If the display is 1, press the button with the same label you pressed in stage 1.
+If the display is 2, press the button with the same label you pressed in stage 2.
+If the display is 3, press the button labeled "4".
+If the display is 4, press the button in the fourth position.
+
+Stage 4:
+If the display is 1, press the button in the same position as you pressed in stage 2.
+If the display is 2, press the button in the same position as you pressed in stage 2.
+If the display is 3, press the button in the same position as you pressed in stage 1.
+If the display is 4, press the button in the same position as you pressed in stage 2.
+
+Stage 5:
+If the display is 1, press the button with the same label you pressed in stage 2.
+If the display is 2, press the button with the same label you pressed in stage 3.
+If the display is 3, press the button with the same label you pressed in stage 2.
+If the display is 4, press the button with the same label you pressed in stage 4.
+
+
+DEBUG 2023-08-05 18:40:32,160 [BombRules] Morse Code Rules:
+FrequencyTermMap: 
+mod/VanillaRuleModifier_MorseCodeWord_saving ("saving"): 3.502 MHz
+mod/VanillaRuleModifier_MorseCodeWord_rails ("rails"): 3.505 MHz
+mod/VanillaRuleModifier_MorseCodeWord_faster ("faster"): 3.512 MHz
+mod/VanillaRuleModifier_MorseCodeWord_gazing ("gazing"): 3.515 MHz
+mod/VanillaRuleModifier_MorseCodeWord_after ("after"): 3.525 MHz
+mod/VanillaRuleModifier_MorseCodeWord_march ("march"): 3.532 MHz
+mod/VanillaRuleModifier_MorseCodeWord_marsh ("marsh"): 3.535 MHz
+mod/VanillaRuleModifier_MorseCodeWord_hardy ("hardy"): 3.542 MHz
+mod/VanillaRuleModifier_MorseCodeWord_altar ("altar"): 3.545 MHz
+mod/VanillaRuleModifier_MorseCodeWord_varied ("varied"): 3.555 MHz
+mod/VanillaRuleModifier_MorseCodeWord_leave ("leave"): 3.562 MHz
+mod/VanillaRuleModifier_MorseCodeWord_raids ("raids"): 3.565 MHz
+mod/VanillaRuleModifier_MorseCodeWord_varies ("varies"): 3.575 MHz
+mod/VanillaRuleModifier_MorseCodeWord_laying ("laying"): 3.582 MHz
+mod/VanillaRuleModifier_MorseCodeWord_alter ("alter"): 3.585 MHz
+mod/VanillaRuleModifier_MorseCodeWord_parent ("parent"): 3.595 MHz
+
+DEBUG 2023-08-05 18:40:32,160 [BombRules] Venn Wire Rules:
+[Red:False Blue:False Symbol:False LED:False]: CutIfParallelPortPresent
+[Red:False Blue:False Symbol:False LED:True]: DoNotCut
+[Red:False Blue:False Symbol:True LED:False]: CutIfSerialEven
+[Red:False Blue:False Symbol:True LED:True]: CutIfTwoOrMoreBatteriesPresent
+[Red:False Blue:True Symbol:False LED:False]: Cut
+[Red:False Blue:True Symbol:False LED:True]: CutIfTwoOrMoreBatteriesPresent
+[Red:False Blue:True Symbol:True LED:False]: CutIfParallelPortPresent
+[Red:False Blue:True Symbol:True LED:True]: DoNotCut
+[Red:True Blue:False Symbol:False LED:False]: CutIfSerialEven
+[Red:True Blue:False Symbol:False LED:True]: Cut
+[Red:True Blue:False Symbol:True LED:False]: CutIfParallelPortPresent
+[Red:True Blue:False Symbol:True LED:True]: CutIfTwoOrMoreBatteriesPresent
+[Red:True Blue:True Symbol:False LED:False]: Cut
+[Red:True Blue:True Symbol:False LED:True]: DoNotCut
+[Red:True Blue:True Symbol:True LED:False]: CutIfSerialEven
+[Red:True Blue:True Symbol:True LED:True]: CutIfTwoOrMoreBatteriesPresent
+
+DEBUG 2023-08-05 18:40:32,162 [BombRules] Maze Rules:
+Maze 0: 6,320,256,384,256,400,416,224,96,320,160,320,288,336,32,224,448,160,96,96,224,320,256,416,96,64,288,96,96,320,160,224,192,160,192,128,416
+Maze 1: 6,320,288,320,384,256,288,224,192,32,320,160,96,320,288,224,96,352,96,112,192,288,96,192,160,80,288,192,160,320,288,224,192,384,384,160,224
+Maze 2: 6,448,384,288,448,256,288,320,288,192,288,224,96,96,96,352,192,400,32,96,192,32,336,416,96,96,448,128,160,320,160,192,384,384,384,128,416
+Maze 3: 6,448,384,384,256,288,352,320,288,320,176,96,96,96,192,160,352,96,96,96,320,384,160,96,112,96,192,384,384,32,96,192,384,384,416,192,160
+Maze 4: 6,320,416,320,384,384,288,64,400,160,352,352,112,64,384,384,160,96,96,96,320,384,384,160,96,96,192,288,320,384,32,192,416,192,160,448,160
+Maze 5: 6,352,320,288,320,384,288,192,160,192,128,288,96,320,384,288,320,160,96,224,352,96,96,320,160,320,32,96,224,192,304,224,208,128,384,384,160
+Maze 6: 6,320,400,256,384,384,304,96,352,192,384,288,96,96,192,256,288,96,224,192,288,224,96,192,288,352,192,288,64,416,96,192,384,128,160,448,160
+Maze 7: 6,448,256,384,416,320,288,320,160,448,384,160,96,64,384,288,320,384,160,192,288,208,160,320,416,352,96,320,288,192,288,192,128,160,192,400,160
+Maze 8: 6,320,384,256,384,384,288,192,288,192,384,288,224,320,144,400,416,64,288,96,320,384,288,224,96,96,192,416,192,288,96,192,384,384,416,192,160
+
+DEBUG 2023-08-05 18:40:32,162 [BombRules] Password Rules:
+Possibilities: BACON, BARON, BASIC, BONDS, BOOKS, BOOTS, CHIEF, FISTS, FORTH, HOOKS, LOOKS, LOOPS, LOSES, LOVER, LOVES, MENUS, MINES, MINUS, MOUSE, MYTHS, NAVAL, NOVEL, PANIC, PATIO, POOLS, PRESS, RIOTS, ROOMS, ROOTS, ROSES, SOCKS, TAXES, TOONS, VOCAL, VOWEL
+DEBUG 2023-08-05 18:40:32,163 [BombRules] Wire Sequence Rules:
+BLACK Wires: First: [C], Second: [A or C], Third: [B or C], Fourth: [B or C], Fifth: [B], Sixth: [], Seventh: [A], Eighth: [B], Ninth: [B], 
+BLUE Wires: First: [A, B or C], Second: [A or C], Third: [B], Fourth: [B or C], Fifth: [B], Sixth: [A, B or C], Seventh: [], Eighth: [A or C], Ninth: [A or B], 
+RED Wires: First: [C], Second: [B or C], Third: [], Fourth: [A or B], Fifth: [C], Sixth: [], Seventh: [A or C], Eighth: [A or B], Ninth: [A, B or C], 
+
+DEBUG 2023-08-05 18:40:32,163 [BombRules] Needy Knob Rules:
+Up Position:
+XOOXOO
+XXXXXX
+
+OOOOXX
+OXXOXO
+
+Down Position:
+XOOXOX
+XOOOOO
+
+XOOXOO
+OOXXOX
+
+Left Position:
+OXOOOX
+XXXXOO
+
+OOOOOX
+OXXOXO
+
+Right Position:
+XOOXOX
+OOXOXX
+
+OXOOXO
+XXXXOO
+
+
+ INFO 2023-08-05 18:40:32,662 [SceneManager] Fading out...
+ INFO 2023-08-05 18:40:32,784 [SceneManager] Waiting 0 seconds before completing fade...
+ INFO 2023-08-05 18:40:32,787 [SceneManager] Resetting game!
+ INFO 2023-08-05 18:40:33,684 [MissionManager] Mission manager already initialized!
+ INFO 2023-08-05 18:40:33,685 [SceneManager] Creating game states...
+DEBUG 2023-08-05 18:40:33,706 [PrefabOverride] Prefab override: InputBased: True, CurrentControlType: Mouse, Path: "PC/Prefabs/ControlsPoster/ControlsPoster_mouse"
+DEBUG 2023-08-05 18:40:34,665 [MissionTableOfContentsPageManager] Showing ToC 0 page 0.
+DEBUG 2023-08-05 18:40:34,723 [MaterialOverride] Material override: InputBased: True, CurrentControlType: Mouse, Path: "PC/Materials/controls_poster_mouse"
+ INFO 2023-08-05 18:40:34,844 [LeaderboardBulkSubmissionWorker] Submitting all unreported leaderboard scores.
+ INFO 2023-08-05 18:40:34,845 [LeaderboardBulkSubmissionWorker] Finished submitting all unreported leaderboard scores.
+ INFO 2023-08-05 18:40:47,489 [ServicesSteam] Received user stats from Steam for game id 341800
+ INFO 2023-08-05 18:40:47,626 [ServicesSteam] Steam achievement id allthebasics was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,626 [ServicesSteam] Steam achievement id allmoderate was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,627 [ServicesSteam] Steam achievement id allneedy was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,627 [ServicesSteam] Steam achievement id allchallenging was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,627 [ServicesSteam] Steam achievement id allextreme was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,628 [ServicesSteam] Steam achievement id disarmeachmodule was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,628 [ServicesSteam] Steam achievement id 100modulesdisarmed was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,629 [ServicesSteam] Steam achievement id 100defused was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,629 [ServicesSteam] Finished merging existing stats and achievements
+ INFO 2023-08-05 18:40:47,630 [ServicesSteam] Sent request to store stats to Steam.
+ INFO 2023-08-05 18:40:47,630 [ServicesSteam] Sent request to store stats to Steam.
+ INFO 2023-08-05 18:40:47,630 [ServicesSteam] Received user stats from Steam for game id 341800
+ INFO 2023-08-05 18:40:47,631 [ServicesSteam] Steam achievement id allthebasics was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,631 [ServicesSteam] Steam achievement id allmoderate was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,632 [ServicesSteam] Steam achievement id allneedy was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,632 [ServicesSteam] Steam achievement id allchallenging was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,632 [ServicesSteam] Steam achievement id allextreme was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,633 [ServicesSteam] Steam achievement id disarmeachmodule was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,633 [ServicesSteam] Steam achievement id 100modulesdisarmed was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,634 [ServicesSteam] Steam achievement id 100defused was unlocked remotely but is not unlocked locally. Recording unlock locally...
+ INFO 2023-08-05 18:40:47,634 [ServicesSteam] Finished merging existing stats and achievements
+ INFO 2023-08-05 18:40:47,635 [ServicesSteam] Sent request to store stats to Steam.
+ INFO 2023-08-05 18:40:47,635 [ServicesSteam] Sent request to store stats to Steam.
+ERROR 2023-08-05 18:40:47,929 [Unity] Exception: FileNotFoundException: Could not find file "C:\Users\James\AppData\LocalLow\Steel Crate Games\Keep Talking and Nobody Explodes\modSelectorConfig.json". 
+at: System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options)
+System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share)
+(wrapper remoting-invoke-with-check) System.IO.FileStream:.ctor (string,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare)
+System.IO.File.OpenRead (System.String path)
+System.IO.StreamReader..ctor (System.String path, System.Text.Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize)
+System.IO.StreamReader..ctor (System.String path, System.Text.Encoding encoding)
+(wrapper remoting-invoke-with-check) System.IO.StreamReader:.ctor (string,System.Text.Encoding)
+System.IO.File.ReadAllText (System.String path, System.Text.Encoding encoding)
+System.IO.File.ReadAllText (System.String path)
+ProfileManager.ReloadActiveConfiguration ()
+UnityEngine.Debug:LogException(Exception)
+ProfileManager:ReloadActiveConfiguration()
+ProfileManager:RefreshFiles(Boolean)
+ProfileManager:.cctor()
+ModSelectorService:OnStateChange(State)
+ModSelectorService:OnStateChange(State)
+ModGameInfo:OnGameStateChange(State)
+SceneManager:set_CurrentState(State)
+SceneManager:EnterSetupState()
+SceneManager:StartScene()
+<Load>c__Iterator0:MoveNext()
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+ERROR 2023-08-05 18:40:47,936 [Unity] Exception: FileNotFoundException: Could not find file "C:\Users\James\AppData\LocalLow\Steel Crate Games\Keep Talking and Nobody Explodes\modSelectorConfig.json". 
+at: System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options)
+System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share)
+(wrapper remoting-invoke-with-check) System.IO.FileStream:.ctor (string,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare)
+System.IO.File.OpenRead (System.String path)
+System.IO.StreamReader..ctor (System.String path, System.Text.Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize)
+System.IO.StreamReader..ctor (System.String path, System.Text.Encoding encoding)
+(wrapper remoting-invoke-with-check) System.IO.StreamReader:.ctor (string,System.Text.Encoding)
+System.IO.File.ReadAllText (System.String path, System.Text.Encoding encoding)
+System.IO.File.ReadAllText (System.String path)
+ProfileManager.ReloadActiveConfiguration ()
+UnityEngine.Debug:LogException(Exception)
+ProfileManager:ReloadActiveConfiguration()
+ModSelectorService:OnStateChange(State)
+ModGameInfo:OnGameStateChange(State)
+SceneManager:set_CurrentState(State)
+SceneManager:EnterSetupState()
+SceneManager:StartScene()
+<Load>c__Iterator0:MoveNext()
+UnityEngine.SetupCoroutine:InvokeMoveNext(IEnumerator, IntPtr)
+
+ INFO 2023-08-05 18:40:47,950 [ServicesSteam] Sent request to store stats to Steam.
+ INFO 2023-08-05 18:40:47,951 [ServicesSteam] Sent request to store stats to Steam.
+ INFO 2023-08-05 18:40:47,952 [SceneManager] Fading in...
+ INFO 2023-08-05 18:40:47,953 [State] Enter SetupState
+DEBUG 2023-08-05 18:40:48,032 [MissionTableOfContentsPageManager] Showing ToC 0 page 0.
+ERROR 2023-08-05 18:40:48,461 [Unity] Exception: NullReferenceException: Object reference not set to an instance of an object 
+at: Tweaks+<ModifyFreeplayDevice>d__30.MoveNext ()
+UnityEngine.SetupCoroutine.InvokeMoveNext (IEnumerator enumerator, IntPtr returnValueAddress)
+
+DEBUG 2023-08-05 18:40:50,901 [MissionTableOfContentsPageManager] Showing ToC 0 page 0.
+ WARN 2023-08-05 18:40:55,340 [Unity] Warning: Font size and style overrides are only supported for dynamic fonts.
+ WARN 2023-08-05 18:40:55,632 [Unity] Warning: Font size and style overrides are only supported for dynamic fonts.
+ WARN 2023-08-05 18:41:20,660 [Unity] Warning: Font size and style overrides are only supported for dynamic fonts.
+ERROR 2023-08-05 18:41:26,630 [Unity] Exception: ArgumentNullException: Argument cannot be null.
+Parameter name: first 
+at: System.Linq.Check.FirstAndSecond (System.Object first, System.Object second)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second, IEqualityComparer`1 comparer)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second)
+ProfileManager.GetActiveDisableList (ModType modType)
+ModSelectorService.<Awake>m__D ()
+APIProperties+Property.get_Value ()
+APIProperties.get_Item (System.String key)
+DynamicMissionGeneratorAssembly.MissionInputPage.ParseTextToMission (System.String text)
+DynamicMissionGeneratorAssembly.MissionInputPage.RunInteract ()
+ModSelectable.ProxyOnInteract ()
+Selectable.HandleInteract ()
+SelectableManager.HandleInteract ()
+MouseControls.Interact ()
+MouseControls.Update ()
+
+ERROR 2023-08-05 18:41:27,944 [Unity] Exception: ArgumentNullException: Argument cannot be null.
+Parameter name: first 
+at: System.Linq.Check.FirstAndSecond (System.Object first, System.Object second)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second, IEqualityComparer`1 comparer)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second)
+ProfileManager.GetActiveDisableList (ModType modType)
+ModSelectorService.<Awake>m__D ()
+APIProperties+Property.get_Value ()
+APIProperties.get_Item (System.String key)
+DynamicMissionGeneratorAssembly.MissionInputPage.ParseTextToMission (System.String text)
+DynamicMissionGeneratorAssembly.MissionInputPage.RunInteract ()
+ModSelectable.ProxyOnInteract ()
+Selectable.HandleInteract ()
+SelectableManager.HandleInteract ()
+MouseControls.Interact ()
+MouseControls.Update ()
+
+ERROR 2023-08-05 18:41:28,132 [Unity] Exception: ArgumentNullException: Argument cannot be null.
+Parameter name: first 
+at: System.Linq.Check.FirstAndSecond (System.Object first, System.Object second)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second, IEqualityComparer`1 comparer)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second)
+ProfileManager.GetActiveDisableList (ModType modType)
+ModSelectorService.<Awake>m__D ()
+APIProperties+Property.get_Value ()
+APIProperties.get_Item (System.String key)
+DynamicMissionGeneratorAssembly.MissionInputPage.ParseTextToMission (System.String text)
+DynamicMissionGeneratorAssembly.MissionInputPage.RunInteract ()
+ModSelectable.ProxyOnInteract ()
+Selectable.HandleInteract ()
+SelectableManager.HandleInteract ()
+MouseControls.Interact ()
+MouseControls.Update ()
+
+ERROR 2023-08-05 18:41:28,274 [Unity] Exception: ArgumentNullException: Argument cannot be null.
+Parameter name: first 
+at: System.Linq.Check.FirstAndSecond (System.Object first, System.Object second)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second, IEqualityComparer`1 comparer)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second)
+ProfileManager.GetActiveDisableList (ModType modType)
+ModSelectorService.<Awake>m__D ()
+APIProperties+Property.get_Value ()
+APIProperties.get_Item (System.String key)
+DynamicMissionGeneratorAssembly.MissionInputPage.ParseTextToMission (System.String text)
+DynamicMissionGeneratorAssembly.MissionInputPage.RunInteract ()
+ModSelectable.ProxyOnInteract ()
+Selectable.HandleInteract ()
+SelectableManager.HandleInteract ()
+MouseControls.Interact ()
+MouseControls.Update ()
+
+ERROR 2023-08-05 18:41:30,253 [Unity] Exception: ArgumentNullException: Argument cannot be null.
+Parameter name: first 
+at: System.Linq.Check.FirstAndSecond (System.Object first, System.Object second)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second, IEqualityComparer`1 comparer)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second)
+ProfileManager.GetActiveDisableList (ModType modType)
+ModSelectorService.<Awake>m__D ()
+APIProperties+Property.get_Value ()
+APIProperties.get_Item (System.String key)
+DynamicMissionGeneratorAssembly.MissionInputPage.ParseTextToMission (System.String text)
+DynamicMissionGeneratorAssembly.MissionInputPage.RunInteract ()
+ModSelectable.ProxyOnInteract ()
+Selectable.HandleInteract ()
+SelectableManager.HandleInteract ()
+MouseControls.Interact ()
+MouseControls.Update ()
+
+ERROR 2023-08-05 18:41:30,394 [Unity] Exception: ArgumentNullException: Argument cannot be null.
+Parameter name: first 
+at: System.Linq.Check.FirstAndSecond (System.Object first, System.Object second)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second, IEqualityComparer`1 comparer)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second)
+ProfileManager.GetActiveDisableList (ModType modType)
+ModSelectorService.<Awake>m__D ()
+APIProperties+Property.get_Value ()
+APIProperties.get_Item (System.String key)
+DynamicMissionGeneratorAssembly.MissionInputPage.ParseTextToMission (System.String text)
+DynamicMissionGeneratorAssembly.MissionInputPage.RunInteract ()
+ModSelectable.ProxyOnInteract ()
+Selectable.HandleInteract ()
+SelectableManager.HandleInteract ()
+MouseControls.Interact ()
+MouseControls.Update ()
+
+ERROR 2023-08-05 18:41:30,559 [Unity] Exception: ArgumentNullException: Argument cannot be null.
+Parameter name: first 
+at: System.Linq.Check.FirstAndSecond (System.Object first, System.Object second)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second, IEqualityComparer`1 comparer)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second)
+ProfileManager.GetActiveDisableList (ModType modType)
+ModSelectorService.<Awake>m__D ()
+APIProperties+Property.get_Value ()
+APIProperties.get_Item (System.String key)
+DynamicMissionGeneratorAssembly.MissionInputPage.ParseTextToMission (System.String text)
+DynamicMissionGeneratorAssembly.MissionInputPage.RunInteract ()
+ModSelectable.ProxyOnInteract ()
+Selectable.HandleInteract ()
+SelectableManager.HandleInteract ()
+MouseControls.Interact ()
+MouseControls.Update ()
+
+ERROR 2023-08-05 18:41:30,724 [Unity] Exception: ArgumentNullException: Argument cannot be null.
+Parameter name: first 
+at: System.Linq.Check.FirstAndSecond (System.Object first, System.Object second)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second, IEqualityComparer`1 comparer)
+System.Linq.Enumerable.Intersect[String] (IEnumerable`1 first, IEnumerable`1 second)
+ProfileManager.GetActiveDisableList (ModType modType)
+ModSelectorService.<Awake>m__D ()
+APIProperties+Property.get_Value ()
+APIProperties.get_Item (System.String key)
+DynamicMissionGeneratorAssembly.MissionInputPage.ParseTextToMission (System.String text)
+DynamicMissionGeneratorAssembly.MissionInputPage.RunInteract ()
+ModSelectable.ProxyOnInteract ()
+Selectable.HandleInteract ()
+SelectableManager.HandleInteract ()
+MouseControls.Interact ()
+MouseControls.Update ()
+
+ WARN 2023-08-05 18:41:35,106 [Unity] Warning: Font size and style overrides are only supported for dynamic fonts.
+DEBUG 2023-08-05 18:41:39,629 [PrefabOverride] Prefab override: InputBased: True, CurrentControlType: Mouse, Path: "PC/Prefabs/DossierMenu/DossierControls_Mouse"
+ INFO 2023-08-05 18:41:40,995 [MenuPage] ShowOptionsMenu
+DEBUG 2023-08-05 18:41:44,083 [MissionTableOfContentsPageManager] Showing ToC 0 page 0.
+ INFO 2023-08-05 18:42:04,116 [CommonMenuUtil] ReturnToLauncher
+ INFO 2023-08-05 18:42:04,117 [SceneManager] Fading out and exiting.
+ERROR 2023-08-05 18:42:07,109 [Unity] Error: Releasing render texture that is set as Camera.targetTexture!

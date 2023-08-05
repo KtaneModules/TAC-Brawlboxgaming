@@ -20,9 +20,9 @@ MonoBehaviour:
     Module created by Brawlboxgaming.
 
 
-    [url=http://ktane.timwi.de/PDF/Inner%20Connections.pdf]Manual PDF[/url]
+    [url=http://ktane.timwi.de/PDF/TAC.pdf]Manual PDF[/url]
 
-    [url=http://ktane.timwi.de/HTML/Inner%20Connections.html]Manual HTML[/url]'
+    [url=http://ktane.timwi.de/HTML/TAC.html]Manual HTML[/url]'
   version: 1.0
   outputFolder: build
   previewImage: {fileID: 2800000, guid: 926487e5cf73fa64db176e43ee1e27ff, type: 3}

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Rnd = UnityEngine.Random;
+using Random = UnityEngine.Random;
 using KModkit;
 using System.Text.RegularExpressions;
 
@@ -14,16 +14,17 @@ public class TACScript : MonoBehaviour
     public KMAudio Audio;
     public KMRuleSeedable RuleSeedable;
 
-    public MeshRenderer[] LEDs, CardObjects;
+    public MeshRenderer[] LEDs, Cards;
     public MeshRenderer Pawn;
-    public GameObject PawnObject, Cards;
-    public Material[] PawnColours, LEDColours;
+    public GameObject PawnObject;
+    public GameObject[] CardObjects;
+    public Material[] PawnColours, LEDColours, CardImages;
 
     private static int _moduleIdCounter = 1;
     private int _moduleId, finalPosition, enemyPawn1, enemyPawn2, partnerPawn, steps;
     private bool _moduleSolved, needSwap;
     private string[] numbers = new[] { "1", "2", "3", "-4", "5", "6", "7", "8", "9", "10", "12", "13" },
-        powers = new[] { "TAC", "Trickster", "Warrior" },
+        powers = new[] { "Trickster", "Warrior" },
         colours = new[] { "Blue", "Green", "Red", "Yellow" },
         newColours = new string[4],
         hand = new string[5];
@@ -79,7 +80,7 @@ public class TACScript : MonoBehaviour
         _moduleId = _moduleIdCounter++;
         #region Initiate random colours and final position
         coloursIxShuffle.Shuffle();
-        int tmp = Rnd.Range(0, 4);
+        int tmp = Random.Range(0, 4);
 
         for (int i = 0; i < LEDs.Length; i++)
         {
@@ -115,52 +116,10 @@ public class TACScript : MonoBehaviour
         Debug.Log(enemyPawn1 + " " + enemyPawn2 + " " + partnerPawn);
         #region Generate random powers
         powers.Shuffle();
-        int powerCount = Rnd.Range(0, 2);
-        for (int i = 0; i < powerCount; i++)
-        {
-            hand[i] = powers[i];
-        }
+        int powerCount = Random.Range(0, 2);
         #endregion
         #region Generate number cards
-        steps = Rnd.Range(7, 31);
-        int[] handTotal = new int[5];
-    retry:
-        for (int i = 0; i < handTotal.Length; i++)
-        {
-            handTotal[i] = 0;
-        }
-        for (int i = 0; i < hand.Length - 1; i++)
-        {
-            if (hand[i] == "TAC" && hand[i + 1] == null)
-            {
-                handTotal[i] = int.Parse(numbers[Rnd.Range(0, numbers.Length)]);
-                handTotal[i + 1] = int.Parse(numbers[Rnd.Range(0, numbers.Length)]);
-            }
-            else if (hand[i] == null)
-            {
-                handTotal[i] = int.Parse(numbers[Rnd.Range(0, numbers.Length)]);
-            }
-        }
-        if (steps - handTotal.Sum() < 1 || steps - handTotal.Sum() == 11 || steps - handTotal.Sum() > 13 || steps - handTotal.Sum() == 4)
-        {
-            goto retry;
-        }
-        for (int i = 0; i < hand.Length; i++)
-        {
-            if (hand[i] == null)
-            {
-                hand[i] = handTotal[i].ToString();
-            }
-        }
-        hand[hand.Length - 1] = (steps - handTotal.Sum()).ToString();
-
-
-        Debug.Log(Cards);
+        Cards[3].material = CardImages[13];
         #endregion
-        for (int i = 0; i < hand.Length; i++)
-        {
-            Debug.Log(hand[i]);
-        }
-        Debug.Log("Total steps is " + steps);
     }
 }
