@@ -25,58 +25,59 @@ public class TACScript : MonoBehaviour
     private bool _moduleSolved, needSwap;
     private string[] numbers = new[] { "1", "2", "3", "-4", "5", "6", "7", "8", "9", "10", "12", "13" },
         powers = new[] { "Trickster", "Warrior" },
-        colours = new[] { "Blue", "Green", "Red", "Yellow" },
-        newColours = new string[4],
-        hand = new string[5];
+        colours = new[] { "Green", "Red", "Yellow", "Blue" },
+        newColours = new string[4];
+    private List<string> hand = new List<string>();
     private int[] coloursIxShuffle = new[] { 0, 1, 2, 3 }, serialNumber;
     private string defuserColour, swappableCard;
     private static readonly Vector3[] boardPositions = new[] {
         #region Vectors
-        new Vector3(-0.04374f, 0.0220647f, 0.0228f),
-        new Vector3(-0.03276f, 0.0220647f, 0.0228f),
-        new Vector3(-0.02178f, 0.0220647f, 0.0228f),
-        new Vector3(-0.0108f, 0.0220647f, 0.0228f),
-        new Vector3(-0.00018f, 0.0220647f, 0.0228f),
-        new Vector3(0.01116f, 0.0220647f, 0.0228f),
-        new Vector3(0.02214f, 0.0220647f, 0.0228f),
-        new Vector3(0.03312f, 0.0220647f, 0.0228f),
-        new Vector3(0.0441f, 0.0220647f, 0.0228f),
-        new Vector3(0.05508f, 0.0220647f, 0.0228f),
-        new Vector3(0.06606f, 0.0220647f, 0.0228f),
-        new Vector3(0.06606f, 0.0220647f, 0.01182f),
-        new Vector3(0.06606f, 0.0220647f, 0.00084f),
-        new Vector3(0.06606f, 0.0220647f, -0.01014f),
-        new Vector3(0.06606f, 0.0220647f, -0.02112f),
-        new Vector3(0.05508f, 0.0220647f, -0.02112f),
-        new Vector3(0.0441f, 0.0220647f, -0.02112f),
-        new Vector3(0.03312f, 0.0220647f, -0.02112f),
-        new Vector3(0.02214f, 0.0220647f, -0.02112f),
-        new Vector3(0.01116f, 0.0220647f, -0.02112f),
-        new Vector3(-0.00018f, 0.0220647f, -0.02112f),
-        new Vector3(-0.0108f, 0.0220647f, -0.02112f),
-        new Vector3(-0.02178f, 0.0220647f, -0.02112f),
-        new Vector3(-0.03276f, 0.0220647f, -0.02112f),
-        new Vector3(-0.04374f, 0.0220647f, -0.02112f),
-        new Vector3(-0.05472f, 0.0220647f, -0.02112f),
-        new Vector3(-0.0657f, 0.0220647f, -0.02112f),
-        new Vector3(-0.0657f, 0.0220647f, -0.01014f),
-        new Vector3(-0.0657f, 0.0220647f, 0.00084f),
-        new Vector3(-0.0657f, 0.0220647f, 0.01182f),
-        new Vector3(-0.0657f, 0.0220647f, 0.0228f),
-        new Vector3(-0.05472f, 0.0220647f, 0.0228f),
+        new Vector3(-0.04433801f, 0.01470134f, 0.02188657f),
+        new Vector3(-0.03333801f, 0.01470134f, 0.02188657f),
+        new Vector3(-0.02243801f, 0.01470134f, 0.02188657f),
+        new Vector3(-0.01153801f, 0.01470134f, 0.02188657f),
+        new Vector3(-0.00063801f, 0.01470134f, 0.02188657f),
+        new Vector3(0.01056199f, 0.01470134f, 0.02188657f),
+        new Vector3(0.02146199f, 0.01470134f, 0.02188657f),
+        new Vector3(0.03246199f, 0.01470134f, 0.02188657f),
+        new Vector3(0.04346199f, 0.01470134f, 0.02188657f),
+        new Vector3(0.05436199f, 0.01470134f, 0.02188657f),
+        new Vector3(0.06536199f, 0.01470134f, 0.02188657f),
+        new Vector3(0.06536199f, 0.01470134f, 0.01088657f),
+        new Vector3(0.06536199f, 0.01470134f, -0.00011343f),
+        new Vector3(0.06536199f, 0.01470134f, -0.01111343f),
+        new Vector3(0.06536199f, 0.01470134f, -0.02211343f),
+        new Vector3(0.05436199f, 0.01470134f, -0.02211343f),
+        new Vector3(0.04346199f, 0.01470134f, -0.02211343f),
+        new Vector3(0.03246199f, 0.01470134f, -0.02211343f),
+        new Vector3(0.02146199f, 0.01470134f, -0.02211343f),
+        new Vector3(0.01056199f, 0.01470134f, -0.02211343f),
+        new Vector3(-0.00063801f, 0.01470134f, -0.02211343f),
+        new Vector3(-0.01153801f, 0.01470134f, -0.02211343f),
+        new Vector3(-0.02243801f, 0.01470134f, -0.02211343f),
+        new Vector3(-0.03333801f, 0.01470134f, -0.02211343f),
+        new Vector3(-0.04433801f, 0.01470134f, -0.02211343f),
+        new Vector3(-0.05523801f, 0.01470134f, -0.02211343f),
+        new Vector3(-0.06623801f, 0.01470134f, -0.02211343f),
+        new Vector3(-0.06623801f, 0.01470134f, -0.01111343f),
+        new Vector3(-0.06623801f, 0.01470134f, -0.00011343f),
+        new Vector3(-0.06623801f, 0.01470134f, 0.01088657f),
+        new Vector3(-0.06623801f, 0.01470134f, 0.02188657f),
+        new Vector3(-0.05523801f, 0.01470134f, 0.02188657f),
         #endregion
     },
         homes = new[] {
         #region Vectors
-            new Vector3(-0.04374f, 0.0220647f, 0.01182f),
-            new Vector3(0.0441f, 0.0220647f, 0.01182f),
-            new Vector3(0.0441f, 0.0220647f, -0.01014f),
-            new Vector3(-0.04374f, 0.0220647f, -0.01014f)
+            new Vector3(-0.04433801f, 0.01470134f, 0.01088657f),
+            new Vector3(0.04346199f, 0.01470134f, 0.01088657f),
+            new Vector3(0.04346199f, 0.01470134f, -0.01111343f),
+            new Vector3(-0.04433801f, 0.01470134f, -0.01111343f)
         #endregion
     };
 
     void Start()
     {
+        PawnObject.transform.localPosition = boardPositions[0];
         _moduleId = _moduleIdCounter++;
         #region Initiate random colours and final position
         coloursIxShuffle.Shuffle();
@@ -112,14 +113,27 @@ public class TACScript : MonoBehaviour
         enemyPawn1 %= 32;
         enemyPawn2 %= 32;
         partnerPawn %= 32;
-        #endregion
         Debug.Log(enemyPawn1 + " " + enemyPawn2 + " " + partnerPawn);
+        #endregion
         #region Generate random powers
-        powers.Shuffle();
-        int powerCount = Random.Range(0, 2);
+        bool hasPower = Random.Range(0, 2) == 1 ? true : false;
+        if (hasPower)
+        {
+            powers.Shuffle();
+            hand.Add(powers[0]);
+        }
+        #endregion
+        #region Generate starting location
+
+        #endregion
+        #region Requires a card swap
+        //bool needCardSwap = Random.Range(0, 2) == 1 ? true : false;
+        bool needCardSwap = false;
         #endregion
         #region Generate number cards
-        Cards[3].material = CardImages[13];
+            
         #endregion
+
+
     }
 }
