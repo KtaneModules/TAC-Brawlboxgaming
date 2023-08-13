@@ -30,6 +30,8 @@ ModelImporter:
     100048: TACButton
     100050: YellowLED
     100052: YellowLEDRim
+    100054: ChoiceButton1
+    100056: ChoiceButton2
     400000: BlueLED
     400002: BlueLEDRim
     400004: Card1Back
@@ -57,6 +59,8 @@ ModelImporter:
     400048: TACButton
     400050: YellowLED
     400052: YellowLEDRim
+    400054: ChoiceButton1
+    400056: ChoiceButton2
     2100000: Default OBJ
     2100002: Icon
     2100004: Card Back
@@ -64,6 +68,8 @@ ModelImporter:
     2100008: MetalMat
     2100010: SmallBoard
     2100012: Pawn
+    2100014: Choice1
+    2100016: Choice2
     2300000: BlueLED
     2300002: BlueLEDRim
     2300004: Card1Back
@@ -90,6 +96,8 @@ ModelImporter:
     2300046: TACButton
     2300048: YellowLED
     2300050: YellowLEDRim
+    2300052: ChoiceButton1
+    2300054: ChoiceButton2
     3300000: BlueLED
     3300002: BlueLEDRim
     3300004: Card1Back
@@ -116,6 +124,8 @@ ModelImporter:
     3300046: TACButton
     3300048: YellowLED
     3300050: YellowLEDRim
+    3300052: ChoiceButton1
+    3300054: ChoiceButton2
     4300000: ModelComponent
     4300002: TACButton
     4300004: Card1Back
@@ -142,6 +152,8 @@ ModelImporter:
     4300046: BlueLEDRim
     4300048: RedLED
     4300050: RedLEDRim
+    4300052: ChoiceButton1
+    4300054: ChoiceButton2
   externalObjects: {}
   materials:
     importMaterials: 1

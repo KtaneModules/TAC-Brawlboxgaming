@@ -1,29 +1,8 @@
 fileFormatVersion: 2
-guid: 5d1de3be511f2984896f69af55e214e7
+guid: 29ae5065d6c62694cbce48f721a5b441
 ModelImporter:
   serializedVersion: 22
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: ChoiceButton1Highlight
-    100004: ChoiceButton2Highlight
-    100006: TACButtonHighlight
-    400000: //RootNode
-    400002: ChoiceButton1Highlight
-    400004: ChoiceButton2Highlight
-    400006: TACButtonHighlight
-    2100000: No Name
-    2300000: //RootNode
-    2300002: ChoiceButton1Highlight
-    2300004: ChoiceButton2Highlight
-    2300006: TACButtonHighlight
-    3300000: //RootNode
-    3300002: ChoiceButton1Highlight
-    3300004: ChoiceButton2Highlight
-    3300006: TACButtonHighlight
-    4300000: TACButton
-    4300002: TACButtonHighlight
-    4300004: ChoiceButton2Highlight
-    4300006: ChoiceButton1Highlight
+  fileIDToRecycleName: {}
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -98,7 +77,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -1,29 +1,31 @@
 fileFormatVersion: 2
-guid: 5d1de3be511f2984896f69af55e214e7
+guid: b1b9552e99d02974e8a23002c116f67b
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: ChoiceButton1Highlight
-    100004: ChoiceButton2Highlight
-    100006: TACButtonHighlight
-    400000: //RootNode
-    400002: ChoiceButton1Highlight
-    400004: ChoiceButton2Highlight
-    400006: TACButtonHighlight
+    100000: BlueLEDHighlight
+    100002: GreenLEDHighlight
+    100004: //RootNode
+    100006: RedLEDHighlight
+    100008: YellowLEDHighlight
+    400000: BlueLEDHighlight
+    400002: GreenLEDHighlight
+    400004: //RootNode
+    400006: RedLEDHighlight
+    400008: YellowLEDHighlight
     2100000: No Name
-    2300000: //RootNode
-    2300002: ChoiceButton1Highlight
-    2300004: ChoiceButton2Highlight
-    2300006: TACButtonHighlight
-    3300000: //RootNode
-    3300002: ChoiceButton1Highlight
-    3300004: ChoiceButton2Highlight
-    3300006: TACButtonHighlight
-    4300000: TACButton
-    4300002: TACButtonHighlight
-    4300004: ChoiceButton2Highlight
-    4300006: ChoiceButton1Highlight
+    2300000: BlueLEDHighlight
+    2300002: GreenLEDHighlight
+    2300004: RedLEDHighlight
+    2300006: YellowLEDHighlight
+    3300000: BlueLEDHighlight
+    3300002: GreenLEDHighlight
+    3300004: RedLEDHighlight
+    3300006: YellowLEDHighlight
+    4300000: RedLEDHighlight
+    4300002: YellowLEDHighlight
+    4300004: BlueLEDHighlight
+    4300006: GreenLEDHighlight
   externalObjects: {}
   materials:
     importMaterials: 1
