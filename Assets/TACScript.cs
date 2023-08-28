@@ -18,7 +18,7 @@ public class TACScript : MonoBehaviour
 
     public MeshRenderer[] LEDs, Cards;
     public MeshRenderer Pawn;
-    public GameObject PawnObject;
+    public GameObject PawnObject, Choice1Button, Choice2Button;
     public GameObject[] CardObjects;
     public Material[] PawnColours, LEDColours, CardImages;
 
@@ -33,6 +33,13 @@ public class TACScript : MonoBehaviour
     private TACGameState _state;
     private List<TACCard> _hand = new List<TACCard>();
     private TACCard _swappableCard;
+
+    private static readonly Color[] hexColors = new Color[] {
+        new Color(1.0f, 0.15f, 0.15f),
+        new Color(1.0f, 1.0f, 0.3f),
+        new Color(0.3f, 1.0f, 0.2f),
+        new Color(0.0f, 0.2f, 1.0f)
+    };
 
     private static readonly TACCard[] cards = new TACCard[]
     {
@@ -51,7 +58,7 @@ public class TACScript : MonoBehaviour
         new TACCardTrickster(),
         new TACCardWarrior()
     };
-    private static readonly string[] _colourNames = new[] { "Green", "Red", "Yellow", "Blue" };
+    private static readonly string[] _colourNames = new[] { "Red", "Yellow", "Green", "Blue" };
 
     private static readonly string[] _allNames = { "Sam", "Tom", "Zoe", "Adam", "Alex", "Andy", "Anna", "Bill", "Carl", "Fred", "Kate", "Lucy", "Ryan", "Toby", "Will", "Zach", "Chris", "Craig", "David", "Emily", "Felix", "Harry", "James", "Jenny", "Julia", "Kevin", "Molly", "Peter", "Sally", "Sarah", "Steve", "Susan" };
     private string[] _names;
@@ -59,6 +66,18 @@ public class TACScript : MonoBehaviour
     private readonly int[] coloursIxShuffle = new[] { 0, 1, 2, 3 };
     private int defuserColour;
 
+    private static readonly Vector3[] choiceButtonsStart = new[] {
+        #region Vectors
+        new Vector3(0.0f, 0.008941091f, -0.0003482774f),
+        new Vector3(0.0f, 0.008941091f, -0.0003482774f)
+        #endregion
+    };
+    private static readonly Vector3[] choiceButtonsEnd = new[] {
+        #region Vectors
+        new Vector3(-0.02545439f, 0.008941091f, -0.0003482774f),
+        new Vector3(0.02545439f, 0.008941091f, -0.0003482774f)
+        #endregion
+    };
     private static readonly Vector3[] boardPositions = new[] {
         #region Vectors
         new Vector3(-0.04433801f, 0.01470134f, 0.02188657f),
@@ -114,8 +133,6 @@ public class TACScript : MonoBehaviour
         _names = rnd.ShuffleFisherYates(_allNames.ToArray());
         #endregion
 
-        PawnObject.transform.localPosition = boardPositions[0];
-
         #region Decide the player colors
         coloursIxShuffle.Shuffle();
         defuserColour = Random.Range(0, 4);
@@ -123,20 +140,21 @@ public class TACScript : MonoBehaviour
         for (int i = 0; i < LEDs.Length; i++)
         {
             LEDs[i].material = LEDColours[coloursIxShuffle[i]];
+            PlayerNames[i].color = hexColors[coloursIxShuffle[i]];
             if (i == defuserColour)
                 Pawn.material = PawnColours[coloursIxShuffle[i]];
         }
-        #endregion
+    #endregion
 
-        #region Decide on cards in player’s hand
-        tryAgain:
+    #region Decide on cards in player’s hand
+    tryAgain:
         _hand = Enumerable.Range(0, 5).Select(_ => cards[Random.Range(0, cards.Length)]).ToList();
         _state = TACGameState.FinalState(defuserColour, new TACPos(Random.Range(0, 32)));
 
         var numSwappableCards = _hand.Count;
         for (var cardIx = 0; cardIx < _hand.Count; cardIx++)
         {
-            tryThisAgain:
+        tryThisAgain:
             var possibleUndos = _hand[cardIx].Unexecute(_state).ToList();
 
             if (cardIx == _hand.Count - 1)
@@ -181,7 +199,20 @@ public class TACScript : MonoBehaviour
             _mustSwapWith = null;
             goto tryAgain;
         }
-        done:
+    done:
+        for (int i = 0; i < _hand.Count; i++)
+        {
+            Cards[i].material = CardImages.First(x => x.name == _hand[i].MaterialName);
+        }
+        if (_swappableCard != null)
+        {
+            Cards[5].material = CardImages.First(x => x.name == _swappableCard.MaterialName);
+        }
+
+        PawnObject.transform.localPosition = boardPositions[(int)_state.PlayerPosition];
+
+        Choice1Button.transform.localPosition = choiceButtonsStart[0];
+        Choice2Button.transform.localPosition = choiceButtonsStart[1];
 
         #region Calculate base pawn positions
         PlayerNames[_state.PlayerSeat].text = "You";
@@ -200,12 +231,12 @@ public class TACScript : MonoBehaviour
         while (enemy2 == partner || enemy2 == enemy1)
             enemy2++;
         PlayerNames[(_state.PlayerSeat + 3) % 4].text = _names[_state.Pieces[3].Value - enemy2];
+        #endregion
 
         Debug.Log($"[TAC #{_moduleId}] Player names (clockwise from You): {Enumerable.Range(1, 3).Select(ix => PlayerNames[(_state.PlayerSeat + ix) % 4].text).Join(", ")}");
         Debug.Log($"[TAC #{_moduleId}] {JsonForLogging()}");
         Debug.Log($"[TAC #{_moduleId}] Initial hand: {_hand.Join(", ")}");
         Debug.Log($"[TAC #{_moduleId}] {(_mustSwapWith != null ? "You must swap a card." : "You must not swap a card.")}");
-        #endregion
     }
 
     private bool isSolvable()
@@ -240,7 +271,7 @@ public class TACScript : MonoBehaviour
         var j = new JObject();
         j["colors"] = new JArray(coloursIxShuffle);
         j["playerseat"] = _state.PlayerSeat;
-        j["positions"] = new JArray(_state.Pieces.Select(p => (int?) p).ToArray());
+        j["positions"] = new JArray(_state.Pieces.Select(p => (int?)p).ToArray());
         return j.ToString(Formatting.None);
     }
 }

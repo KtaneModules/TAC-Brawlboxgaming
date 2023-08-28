@@ -349,23 +349,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1237032420341478
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4753430358064824}
-  - component: {fileID: 33567829190398364}
-  - component: {fileID: 114146265789071176}
-  m_Layer: 0
-  m_Name: Card6Highlight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1242821885196912
 GameObject:
   m_ObjectHideFlags: 1
@@ -723,7 +706,6 @@ GameObject:
   - component: {fileID: 33972006427899050}
   - component: {fileID: 23266486323869028}
   - component: {fileID: 64419948940697038}
-  - component: {fileID: 114223829493769570}
   - component: {fileID: 114502564826589002}
   m_Layer: 0
   m_Name: Card6Front
@@ -1198,7 +1180,7 @@ Transform:
   m_GameObject: {fileID: 1970502884175900}
   m_LocalRotation: {x: -0.000002682209, y: 0.0000005148236, z: -0.00000020663205,
     w: 1}
-  m_LocalPosition: {x: 0.00009894589, y: 0.000047759768, z: -0.00007112691}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00007112691}
   m_LocalScale: {x: 1.0012841, y: 0.95, z: 1.0012838}
   m_Children: []
   m_Father: {fileID: 4046676155982438}
@@ -1265,7 +1247,7 @@ Transform:
   m_GameObject: {fileID: 1322437803275598}
   m_LocalRotation: {x: -0.000002682209, y: 0.0000005148236, z: -0.00000020663205,
     w: 1}
-  m_LocalPosition: {x: 0.00009894793, y: 0.00004775705, z: -0.000071134156}
+  m_LocalPosition: {x: 0, y: 0, z: -0.000071134156}
   m_LocalScale: {x: 1.0012841, y: 0.95, z: 1.0012838}
   m_Children: []
   m_Father: {fileID: 4146948303878942}
@@ -1353,7 +1335,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1306277202523266}
   m_LocalRotation: {x: -0.00000035965147, y: 0.7071086, z: -0.7071049, w: 0.00000008429276}
-  m_LocalPosition: {x: -0.06409124, y: 0.01053511, z: 0.051961243}
+  m_LocalPosition: {x: -0.06409124, y: 0.0081, z: 0.052}
   m_LocalScale: {x: 4.1123962, y: 4.1123943, z: 4.1123943}
   m_Children: []
   m_Father: {fileID: 4612599991868298}
@@ -1461,7 +1443,7 @@ Transform:
   m_GameObject: {fileID: 1004017616570016}
   m_LocalRotation: {x: -0.000002682209, y: 0.0000005148236, z: -0.00000020663205,
     w: 1}
-  m_LocalPosition: {x: 0.00009894793, y: 0.000047759768, z: -0.00007111604}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00007111604}
   m_LocalScale: {x: 1.0012841, y: 0.95, z: 1.0012838}
   m_Children: []
   m_Father: {fileID: 4582159854981688}
@@ -1585,10 +1567,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1649128741957700}
   m_LocalRotation: {x: -0.00000035965147, y: 0.7071086, z: -0.7071049, w: 0.00000008429276}
-  m_LocalPosition: {x: -0.06409124, y: 0.01053511, z: 0.051961243}
+  m_LocalPosition: {x: -0.06409124, y: 0.0081, z: 0.051961243}
   m_LocalScale: {x: 4.1123962, y: 4.1123943, z: 4.1123943}
-  m_Children:
-  - {fileID: 4753430358064824}
+  m_Children: []
   m_Father: {fileID: 4612599991868298}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1670,7 +1651,7 @@ Transform:
   m_GameObject: {fileID: 1986131364240708}
   m_LocalRotation: {x: -0.000002682209, y: 0.0000005148236, z: -0.00000020663205,
     w: 1}
-  m_LocalPosition: {x: 0.00009894748, y: 0.00004775705, z: -0.00007111989}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00007111989}
   m_LocalScale: {x: 1.0012841, y: 0.95, z: 1.0012838}
   m_Children: []
   m_Father: {fileID: 4208043118202036}
@@ -1697,7 +1678,7 @@ Transform:
   m_GameObject: {fileID: 1265104059160238}
   m_LocalRotation: {x: -0.000002682209, y: 0.0000005148236, z: -0.00000020663205,
     w: 1}
-  m_LocalPosition: {x: 0.00009894068, y: 0.000047760674, z: -0.00007113778}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00007113778}
   m_LocalScale: {x: 1.0012841, y: 0.95, z: 1.0012838}
   m_Children: []
   m_Father: {fileID: 4431919992779064}
@@ -1718,20 +1699,6 @@ Transform:
   - {fileID: 4603255893739758}
   m_Father: {fileID: 4314676483899256}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4753430358064824
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1237032420341478}
-  m_LocalRotation: {x: 0.0000025331974, y: 0.0000006278329, z: 0.000000043713104,
-    w: 1}
-  m_LocalPosition: {x: -0.00009894444, y: 0.000047776648, z: -0.000049406}
-  m_LocalScale: {x: 1.0012841, y: 0.95, z: 1.0012838}
-  m_Children: []
-  m_Father: {fileID: 4590486258812084}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4814540510810820
 Transform:
@@ -3032,13 +2999,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1394008493915530}
   m_Mesh: {fileID: 4300020, guid: faf975616450914449f1c167218d619e, type: 3}
---- !u!33 &33567829190398364
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1237032420341478}
-  m_Mesh: {fileID: 4300012, guid: 1e74d4a37c516894ea673bd9fc82aa1d, type: 3}
 --- !u!33 &33592256433413278
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -3361,7 +3321,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1025701887934926}
-  m_Text: James
+  m_Text: Zoe
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -3382,7 +3342,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1940571481896300}
-  m_Text: James
+  m_Text: Chris
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -3403,7 +3363,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467795543815602}
-  m_Text: James
+  m_Text: Sam
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -3424,7 +3384,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1779597496137752}
-  m_Text: James
+  m_Text: Alex
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -3447,8 +3407,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114037182476578254
@@ -3460,8 +3420,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114049131607658350
@@ -3473,8 +3433,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/DiffuseTint
 --- !u!114 &114057135320008512
@@ -3486,8 +3446,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -3509,8 +3469,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114078827131255028
@@ -3522,8 +3482,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -3545,8 +3505,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -381104716, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114129724927756776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3556,8 +3516,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -3578,8 +3538,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -3591,19 +3551,6 @@ MonoBehaviour:
   AllowSelectionWrapY: 0
   ForceSelectionHighlight: 0
   ForceInteractionHighlight: 0
---- !u!114 &114146265789071176
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1237032420341478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  HighlightScale: {x: 1, y: 1, z: 1}
-  OutlineAmount: 0
 --- !u!114 &114181037828349098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3613,8 +3560,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114189156243491344
@@ -3626,8 +3573,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114204606144722180
@@ -3639,8 +3586,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114204819645445654
@@ -3652,8 +3599,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114218442418936272
@@ -3665,33 +3612,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
---- !u!114 &114223829493769570
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1649128741957700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  Parent: {fileID: 114708698185127234}
-  Children: []
-  IsPassThrough: 0
-  ChildRowLength: 0
-  Highlight: {fileID: 114146265789071176}
-  SelectableColliders:
-  - {fileID: 64419948940697038}
-  DefaultSelectableIndex: 0
-  AllowSelectionWrapX: 0
-  AllowSelectionWrapY: 0
-  ForceSelectionHighlight: 0
-  ForceInteractionHighlight: 0
 --- !u!114 &114286547847979088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3701,8 +3625,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114288964696753462
@@ -3714,8 +3638,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Transparent/Mobile Diffuse Underlay200
 --- !u!114 &114311000058094930
@@ -3727,8 +3651,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114312906480610502
@@ -3740,8 +3664,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adf69c2de51bd3c43bbd9bc22578ee08, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   _seed: 1
 --- !u!114 &114338907813350274
 MonoBehaviour:
@@ -3752,8 +3676,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114357644053401476
@@ -3765,8 +3689,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114372248365446276
@@ -3778,8 +3702,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8ac3cc496301d74487157a7e10ff90d, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Module: {fileID: 114707620805697802}
   BombInfo: {fileID: 114899542845690152}
   Audio: {fileID: 114523751264496512}
@@ -3798,6 +3722,8 @@ MonoBehaviour:
   - {fileID: 23266486323869028}
   Pawn: {fileID: 23727331044450820}
   PawnObject: {fileID: 1470447637765376}
+  Choice1Button: {fileID: 1312007901677716}
+  Choice2Button: {fileID: 1278647883379576}
   CardObjects:
   - {fileID: 1714586105772534}
   - {fileID: 1258505833171450}
@@ -3819,13 +3745,21 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ecf1102680546ac4b8e044320ac5b8b6, type: 2}
   - {fileID: 2100000, guid: c954b5a03f13a68439c9b749113383c4, type: 2}
   - {fileID: 2100000, guid: e17a64f84ac9a434cba8ba20b17c8e40, type: 2}
+  - {fileID: 2100000, guid: ccff9f093d4ecec4d91b433acede6507, type: 2}
   - {fileID: 2100000, guid: f0135ecdfa8c59b4084ea6cbe29cd5ac, type: 2}
+  - {fileID: 2100000, guid: ccd03cbcfa94ced47a7a22fdd9ebe665, type: 2}
   - {fileID: 2100000, guid: dfa8f4aad8885ce4a9aaca05b6ea4412, type: 2}
+  - {fileID: 2100000, guid: 5ec182b921630ec4d8095bf324fd0e5f, type: 2}
   - {fileID: 2100000, guid: e8bcdd711809e664885e93fa9d7dac3f, type: 2}
+  - {fileID: 2100000, guid: f445e059a928bb242a99467131ea9b57, type: 2}
   - {fileID: 2100000, guid: 8d82362234a5d314db3a56790731b3d4, type: 2}
+  - {fileID: 2100000, guid: b7ba5211b5921b44890d516e284199c5, type: 2}
   - {fileID: 2100000, guid: 8e556b577354e844fa5582256c7e5a52, type: 2}
+  - {fileID: 2100000, guid: 530cf86ba2f2470428a03966ce56cc77, type: 2}
   - {fileID: 2100000, guid: 232f2d1a5aa79034398e57d2dd6f4bce, type: 2}
+  - {fileID: 2100000, guid: f95038e2d7cf9774b8300fc663369c13, type: 2}
   - {fileID: 2100000, guid: 9293360a8cc23224cb0c788264044bf4, type: 2}
+  - {fileID: 2100000, guid: 837bddf83311ab64b9d0d1e0bc982f10, type: 2}
   - {fileID: 2100000, guid: 6f9c4d55659ee594b81ec254ba8b180d, type: 2}
   - {fileID: 2100000, guid: 1a62865580ccb954092274264582aff2, type: 2}
   - {fileID: 2100000, guid: bc275ae5cf295df4b9783bb417ead189, type: 2}
@@ -3840,7 +3774,6 @@ MonoBehaviour:
   - {fileID: 114429336861395260}
   - {fileID: 114057135320008512}
   - {fileID: 114669016521237738}
-  - {fileID: 114223829493769570}
   LEDSels:
   - {fileID: 114619619732475436}
   - {fileID: 114129724927756776}
@@ -3860,8 +3793,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/DiffuseTint
 --- !u!114 &114385537708185620
@@ -3873,8 +3806,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -3896,8 +3829,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114429336861395260
@@ -3909,8 +3842,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -3932,8 +3865,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114458188274417488
@@ -3945,8 +3878,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/DiffuseTint
 --- !u!114 &114460398111837856
@@ -3958,8 +3891,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114482155808650588
@@ -3971,8 +3904,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - Standard
 --- !u!114 &114482814679611890
@@ -3984,8 +3917,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -4006,8 +3939,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114513945515081440
@@ -4019,8 +3952,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114523751264496512
@@ -4032,8 +3965,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1675560866, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114544609905178584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4043,8 +3976,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114619619732475436
@@ -4056,8 +3989,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114619619732475436}
   Children: []
   IsPassThrough: 0
@@ -4078,8 +4011,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114623871741665472
@@ -4091,8 +4024,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114641250485295296
@@ -4104,8 +4037,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114643364926931648
@@ -4117,8 +4050,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114669016521237738
@@ -4130,8 +4063,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -4153,8 +4086,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -4176,8 +4109,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/DiffuseTint
 --- !u!114 &114707620805697802
@@ -4189,8 +4122,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -119419473, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ModuleType: TACModule
   ModuleDisplayName: TAC
   RequiresTimerVisibility: 0
@@ -4203,8 +4136,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children:
   - {fileID: 114619619732475436}
@@ -4219,7 +4152,6 @@ MonoBehaviour:
   - {fileID: 114429336861395260}
   - {fileID: 114057135320008512}
   - {fileID: 114669016521237738}
-  - {fileID: 114223829493769570}
   IsPassThrough: 0
   ChildRowLength: 13
   Highlight: {fileID: 114460398111837856}
@@ -4238,8 +4170,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -4260,8 +4192,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1702003387, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Parent: {fileID: 114708698185127234}
   Children: []
   IsPassThrough: 0
@@ -4282,8 +4214,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114784090919349722
@@ -4295,8 +4227,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114785524311430020
@@ -4308,8 +4240,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114789933605479254
@@ -4321,8 +4253,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114817266106457708
@@ -4334,8 +4266,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114823164535875378
@@ -4347,8 +4279,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114830938579575770
@@ -4360,8 +4292,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114834633173334338
@@ -4373,8 +4305,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -1005838349, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ShaderNames:
   - KT/Mobile/Diffuse
 --- !u!114 &114870680885827378
@@ -4386,8 +4318,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -706292897, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HighlightScale: {x: 1, y: 1, z: 1}
   OutlineAmount: 0
 --- !u!114 &114899542845690152
@@ -4399,5 +4331,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 2144496390, guid: 45b809be76fd7a3468b6f517bced6f28, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
