@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using KModkit;
 using System.Text.RegularExpressions;
+
+using Random = UnityEngine.Random;
+using Assets;
 
 public class TACScript : MonoBehaviour
 {
@@ -21,15 +23,35 @@ public class TACScript : MonoBehaviour
     public Material[] PawnColours, LEDColours, CardImages;
 
     private static int _moduleIdCounter = 1;
-    private int _moduleId, finalPosition, enemyPawn1, enemyPawn2, partnerPawn, steps;
+    private int _moduleId, steps;
     private bool _moduleSolved, needSwap;
-    private string[] numbers = new[] { "1", "2", "3", "-4", "5", "6", "7", "8", "9", "10", "12", "13" },
-        powers = new[] { "Trickster", "Warrior" },
-        colours = new[] { "Green", "Red", "Yellow", "Blue" },
-        newColours = new string[4];
-    private List<string> hand = new List<string>();
-    private int[] coloursIxShuffle = new[] { 0, 1, 2, 3 }, serialNumber;
-    private string defuserColour, swappableCard;
+    private TACGameState state;
+
+    private static readonly TACCard[] cards = new TACCard[]
+    {
+        new TACCardNumber(1),
+        new TACCardNumber(2),
+        new TACCardNumber(3),
+        new TACCardNumber(4, direction: -1),
+        new TACCardNumber(5),
+        new TACCardNumber(6),
+        new TACCardSingleStep(7),
+        new TACCardNumber(8, isDiscard:true),
+        new TACCardNumber(9),
+        new TACCardNumber(10),
+        new TACCardNumber(12),
+        new TACCardNumber(13),
+        new TACCardTrickster(),
+        new TACCardWarrior()
+    };
+    private static readonly string[] colourNames = new[] { "Green", "Red", "Yellow", "Blue" };
+
+    private List<TACCard> hand = new List<TACCard>();
+    private TACCard swappableCard;
+
+    private readonly int[] coloursIxShuffle = new[] { 0, 1, 2, 3 };
+    private int defuserColour;
+
     private static readonly Vector3[] boardPositions = new[] {
         #region Vectors
         new Vector3(-0.04433801f, 0.01470134f, 0.02188657f),
@@ -65,8 +87,8 @@ public class TACScript : MonoBehaviour
         new Vector3(-0.06623801f, 0.01470134f, 0.02188657f),
         new Vector3(-0.05523801f, 0.01470134f, 0.02188657f),
         #endregion
-    },
-        homes = new[] {
+    };
+    private static readonly Vector3[] homes = new[] {
         #region Vectors
             new Vector3(-0.04433801f, 0.01470134f, 0.01088657f),
             new Vector3(0.04346199f, 0.01470134f, 0.01088657f),
@@ -79,61 +101,29 @@ public class TACScript : MonoBehaviour
     {
         PawnObject.transform.localPosition = boardPositions[0];
         _moduleId = _moduleIdCounter++;
-        #region Initiate random colours and final position
+
+        #region Decide the player colors
         coloursIxShuffle.Shuffle();
-        int tmp = Random.Range(0, 4);
+        defuserColour = Random.Range(0, 4);
 
         for (int i = 0; i < LEDs.Length; i++)
         {
             LEDs[i].material = LEDColours[coloursIxShuffle[i]];
-            newColours[i] = colours[coloursIxShuffle[i]];
-            if (i == tmp)
-            {
+            if (i == defuserColour)
                 Pawn.material = PawnColours[coloursIxShuffle[i]];
-                defuserColour = colours[coloursIxShuffle[i]];
-            }
-        }
-        for (int i = 0; i < newColours.Length; i++)
-        {
-            if (newColours[i] == defuserColour)
-            {
-                finalPosition = i;
-            }
         }
         #endregion
-        #region Calculate other pawn positions
-        serialNumber = BombInfo.GetSerialNumber().Select(ch => ch >= '0' && ch <= '9' ? ch - '0' : ch - 'A' + 1).ToArray();
-        enemyPawn1 = serialNumber[0] + serialNumber[5];
-        enemyPawn2 = serialNumber[1] + serialNumber[4];
-        while (enemyPawn1 == enemyPawn2)
-            enemyPawn2++;
-        partnerPawn = serialNumber[2] + serialNumber[3];
-        while (enemyPawn1 == partnerPawn || enemyPawn2 == partnerPawn)
-            partnerPawn++;
-        enemyPawn1 %= 32;
-        enemyPawn2 %= 32;
-        partnerPawn %= 32;
-        Debug.Log(enemyPawn1 + " " + enemyPawn2 + " " + partnerPawn);
-        #endregion
-        #region Generate random powers
-        bool hasPower = Random.Range(0, 2) == 1 ? true : false;
-        if (hasPower)
-        {
-            powers.Shuffle();
-            hand.Add(powers[0]);
-        }
-        #endregion
-        #region Generate starting location
 
+        #region Calculate base pawn positions
+        var serialNumber = BombInfo.GetSerialNumber().Select(ch => ch >= '0' && ch <= '9' ? ch - '0' : ch - 'A' + 1).ToArray();
+        var enemy1 = new TACPos(serialNumber[0] + serialNumber[5]);
+        var partner = new TACPos(serialNumber[1] + serialNumber[4]);
+        while (enemy1 == partner)
+            partner++;
+        var enemy2 = new TACPos(serialNumber[2] + serialNumber[3]);
+        while (enemy2 == partner || enemy2 == enemy1)
+            enemy2++;
+        Debug.Log(enemy1 + " " + partner + " " + enemy2);
         #endregion
-        #region Requires a card swap
-        //bool needCardSwap = Random.Range(0, 2) == 1 ? true : false;
-        bool needCardSwap = false;
-        #endregion
-        #region Generate number cards
-            
-        #endregion
-
-
     }
 }
