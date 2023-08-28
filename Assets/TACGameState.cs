@@ -6,32 +6,26 @@ namespace Assets
     {
         // Pieces[0] is player, Pieces[2] is partner, all other indexes are enemies
         public TACPos?[] Pieces;
-        public TACPos PlayerPosition { get { return Pieces[0].Value; } }
-        public TACPos PartnerPosition { get { return Pieces[2].Value; } }
-        public bool PlayerInHome { get { return Pieces[0].Value.IsHome; } }
+        public TACPos PlayerPosition => Pieces[0].Value;
+        public TACPos PartnerPosition => Pieces[2].Value;
+        public bool PlayerInHome => Pieces[0].Value.IsHome;
 
-        public int PlayerColor;     // multiply by 8 to get position where you can enter home
+        public int PlayerSeat;
 
         private TACGameState() { }
 
-        public static TACGameState FinalState(int playerColor, TACPos partnerFinalPosition)
+        public static TACGameState FinalState(int playerSeat, TACPos partnerFinalPosition) => new TACGameState
         {
-            return new TACGameState
-            {
-                PlayerColor = playerColor,
-                Pieces = new TACPos?[] { TACPos.Home, null, partnerFinalPosition, null }
-            };
-        }
+            PlayerSeat = playerSeat,
+            Pieces = new TACPos?[] { TACPos.Home, null, partnerFinalPosition, null }
+        };
 
-        public bool HasPieceOn(TACPos pos)
-        {
-            return Pieces.Contains(pos);
-        }
+        public bool HasPieceOn(TACPos pos) => Pieces.Contains(pos);
+        public bool IsPartnerOn(TACPos pos) => Pieces[2] == pos;
+        public void SetPlayerPosition(TACPos pos) => Pieces[0] = pos;
 
-        public TACGameState Clone()
-        {
-            return new TACGameState { Pieces = Pieces.ToArray(), PlayerColor = PlayerColor };
-        }
+        public TACGameState Clone() => new TACGameState { Pieces = Pieces.ToArray(), PlayerSeat = PlayerSeat };
+        public override string ToString() => string.Format("Player = {0}, Pieces = [{1}]", PlayerSeat, Pieces.Join(", "));
 
         public void RemoveEnemyPieceIfPresent(TACPos pos)
         {
@@ -40,26 +34,11 @@ namespace Assets
                     Pieces[i] = null;
         }
 
-        public bool IsPartnerOn(TACPos pos)
-        {
-            return Pieces[2] == pos;
-        }
-
-        public void SetPlayerPosition(TACPos pos)
-        {
-            Pieces[0] = pos;
-        }
-
         public void SwapPieces(int pIx1, int pIx2)
         {
             var tmp = Pieces[pIx1];
             Pieces[pIx1] = Pieces[pIx2];
             Pieces[pIx2] = tmp;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("Player = {0}, Pieces = [{1}]", PlayerColor, Pieces.Join(", "));
         }
     }
 }

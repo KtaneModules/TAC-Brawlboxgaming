@@ -33,7 +33,7 @@ namespace Assets
             var newPosition = state.PlayerPosition + Number * Direction;
 
             // Option to move into home
-            if (newPosition == TACPos.GetStart(state.PlayerColor) + Direction)
+            if (newPosition == TACPos.GetStart(state.PlayerSeat) + Direction)
             {
                 newState = newState.Clone();
                 newState.SetPlayerPosition(TACPos.Home);
@@ -57,7 +57,7 @@ namespace Assets
             if (state.PlayerInHome)
             {
                 var newState = state.Clone();
-                newState.SetPlayerPosition(TACPos.GetStart(state.PlayerColor) - (Number - 1) * Direction);
+                newState.SetPlayerPosition(TACPos.GetStart(state.PlayerSeat) - (Number - 1) * Direction);
                 yield return newState;
                 yield break;
             }
@@ -103,7 +103,7 @@ namespace Assets
             var newPosition = state.PlayerPosition + Number;
 
             // Option to move into home
-            if (newPosition == TACPos.GetStart(state.PlayerColor) + 1)
+            if (newPosition == TACPos.GetStart(state.PlayerSeat) + 1)
             {
                 newState = newState.Clone();
                 newState.SetPlayerPosition(TACPos.Home);

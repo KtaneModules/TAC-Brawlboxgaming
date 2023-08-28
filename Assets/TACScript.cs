@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using Assets;
 using KModkit;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
+
 using Random = UnityEngine.Random;
 
 public class TACScript : MonoBehaviour
@@ -20,6 +21,10 @@ public class TACScript : MonoBehaviour
     public GameObject PawnObject;
     public GameObject[] CardObjects;
     public Material[] PawnColours, LEDColours, CardImages;
+
+    public KMSelectable TacSel, LeftSel, RightSel;
+    public KMSelectable[] CardSels, LEDSels;
+    public TextMesh[] PlayerNames;
 
     private static int _moduleIdCounter = 1;
     private int _moduleId;
@@ -101,13 +106,15 @@ public class TACScript : MonoBehaviour
 
     void Start()
     {
+        _moduleId = _moduleIdCounter++;
+
         #region Rule seed
         var rnd = RuleSeedable.GetRNG();
+        Debug.Log($"[TAC #{_moduleId}] Using rule seed: {rnd.Seed}.");
         _names = rnd.ShuffleFisherYates(_allNames.ToArray());
         #endregion
 
         PawnObject.transform.localPosition = boardPositions[0];
-        _moduleId = _moduleIdCounter++;
 
         #region Decide the player colors
         coloursIxShuffle.Shuffle();
@@ -177,22 +184,27 @@ public class TACScript : MonoBehaviour
         done:
 
         #region Calculate base pawn positions
+        PlayerNames[_state.PlayerSeat].text = "You";
+
         var serialNumber = BombInfo.GetSerialNumber().Select(ch => ch >= '0' && ch <= '9' ? ch - '0' : ch - 'A' + 1).ToArray();
 
         var enemy1 = new TACPos(serialNumber[0] + serialNumber[5]);
-        var name1 = _names[_state.Pieces[1].Value - enemy1];
+        PlayerNames[(_state.PlayerSeat + 1) % 4].text = _names[_state.Pieces[1].Value - enemy1];
 
         var partner = new TACPos(serialNumber[1] + serialNumber[4]);
         while (enemy1 == partner)
             partner++;
-        var partnerName = _names[_state.Pieces[2].Value - partner];
+        PlayerNames[(_state.PlayerSeat + 2) % 4].text = _names[_state.Pieces[2].Value - partner];
 
         var enemy2 = new TACPos(serialNumber[2] + serialNumber[3]);
         while (enemy2 == partner || enemy2 == enemy1)
             enemy2++;
-        var name2 = _names[_state.Pieces[3].Value - enemy2];
+        PlayerNames[(_state.PlayerSeat + 3) % 4].text = _names[_state.Pieces[3].Value - enemy2];
 
-        Debug.Log(enemy1 + " " + partner + " " + enemy2);
+        Debug.Log($"[TAC #{_moduleId}] Player names (clockwise from You): {Enumerable.Range(1, 3).Select(ix => PlayerNames[(_state.PlayerSeat + ix) % 4].text).Join(", ")}");
+        Debug.Log($"[TAC #{_moduleId}] {JsonForLogging()}");
+        Debug.Log($"[TAC #{_moduleId}] Initial hand: {_hand.Join(", ")}");
+        Debug.Log($"[TAC #{_moduleId}] {(_mustSwapWith != null ? "You must swap a card." : "You must not swap a card.")}");
         #endregion
     }
 
@@ -221,5 +233,14 @@ public class TACScript : MonoBehaviour
         Array.Copy(array, 0, newArray, 0, ix);
         Array.Copy(array, ix + 1, newArray, ix, newArray.Length - ix);
         return newArray;
+    }
+
+    private string JsonForLogging(bool isStrike = false)
+    {
+        var j = new JObject();
+        j["colors"] = new JArray(coloursIxShuffle);
+        j["playerseat"] = _state.PlayerSeat;
+        j["positions"] = new JArray(_state.Pieces.Select(p => (int?) p).ToArray());
+        return j.ToString(Formatting.None);
     }
 }
