@@ -24,6 +24,8 @@ namespace Assets
         public static TACPos operator ++(TACPos pos) { return pos + 1; }
         public static TACPos operator --(TACPos pos) { return pos - 1; }
 
+        public static int operator -(TACPos a, TACPos b) { return (a._pos - b._pos + 32) % 32; }
+
         public bool Equals(TACPos other) { return other._pos == _pos; }
         public override bool Equals(object obj) { return obj is TACPos && ((TACPos) obj)._pos == _pos; }
         public override int GetHashCode() { return _pos.GetHashCode(); }

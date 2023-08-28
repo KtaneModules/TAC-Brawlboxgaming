@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using KModkit;
-using System.Text.RegularExpressions;
-
-using Random = UnityEngine.Random;
+using System.Security.Policy;
 using Assets;
+using KModkit;
+using Newtonsoft.Json.Linq;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TACScript : MonoBehaviour
 {
@@ -23,9 +22,12 @@ public class TACScript : MonoBehaviour
     public Material[] PawnColours, LEDColours, CardImages;
 
     private static int _moduleIdCounter = 1;
-    private int _moduleId, steps;
-    private bool _moduleSolved, needSwap;
-    private TACGameState state;
+    private int _moduleId;
+    private bool _moduleSolved;
+    private int? _mustSwapWith;
+    private TACGameState _state;
+    private List<TACCard> _hand = new List<TACCard>();
+    private TACCard _swappableCard;
 
     private static readonly TACCard[] cards = new TACCard[]
     {
@@ -44,10 +46,10 @@ public class TACScript : MonoBehaviour
         new TACCardTrickster(),
         new TACCardWarrior()
     };
-    private static readonly string[] colourNames = new[] { "Green", "Red", "Yellow", "Blue" };
+    private static readonly string[] _colourNames = new[] { "Green", "Red", "Yellow", "Blue" };
 
-    private List<TACCard> hand = new List<TACCard>();
-    private TACCard swappableCard;
+    private static readonly string[] _allNames = { "Sam", "Tom", "Zoe", "Adam", "Alex", "Andy", "Anna", "Bill", "Carl", "Fred", "Kate", "Lucy", "Ryan", "Toby", "Will", "Zach", "Chris", "Craig", "David", "Emily", "Felix", "Harry", "James", "Jenny", "Julia", "Kevin", "Molly", "Peter", "Sally", "Sarah", "Steve", "Susan" };
+    private string[] _names;
 
     private readonly int[] coloursIxShuffle = new[] { 0, 1, 2, 3 };
     private int defuserColour;
@@ -99,6 +101,11 @@ public class TACScript : MonoBehaviour
 
     void Start()
     {
+        #region Rule seed
+        var rnd = RuleSeedable.GetRNG();
+        _names = rnd.ShuffleFisherYates(_allNames.ToArray());
+        #endregion
+
         PawnObject.transform.localPosition = boardPositions[0];
         _moduleId = _moduleIdCounter++;
 
@@ -114,16 +121,105 @@ public class TACScript : MonoBehaviour
         }
         #endregion
 
+        #region Decide on cards in player’s hand
+        tryAgain:
+        _hand = Enumerable.Range(0, 5).Select(_ => cards[Random.Range(0, cards.Length)]).ToList();
+        _state = TACGameState.FinalState(defuserColour, new TACPos(Random.Range(0, 32)));
+
+        var numSwappableCards = _hand.Count;
+        for (var cardIx = 0; cardIx < _hand.Count; cardIx++)
+        {
+            tryThisAgain:
+            var possibleUndos = _hand[cardIx].Unexecute(_state).ToList();
+
+            if (cardIx == _hand.Count - 1)
+            {
+                // Make sure to pick an unmove that will restore all enemies
+                possibleUndos.RemoveAll(st => st.Pieces[1] == null || st.Pieces[3] == null);
+            }
+
+            if (possibleUndos.Count == 0 && cardIx >= numSwappableCards)
+            {
+                numSwappableCards--;
+                var temp = _hand[cardIx];
+                _hand[cardIx] = _hand[numSwappableCards];
+                _hand[numSwappableCards] = temp;
+                goto tryThisAgain;
+            }
+            else if (possibleUndos.Count == 0)
+                goto tryAgain;
+
+            var pickIx = Random.Range(0, possibleUndos.Count);
+            _state = possibleUndos[pickIx];
+        }
+
+        _hand.Shuffle();
+        #endregion
+
+        if (Random.Range(0, 2) != 0)
+        {
+            var swapCardWith = cards[Random.Range(0, cards.Length)];
+            for (var cardIx = 0; cardIx < 5; cardIx++)
+            {
+                _swappableCard = _hand[cardIx];
+                _hand[cardIx] = swapCardWith;
+                _mustSwapWith = cardIx;
+
+                // Make sure that the hand after the swap is now unsolvable
+                if (!isSolvable())
+                    goto done;
+            }
+
+            _swappableCard = null;
+            _mustSwapWith = null;
+            goto tryAgain;
+        }
+        done:
+
         #region Calculate base pawn positions
         var serialNumber = BombInfo.GetSerialNumber().Select(ch => ch >= '0' && ch <= '9' ? ch - '0' : ch - 'A' + 1).ToArray();
+
         var enemy1 = new TACPos(serialNumber[0] + serialNumber[5]);
+        var name1 = _names[_state.Pieces[1].Value - enemy1];
+
         var partner = new TACPos(serialNumber[1] + serialNumber[4]);
         while (enemy1 == partner)
             partner++;
+        var partnerName = _names[_state.Pieces[2].Value - partner];
+
         var enemy2 = new TACPos(serialNumber[2] + serialNumber[3]);
         while (enemy2 == partner || enemy2 == enemy1)
             enemy2++;
+        var name2 = _names[_state.Pieces[3].Value - enemy2];
+
         Debug.Log(enemy1 + " " + partner + " " + enemy2);
         #endregion
+    }
+
+    private bool isSolvable()
+    {
+        return solve(_state, _hand.ToArray()).Any();
+    }
+
+    private IEnumerable<TACGameState> solve(TACGameState state, TACCard[] hand)
+    {
+        if (hand.Length == 0)
+        {
+            if (state.PlayerInHome)
+                yield return state;
+            yield break;
+        }
+        for (var i = 0; i < hand.Length; i++)
+            foreach (var newState in hand[i].Execute(state))
+                foreach (var result in solve(newState, remove(hand, i)))
+                    yield return result;
+    }
+
+    private static T[] remove<T>(T[] array, int ix)
+    {
+        var newArray = new T[array.Length - 1];
+        Array.Copy(array, 0, newArray, 0, ix);
+        Array.Copy(array, ix + 1, newArray, ix, newArray.Length - ix);
+        return newArray;
     }
 }

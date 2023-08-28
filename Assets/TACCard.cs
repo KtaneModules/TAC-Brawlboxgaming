@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets
@@ -75,11 +74,15 @@ namespace Assets
             for (var i = 1; i <= 3; i += 2)
                 if (state.Pieces[i] == null)
                 {
-                    var stateCapture = state.Clone();
-                    stateNoCapture.SetPlayerPosition(state.PlayerPosition - Number * Direction);
-                    stateNoCapture.Pieces[i] = state.PlayerPosition;
-                    yield return stateNoCapture;
+                    var stateCapture = stateNoCapture.Clone();
+                    stateCapture.Pieces[i] = state.PlayerPosition;
+                    yield return stateCapture;
                 }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}{1}{2}", Number, IsDiscard ? "◊" : "", Direction < 0 ? "⏪" : "");
         }
     }
 
@@ -114,7 +117,7 @@ namespace Assets
 
         public override IEnumerable<TACGameState> Unexecute(TACGameState state)
         {
-            for (var i = 1; i < Number; i++)
+            for (var i = 1; i <= Number; i++)
                 if (state.HasPieceOn(state.PlayerPosition - i))
                     yield break;
 
@@ -148,6 +151,11 @@ namespace Assets
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0}∴", Number);
+        }
     }
 
     class TACCardTrickster : TACCard
@@ -168,6 +176,11 @@ namespace Assets
         public override IEnumerable<TACGameState> Unexecute(TACGameState state)
         {
             return state.PlayerInHome ? Enumerable.Empty<TACGameState>() : Execute(state);
+        }
+
+        public override string ToString()
+        {
+            return "Trickster";
         }
     }
 
@@ -210,6 +223,11 @@ namespace Assets
                     }
                 destination--;
             }
+        }
+
+        public override string ToString()
+        {
+            return "Warrior";
         }
     }
 }
