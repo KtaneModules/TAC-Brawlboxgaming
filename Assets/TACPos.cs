@@ -25,7 +25,7 @@ namespace Assets
         public static TACPos operator --(TACPos pos) => pos - 1;
 
         public static int operator -(TACPos a, TACPos b) => (a._pos - b._pos + 32) % 32;
-        public static explicit operator int?(TACPos? pos) => pos == null ? (int?) null : pos.Value._pos;
+        public static explicit operator int(TACPos pos) => pos._pos;
 
         public bool Equals(TACPos other) => other._pos == _pos;
         public override bool Equals(object obj) => obj is TACPos && ((TACPos) obj)._pos == _pos;
