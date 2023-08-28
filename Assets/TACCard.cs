@@ -7,6 +7,7 @@ namespace Assets
     {
         public abstract IEnumerable<TACGameState> Execute(TACGameState state);
         public abstract IEnumerable<TACGameState> Unexecute(TACGameState state);
+        public abstract string MaterialName { get; }
     }
 
     class TACCardNumber : TACCard
@@ -20,6 +21,8 @@ namespace Assets
             Direction = direction;
             IsDiscard = isDiscard;
         }
+
+        public override string MaterialName => $"{Number}{(Direction == -1 ? "back" : "")}{(IsDiscard ? "discard" : "")}";
 
         public override IEnumerable<TACGameState> Execute(TACGameState state)
         {
@@ -90,6 +93,7 @@ namespace Assets
     {
         public int Number { get; private set; }
         public TACCardSingleStep(int number) { Number = number; }
+        public override string MaterialName => $"{Number}single";
 
         public override IEnumerable<TACGameState> Execute(TACGameState state)
         {
@@ -160,6 +164,7 @@ namespace Assets
 
     class TACCardTrickster : TACCard
     {
+        public override string MaterialName => "Trickster";
         public override IEnumerable<TACGameState> Execute(TACGameState state)
         {
             for (var p1 = 0; p1 < state.Pieces.Length; p1++)
@@ -186,6 +191,7 @@ namespace Assets
 
     class TACCardWarrior : TACCard
     {
+        public override string MaterialName => "Warrior";
         public override IEnumerable<TACGameState> Execute(TACGameState state)
         {
             var destination = state.PlayerPosition + 1;
