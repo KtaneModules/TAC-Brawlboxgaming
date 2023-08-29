@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets;
@@ -28,7 +29,7 @@ public class TACScript : MonoBehaviour
 
     private static int _moduleIdCounter = 1;
     private int _moduleId;
-    private bool _moduleSolved;
+    private bool _moduleSolved, _cardMoving = false;
     private int? _mustSwapWith;
     private TACGameState _state;
     private List<TACCard> _hand = new List<TACCard>();
@@ -179,7 +180,6 @@ public class TACScript : MonoBehaviour
         }
 
         _hand.Shuffle();
-        #endregion
 
         if (Random.Range(0, 2) != 0)
         {
@@ -200,6 +200,8 @@ public class TACScript : MonoBehaviour
             goto tryAgain;
         }
     done:
+        #endregion
+
         for (int i = 0; i < _hand.Count; i++)
         {
             Cards[i].material = CardImages.First(x => x.name == _hand[i].MaterialName);
@@ -237,6 +239,41 @@ public class TACScript : MonoBehaviour
         Debug.Log($"[TAC #{_moduleId}] {JsonForLogging()}");
         Debug.Log($"[TAC #{_moduleId}] Initial hand: {_hand.Join(", ")}");
         Debug.Log($"[TAC #{_moduleId}] {(_mustSwapWith != null ? "You must swap a card." : "You must not swap a card.")}");
+
+        for (int i = 0; i < CardSels.Length; i++)
+        {
+            int j = i;
+            CardSels[i].OnInteract += delegate ()
+            {
+                CardHandler(j);
+                return false;
+            };
+        }
+    }
+
+    private IEnumerator MoveCard(Transform obj)
+    {
+        _cardMoving = true;
+        var duration = 1f;
+        var elapsed = 0f;
+        var startPos = obj.localPosition;
+        var endPos = new Vector3(-0.06409124f, 0.0081f, 0.052f);
+        while (elapsed < duration)
+        {
+            obj.localPosition = new Vector3(Easing.InOutQuad(elapsed, startPos.x, endPos.x, duration), Easing.InOutQuad(elapsed, startPos.y, endPos.y, duration), Easing.InOutQuad(elapsed, startPos.z, endPos.z, duration));
+            yield return null;
+            elapsed += Time.deltaTime;
+        }
+        obj.localPosition = endPos;
+        _cardMoving = false;
+    }
+
+    private void CardHandler(int ix)
+    {
+        if (!_cardMoving)
+        {
+            StartCoroutine(MoveCard(CardObjects[ix].transform));
+        }
     }
 
     private bool isSolvable()
