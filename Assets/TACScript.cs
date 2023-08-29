@@ -21,7 +21,7 @@ public class TACScript : MonoBehaviour
     public MeshRenderer Pawn;
     public GameObject PawnObject, Choice1Button, Choice2Button;
     public GameObject[] CardObjects;
-    public Material[] PawnColours, LEDColours, CardImages;
+    public Material[] PawnColors, LEDColors, CardImages;
 
     public KMSelectable TacSel, LeftSel, RightSel;
     public KMSelectable[] CardSels, LEDSels;
@@ -29,7 +29,7 @@ public class TACScript : MonoBehaviour
 
     private static int _moduleIdCounter = 1;
     private int _moduleId;
-    private bool _moduleSolved, _cardMoving = false;
+    private bool _moduleSolved, _cardMoving, _hasSwapped;
     private int? _mustSwapWith;
     private TACGameState _state;
     private List<TACCard> _hand = new List<TACCard>();
@@ -59,13 +59,13 @@ public class TACScript : MonoBehaviour
         new TACCardTrickster(),
         new TACCardWarrior()
     };
-    private static readonly string[] _colourNames = new[] { "Red", "Yellow", "Green", "Blue" };
+    private static readonly string[] _colorNames = new[] { "Red", "Yellow", "Green", "Blue" };
 
     private static readonly string[] _allNames = { "Sam", "Tom", "Zoe", "Adam", "Alex", "Andy", "Anna", "Bill", "Carl", "Fred", "Kate", "Lucy", "Ryan", "Toby", "Will", "Zach", "Chris", "Craig", "David", "Emily", "Felix", "Harry", "James", "Jenny", "Julia", "Kevin", "Molly", "Peter", "Sally", "Sarah", "Steve", "Susan" };
     private string[] _names;
 
-    private readonly int[] coloursIxShuffle = new[] { 0, 1, 2, 3 };
-    private int defuserColour;
+    private readonly int[] colorsIxShuffle = new[] { 0, 1, 2, 3 };
+    private int defuserColor;
 
     private static readonly Vector3[] choiceButtonsStart = new[] {
         #region Vectors
@@ -135,22 +135,22 @@ public class TACScript : MonoBehaviour
         #endregion
 
         #region Decide the player colors
-        coloursIxShuffle.Shuffle();
-        defuserColour = Random.Range(0, 4);
+        colorsIxShuffle.Shuffle();
+        defuserColor = Random.Range(0, 4);
 
         for (int i = 0; i < LEDs.Length; i++)
         {
-            LEDs[i].material = LEDColours[coloursIxShuffle[i]];
-            PlayerNames[i].color = hexColors[coloursIxShuffle[i]];
-            if (i == defuserColour)
-                Pawn.material = PawnColours[coloursIxShuffle[i]];
+            LEDs[i].material = LEDColors[colorsIxShuffle[i]];
+            PlayerNames[i].color = hexColors[colorsIxShuffle[i]];
+            if (i == defuserColor)
+                Pawn.material = PawnColors[colorsIxShuffle[i]];
         }
     #endregion
 
     #region Decide on cards in player’s hand
     tryAgain:
         _hand = Enumerable.Range(0, 5).Select(_ => cards[Random.Range(0, cards.Length)]).ToList();
-        _state = TACGameState.FinalState(defuserColour, new TACPos(Random.Range(0, 32)));
+        _state = TACGameState.FinalState(defuserColor, new TACPos(Random.Range(0, 32)));
 
         var numSwappableCards = _hand.Count;
         for (var cardIx = 0; cardIx < _hand.Count; cardIx++)
@@ -249,6 +249,11 @@ public class TACScript : MonoBehaviour
                 return false;
             };
         }
+        TacSel.OnInteract += delegate ()
+        {
+            TACButtonHandler();
+            return false;
+        };
     }
 
     private IEnumerator MoveCard(Transform obj)
@@ -258,9 +263,25 @@ public class TACScript : MonoBehaviour
         var elapsed = 0f;
         var startPos = obj.localPosition;
         var endPos = new Vector3(-0.06409124f, 0.0081f, 0.052f);
+        var midPosY = 0.1f;
         while (elapsed < duration)
         {
-            obj.localPosition = new Vector3(Easing.InOutQuad(elapsed, startPos.x, endPos.x, duration), Easing.InOutQuad(elapsed, startPos.y, endPos.y, duration), Easing.InOutQuad(elapsed, startPos.z, endPos.z, duration));
+            if (elapsed < duration / 2)
+            {
+                obj.localPosition = new Vector3(
+                    Easing.InOutQuad(elapsed, startPos.x, endPos.x, duration),
+                    Easing.InOutQuad(elapsed, startPos.y, midPosY, duration),
+                    Easing.InOutQuad(elapsed, startPos.z, endPos.z, duration)
+                    );
+            }
+            else
+            {
+                obj.localPosition = new Vector3(
+                    Easing.InOutQuad(elapsed, startPos.x, endPos.x, duration),
+                    Easing.InOutQuad(elapsed, midPosY, endPos.y, duration),
+                    Easing.InOutQuad(elapsed, startPos.z, endPos.z, duration)
+                    );
+            }
             yield return null;
             elapsed += Time.deltaTime;
         }
@@ -270,9 +291,34 @@ public class TACScript : MonoBehaviour
 
     private void CardHandler(int ix)
     {
-        if (!_cardMoving)
+        if (!_moduleSolved)
         {
-            StartCoroutine(MoveCard(CardObjects[ix].transform));
+            if (_mustSwapWith != null && !_hasSwapped)
+            {
+                Strike();
+                return;
+            }
+            if (!_cardMoving)
+            {
+                StartCoroutine(MoveCard(CardObjects[ix].transform));
+            }
+        }
+    }
+
+    private void TACButtonHandler()
+    {
+        if (!_moduleSolved)
+        {
+            if (!_hasSwapped)
+            {
+                if (_mustSwapWith == null)
+                {
+                    Strike();
+                    return;
+                }
+                InitiateSwap();
+                _hasSwapped = true;
+            }
         }
     }
 
@@ -306,9 +352,47 @@ public class TACScript : MonoBehaviour
     private string JsonForLogging(bool isStrike = false)
     {
         var j = new JObject();
-        j["colors"] = new JArray(coloursIxShuffle);
+        j["colors"] = new JArray(colorsIxShuffle);
         j["playerseat"] = _state.PlayerSeat;
         j["positions"] = new JArray(_state.Pieces.Select(p => (int?)p).ToArray());
         return j.ToString(Formatting.None);
+    }
+
+    private void Strike()
+    {
+        if (!_moduleSolved)
+            Module.HandleStrike();
+        PawnObject.transform.localPosition = boardPositions[(int)_state.PlayerPosition];
+
+        Choice1Button.transform.localPosition = choiceButtonsStart[0];
+        Choice2Button.transform.localPosition = choiceButtonsStart[1];
+
+        _hasSwapped = false;
+
+        ResetCardPositions();
+        ResetLEDColors();
+    }
+
+    private void ResetCardPositions()
+    {
+        CardObjects[0].transform.localPosition = new Vector3(-0.04702418f, 0.01012446f, -0.05868292f);
+        CardObjects[1].transform.localPosition = new Vector3(-0.02397433f, 0.01051207f, -0.05868292f);
+        CardObjects[2].transform.localPosition = new Vector3(-0.0003125817f, 0.01092333f, -0.05868292f);
+        CardObjects[3].transform.localPosition = new Vector3(0.02334929f, 0.0113346f, -0.05868292f);
+        CardObjects[4].transform.localPosition = new Vector3(0.04712323f, 0.01174586f, -0.05868292f);
+        CardObjects[5].transform.localPosition = new Vector3(-0.06409124f, 0.0081f, 0.05196124f);
+    }
+
+    private void ResetLEDColors()
+    {
+        LEDColors[0].color = hexColors[0];
+        LEDColors[1].color = hexColors[1];
+        LEDColors[2].color = hexColors[2];
+        LEDColors[3].color = hexColors[3];
+    }
+
+    private void InitiateSwap()
+    {
+        throw new NotImplementedException();
     }
 }
