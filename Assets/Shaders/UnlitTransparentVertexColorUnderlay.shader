@@ -1,11 +1,11 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 // Unlit alpha-blended shader.
-// Based on Unlit-Alpha.shader from Unity source, but added color
+// Based on Unlit-Alpha.shader from Unity source, but added colour
 // - no lighting
 // - no lightmap support
-// - no color
-// - uses vertex color!
+// - no colour
+// - uses vertex colour!
 
 Shader "KT/Unlit/TransparentVertexColorUnderlay30" {
 Properties {

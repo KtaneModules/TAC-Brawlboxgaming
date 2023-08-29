@@ -3724,7 +3724,6 @@ MonoBehaviour:
   PawnObject: {fileID: 1470447637765376}
   Choice1Button: {fileID: 1312007901677716}
   Choice2Button: {fileID: 1278647883379576}
-  TACButton: {fileID: 1233161143762220}
   CardObjects:
   - {fileID: 1714586105772534}
   - {fileID: 1258505833171450}

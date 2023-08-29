@@ -256,36 +256,34 @@ public class TACScript : MonoBehaviour
         };
     }
 
+    private IEnumerator AnimationLoop(float fromValue, float toValue, float duration, Action<float> action)
+    {
+        var rate = (toValue - fromValue) / duration;
+        for (float i = fromValue; i <= toValue; i += Time.deltaTime * rate)
+        {
+            action(i);
+            yield return null;
+        }
+        action(toValue);
+    }
+
     private IEnumerator MoveCard(Transform obj)
     {
         _cardMoving = true;
         var duration = 1f;
-        var elapsed = 0f;
-        var startPos = obj.localPosition;
-        var endPos = new Vector3(-0.06409124f, 0.0081f, 0.052f);
-        var midPosY = 0.1f;
-        while (elapsed < duration)
+
+        var startPosition = obj.localPosition;
+        var endPosition = new Vector3(-0.06409124f, 0.0081f, 0.052f);
+        var startRotation = obj.localRotation;
+        var endRotation = Quaternion.Euler(-90, 0, 0);
+
+        yield return AnimationLoop(0, 1, duration, i =>
         {
-            if (elapsed < duration / 2)
-            {
-                obj.localPosition = new Vector3(
-                    Easing.InOutQuad(elapsed, startPos.x, endPos.x, duration),
-                    Easing.InOutQuad(elapsed, startPos.y, midPosY, duration),
-                    Easing.InOutQuad(elapsed, startPos.z, endPos.z, duration)
-                    );
-            }
-            else
-            {
-                obj.localPosition = new Vector3(
-                    Easing.InOutQuad(elapsed, startPos.x, endPos.x, duration),
-                    Easing.InOutQuad(elapsed, midPosY, endPos.y, duration),
-                    Easing.InOutQuad(elapsed, startPos.z, endPos.z, duration)
-                    );
-            }
-            yield return null;
-            elapsed += Time.deltaTime;
-        }
-        obj.localPosition = endPos;
+            var curve = i * (i - 1) * (i - 1);
+            obj.transform.localRotation = Quaternion.Euler(-curve * 180, 0, 0) * Quaternion.Slerp(startRotation, endRotation, i);
+            obj.transform.localPosition = Vector3.Lerp(startPosition, endPosition, -i * (i - 2)) + new Vector3(0, curve * .47f, 0);
+        });
+
         _cardMoving = false;
     }
 
