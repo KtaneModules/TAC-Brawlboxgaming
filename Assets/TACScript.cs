@@ -21,7 +21,8 @@ public class TACScript : MonoBehaviour
     public MeshRenderer Pawn;
     public GameObject PawnObject;
     public GameObject[] CardObjects, ChoiceButtonObjects;
-    public Material[] PawnColors, LEDColors, CardImages, ButtonImages;
+    public Material[] PawnColors, LEDColors, CardImages, ButtonImagesMove;
+    public Material ButtonImageDiscard, ButtonImageEnterHome, ButtonImagePassHome, ButtonImagePassHomeBackwards;
 
     public KMSelectable TacSel, LeftSel, RightSel;
     public KMSelectable[] CardSels, LEDSels;
@@ -143,6 +144,12 @@ public class TACScript : MonoBehaviour
 
     private bool _tacButtonHeld = true;
 
+    private int? currentCardChoice = null;
+
+    private Dictionary<TACCardOption, bool> currentOptions = null;
+
+    private TACCardOption currentChoice = TACCardOption.None;
+
     void Start()
     {
         _moduleId = _moduleIdCounter++;
@@ -203,7 +210,8 @@ public class TACScript : MonoBehaviour
         if (Random.Range(0, 2) != 0)
         {
             var swapCardWith = cards[Random.Range(0, cards.Length)];
-            for (var cardIx = 0; cardIx < 5; cardIx++)
+            var cardOrder = Enumerable.Range(0, 5).ToArray().Shuffle();
+            foreach (var cardIx in cardOrder)
             {
                 _swappableCard = _hand[cardIx];
                 _hand[cardIx] = swapCardWith;
@@ -297,6 +305,20 @@ public class TACScript : MonoBehaviour
             }
             _tacButtonHeld = false;
         };
+
+        LeftSel.OnInteract += delegate ()
+        {
+            currentOptions[currentChoice] = false;
+            StartCoroutine(HandleCard());
+            return false;
+        };
+
+        RightSel.OnInteract += delegate ()
+        {
+            currentOptions[currentChoice] = true;
+            StartCoroutine(HandleCard());
+            return false;
+        };
     }
 
     private IEnumerator CheckTACButtonReleased()
@@ -322,12 +344,12 @@ public class TACScript : MonoBehaviour
 
     private IEnumerator PlayCard(Transform obj)
     {
-
-
         _cardMoving = true;
         yield return MoveObjectSmooth(obj, new Vector3(-0.06409124f, 0.0081f + (_cardsPlayedCounter * 0.0004f), 0.052f), Quaternion.Euler(-90, 0, 0), 1f);
         _cardsPlayedCounter++;
         _cardMoving = false;
+        currentOptions = null;
+        currentCardChoice = null;
     }
 
     private IEnumerator MoveObjectSmooth(Transform obj, Vector3 endPosition, Quaternion endRotation, float duration, float height = .47f, bool extraRotation = true)
@@ -370,16 +392,10 @@ public class TACScript : MonoBehaviour
             }
             if (!_cardMoving && !_gameResetting && !_pieceMoving && !_buttonsMoving)
             {
-                if (_hand[ix] is TACCardNumber && ((TACCardNumber)_hand[ix]).IsDiscard)
-                {
-                    TACCardNumber card = (TACCardNumber)_hand[ix];
-
-
-                }
-                else
-                {
-                    StartCoroutine(PlayCard(CardObjects[ix].transform));
-                }
+                if (currentCardChoice != null) return;
+                currentCardChoice = ix;
+                currentOptions = new Dictionary<TACCardOption, bool>();
+                StartCoroutine(HandleCard());
             }
         }
     }
@@ -403,6 +419,7 @@ public class TACScript : MonoBehaviour
 
     private IEnumerator MoveButtons()
     {
+        _buttonsMoving = true;
         yield return MoveObjectsSmooth(
             new[] { ChoiceButtons[0].transform, ChoiceButtons[1].transform },
             new[] { choiceButtonsEnd[0], choiceButtonsEnd[1] },
@@ -411,6 +428,36 @@ public class TACScript : MonoBehaviour
             new[] { 0f, 0f },
             false
             );
+        _buttonsMoving = false;
+    }
+
+    private IEnumerator HandleCard()
+    {
+        if (currentOptions != null && currentOptions.Count > 0) yield return ResetButtonPositions();
+        var option = _hand[currentCardChoice.Value].GetOption(_state, currentOptions);
+        if (option == TACCardOption.None) yield return PlayCard(CardObjects[currentCardChoice.Value].transform);
+        else
+        {
+            currentChoice = option;
+            if (option == TACCardOption.Discard)
+            {
+                ChoiceButtons[0].sharedMaterial = ButtonImagesMove[0]; // To-do: ruleseed
+                ChoiceButtons[1].sharedMaterial = ButtonImageDiscard;
+                yield return MoveButtons();
+            }
+            else if (option == TACCardOption.EnterHome)
+            {
+                ChoiceButtons[0].sharedMaterial = ButtonImagePassHome;
+                ChoiceButtons[1].sharedMaterial = ButtonImageEnterHome;
+                yield return MoveButtons();
+            }
+            else if (option == TACCardOption.EnterHomeBackwards)
+            {
+                ChoiceButtons[0].sharedMaterial = ButtonImagePassHomeBackwards;
+                ChoiceButtons[1].sharedMaterial = ButtonImageEnterHome;
+                yield return MoveButtons();
+            }
+        }
     }
 
     private bool isSolvable()
@@ -486,14 +533,16 @@ public class TACScript : MonoBehaviour
             CardObjects[5].transform.localRotation = cardRotations[5];
             CardObjects[(int)_mustSwapWith].transform.localRotation = cardRotations[(int)_mustSwapWith];
 
-            _hand[(int)_mustSwapWith] = _initialHand[(int)_mustSwapWith];
-
             _hasSwapped = false;
         }
+
+        _hand = _initialHand.ToList();
 
         _cardsPlayedCounter = 0;
 
         _gameResetting = false;
+        currentOptions = null;
+        currentCardChoice = null;
     }
 
     private IEnumerator ResetButtonPositions()

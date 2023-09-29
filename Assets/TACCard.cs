@@ -4,11 +4,22 @@ using System.Linq;
 
 namespace Assets
 {
+    enum TACCardOption
+    {
+        None,
+        Discard,
+        EnterHome,
+        EnterHomeBackwards,
+        Swap
+    }
     abstract class TACCard
     {
         public abstract IEnumerable<TACGameState> Execute(TACGameState state);
         public abstract IEnumerable<TACGameState> Unexecute(TACGameState state);
-        public abstract string MaterialName { get; }
+        public abstract TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions);
+
+        public abstract string MaterialName
+        { get; }
         public bool IsPlayed { get; set; }
     }
 
@@ -17,21 +28,19 @@ namespace Assets
         public int Number { get; private set; }
         public int Direction { get; private set; }  // Either +1 or -1
         public bool IsDiscard { get; private set; }
-        public bool? IsDiscardChosen { get; set; }
-        public TACCardNumber(int number, int direction = 1, bool isDiscard = false, bool? isDiscardChosen = null)
+        public TACCardNumber(int number, int direction = 1, bool isDiscard = false)
         {
             Number = number;
             Direction = direction;
             IsDiscard = isDiscard;
-            IsDiscardChosen = isDiscardChosen;
         }
 
         public override string MaterialName => $"{Number}{(Direction == -1 ? "back" : "")}{(IsDiscard ? "discard" : "")}";
 
         public override IEnumerable<TACGameState> Execute(TACGameState state)
         {
-            if (IsDiscardChosen != null)
-                if ((bool)IsDiscardChosen) yield return state;
+            if (IsDiscard)
+                yield return state;
 
             for (var i = 1; i < Number; i++)
                 if (state.HasPieceOn(state.PlayerPosition + i * Direction))
@@ -59,7 +68,7 @@ namespace Assets
         public override IEnumerable<TACGameState> Unexecute(TACGameState state)
         {
             if (IsDiscard)
-                if (new[] { 0, 1 }.Shuffle()[0] == 0) yield return state;
+                yield return state;
 
             if (state.PlayerInHome)
             {
@@ -85,6 +94,23 @@ namespace Assets
                     stateCapture.Pieces[i] = state.PlayerPosition;
                     yield return stateCapture;
                 }
+        }
+
+        public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
+        {
+            if (IsDiscard && !currentOptions.ContainsKey(TACCardOption.Discard)) return TACCardOption.Discard;
+            else if (IsDiscard && currentOptions[TACCardOption.Discard]) return TACCardOption.None;
+            else
+            {
+                var enterHomeOption = Direction < 0 ? TACCardOption.EnterHomeBackwards : TACCardOption.EnterHome;
+                if (!currentOptions.ContainsKey(enterHomeOption))
+                {
+                    var newPosition = state.PlayerPosition + Number * Direction;
+                    var canEnterHome = newPosition == TACPos.GetStart(state.PlayerSeat) + Direction;
+                    if (canEnterHome) return enterHomeOption;
+                }
+                return TACCardOption.None;
+            }
         }
 
         public override string ToString()
@@ -160,6 +186,17 @@ namespace Assets
             }
         }
 
+        public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
+        {
+            if (!currentOptions.ContainsKey(TACCardOption.EnterHome))
+            {
+                var newPosition = state.PlayerPosition + Number;
+                var canEnterHome = newPosition == TACPos.GetStart(state.PlayerSeat) + 1;
+                if (canEnterHome) return TACCardOption.EnterHome;
+            }
+            return TACCardOption.None;
+        }
+
         public override string ToString()
         {
             return string.Format("{0}∴", Number);
@@ -185,6 +222,11 @@ namespace Assets
         public override IEnumerable<TACGameState> Unexecute(TACGameState state)
         {
             return state.PlayerInHome ? Enumerable.Empty<TACGameState>() : Execute(state);
+        }
+
+        public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
+        {
+            return !currentOptions.ContainsKey(TACCardOption.Swap) ? TACCardOption.Swap : TACCardOption.None;
         }
 
         public override string ToString()
@@ -233,6 +275,11 @@ namespace Assets
                     }
                 destination--;
             }
+        }
+
+        public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
+        {
+            return TACCardOption.None;
         }
 
         public override string ToString()
