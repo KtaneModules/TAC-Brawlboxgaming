@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assets
@@ -8,6 +9,7 @@ namespace Assets
         public abstract IEnumerable<TACGameState> Execute(TACGameState state);
         public abstract IEnumerable<TACGameState> Unexecute(TACGameState state);
         public abstract string MaterialName { get; }
+        public bool IsPlayed { get; set; }
     }
 
     class TACCardNumber : TACCard
@@ -15,19 +17,21 @@ namespace Assets
         public int Number { get; private set; }
         public int Direction { get; private set; }  // Either +1 or -1
         public bool IsDiscard { get; private set; }
-        public TACCardNumber(int number, int direction = 1, bool isDiscard = false)
+        public bool? IsDiscardChosen { get; set; }
+        public TACCardNumber(int number, int direction = 1, bool isDiscard = false, bool? isDiscardChosen = null)
         {
             Number = number;
             Direction = direction;
             IsDiscard = isDiscard;
+            IsDiscardChosen = isDiscardChosen;
         }
 
         public override string MaterialName => $"{Number}{(Direction == -1 ? "back" : "")}{(IsDiscard ? "discard" : "")}";
 
         public override IEnumerable<TACGameState> Execute(TACGameState state)
         {
-            if (IsDiscard)
-                yield return state;
+            if (IsDiscardChosen != null)
+                if ((bool)IsDiscardChosen) yield return state;
 
             for (var i = 1; i < Number; i++)
                 if (state.HasPieceOn(state.PlayerPosition + i * Direction))
@@ -55,7 +59,7 @@ namespace Assets
         public override IEnumerable<TACGameState> Unexecute(TACGameState state)
         {
             if (IsDiscard)
-                yield return state;
+                if (new[] { 0, 1 }.Shuffle()[0] == 0) yield return state;
 
             if (state.PlayerInHome)
             {

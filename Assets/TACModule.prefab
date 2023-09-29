@@ -3720,10 +3720,11 @@ MonoBehaviour:
   - {fileID: 23927454962406544}
   - {fileID: 23546796192904100}
   - {fileID: 23266486323869028}
+  ChoiceButtons:
+  - {fileID: 23316276903839496}
+  - {fileID: 23884207194814176}
   Pawn: {fileID: 23727331044450820}
   PawnObject: {fileID: 1470447637765376}
-  Choice1Button: {fileID: 1312007901677716}
-  Choice2Button: {fileID: 1278647883379576}
   CardObjects:
   - {fileID: 1714586105772534}
   - {fileID: 1258505833171450}
@@ -3731,6 +3732,9 @@ MonoBehaviour:
   - {fileID: 1064172555393310}
   - {fileID: 1353781874189054}
   - {fileID: 1005128254212910}
+  ChoiceButtonObjects:
+  - {fileID: 1312007901677716}
+  - {fileID: 1278647883379576}
   PawnColors:
   - {fileID: 2100000, guid: cafcc9fe4ae3838478f9b16fa6000e15, type: 2}
   - {fileID: 2100000, guid: e045e14e47f109041a0c25d2d3853541, type: 2}
@@ -3765,6 +3769,14 @@ MonoBehaviour:
   - {fileID: 2100000, guid: bc275ae5cf295df4b9783bb417ead189, type: 2}
   - {fileID: 2100000, guid: 4267e55328392fa48b946588f18548f9, type: 2}
   - {fileID: 2100000, guid: b7fb0771f0d22044a8d41d737af650dd, type: 2}
+  ButtonImages:
+  - {fileID: 2100000, guid: 3c4cce285b75a2842959c217637dea8f, type: 2}
+  - {fileID: 2100000, guid: 2ebc14c0063aebd42aaf92a6db20dfff, type: 2}
+  - {fileID: 2100000, guid: 7b7f30c0fa03b874cb1c4a836b6b4290, type: 2}
+  - {fileID: 2100000, guid: 1f0ec0c7e50fd9241b8b267b981da690, type: 2}
+  - {fileID: 2100000, guid: a7fe9817bf3cb5f40b2c3e5c57aef46c, type: 2}
+  - {fileID: 2100000, guid: 68fc44528002a504d815d4c79c4b5281, type: 2}
+  - {fileID: 2100000, guid: c7a80e2fbaa8b7e48ba00d4d28cd67bf, type: 2}
   TacSel: {fileID: 114691381844616554}
   LeftSel: {fileID: 114747378765019502}
   RightSel: {fileID: 114142379724389258}
