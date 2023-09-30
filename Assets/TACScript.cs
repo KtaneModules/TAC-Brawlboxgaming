@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +68,6 @@ public class TACScript : MonoBehaviour
     private string[] _names;
 
     private readonly int[] colorsIxShuffle = new[] { 0, 1, 2, 3 };
-    private int defuserColor;
 
     private static readonly Vector3 choiceButtonsStart = new Vector3(0.0f, 0.008941091f, -0.0003482774f);
     private static readonly Vector3[] choiceButtonsEnd = new[] {
@@ -77,40 +76,12 @@ public class TACScript : MonoBehaviour
         new Vector3(0.02545439f, 0.008941091f, -0.0003482774f)
         #endregion
     };
-    private static readonly Vector3[] boardPositions = new[] {
+    private static readonly Vector3[] ledStartPositions = new[] {
         #region Vectors
-        new Vector3(-0.04433801f, 0.01470134f, 0.02188657f),
-        new Vector3(-0.03333801f, 0.01470134f, 0.02188657f),
-        new Vector3(-0.02243801f, 0.01470134f, 0.02188657f),
-        new Vector3(-0.01153801f, 0.01470134f, 0.02188657f),
-        new Vector3(-0.00063801f, 0.01470134f, 0.02188657f),
-        new Vector3(0.01056199f, 0.01470134f, 0.02188657f),
-        new Vector3(0.02146199f, 0.01470134f, 0.02188657f),
-        new Vector3(0.03246199f, 0.01470134f, 0.02188657f),
-        new Vector3(0.04346199f, 0.01470134f, 0.02188657f),
-        new Vector3(0.05436199f, 0.01470134f, 0.02188657f),
-        new Vector3(0.06536199f, 0.01470134f, 0.02188657f),
-        new Vector3(0.06536199f, 0.01470134f, 0.01088657f),
-        new Vector3(0.06536199f, 0.01470134f, -0.00011343f),
-        new Vector3(0.06536199f, 0.01470134f, -0.01111343f),
-        new Vector3(0.06536199f, 0.01470134f, -0.02211343f),
-        new Vector3(0.05436199f, 0.01470134f, -0.02211343f),
-        new Vector3(0.04346199f, 0.01470134f, -0.02211343f),
-        new Vector3(0.03246199f, 0.01470134f, -0.02211343f),
-        new Vector3(0.02146199f, 0.01470134f, -0.02211343f),
-        new Vector3(0.01056199f, 0.01470134f, -0.02211343f),
-        new Vector3(-0.00063801f, 0.01470134f, -0.02211343f),
-        new Vector3(-0.01153801f, 0.01470134f, -0.02211343f),
-        new Vector3(-0.02243801f, 0.01470134f, -0.02211343f),
-        new Vector3(-0.03333801f, 0.01470134f, -0.02211343f),
-        new Vector3(-0.04433801f, 0.01470134f, -0.02211343f),
-        new Vector3(-0.05523801f, 0.01470134f, -0.02211343f),
-        new Vector3(-0.06623801f, 0.01470134f, -0.02211343f),
-        new Vector3(-0.06623801f, 0.01470134f, -0.01111343f),
-        new Vector3(-0.06623801f, 0.01470134f, -0.00011343f),
-        new Vector3(-0.06623801f, 0.01470134f, 0.01088657f),
-        new Vector3(-0.06623801f, 0.01470134f, 0.02188657f),
-        new Vector3(-0.05523801f, 0.01470134f, 0.02188657f),
+        new Vector3(0.04343889f, 0.009911899f, 0.03191717f),
+        new Vector3(0.0433994f, 0.009912316f, -0.03234167f),
+        new Vector3(-0.04423796f, 0.009912226f, -0.03234166f),
+        new Vector3(-0.04435579f, 0.009911899f, 0.03191718f)
         #endregion
     };
     private static readonly Vector3[] cardPositions = new[] {
@@ -131,14 +102,6 @@ public class TACScript : MonoBehaviour
         Quaternion.Euler(-90, 0, 0),
         Quaternion.Euler(-90, 0, 0),
         Quaternion.Euler(90, 0, 180)
-        #endregion
-    };
-    private static readonly Vector3[] homes = new[] {
-        #region Vectors
-            new Vector3(-0.04433801f, 0.01470134f, 0.01088657f),
-            new Vector3(0.04346199f, 0.01470134f, 0.01088657f),
-            new Vector3(0.04346199f, 0.01470134f, -0.01111343f),
-            new Vector3(-0.04433801f, 0.01470134f, -0.01111343f)
         #endregion
     };
 
