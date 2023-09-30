@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace Assets
@@ -77,7 +77,7 @@ namespace Assets
         public static explicit operator int(TACPos pos) => pos._pos;
 
         public bool Equals(TACPos other) => other._pos == _pos;
-        public override bool Equals(object obj) => obj is TACPos && ((TACPos) obj)._pos == _pos;
+        public override bool Equals(object obj) => obj is TACPos && ((TACPos)obj)._pos == _pos;
         public override int GetHashCode() => _pos.GetHashCode();
         public override string ToString() => _pos == -1 ? "Home" : _pos.ToString();
     }

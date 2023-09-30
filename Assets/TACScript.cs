@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +20,7 @@ public class TACScript : MonoBehaviour
     public MeshRenderer[] LEDs, Cards, ChoiceButtons;
     public MeshRenderer Pawn;
     public GameObject PawnObject;
-    public GameObject[] CardObjects, ChoiceButtonObjects;
+    public GameObject[] CardObjects, ChoiceButtonObjects, LEDObjects;
     public Material[] PawnColors, LEDColors, CardImages, ButtonImagesMove;
     public Material ButtonImageDiscard, ButtonImageEnterHome, ButtonImagePassHome, ButtonImagePassHomeBackwards;
 
@@ -33,7 +33,7 @@ public class TACScript : MonoBehaviour
     private int _moduleId;
     private bool _moduleSolved, _cardMoving, _pieceMoving, _gameResetting, _buttonsMoving, _hasSwapped;
     private int? _mustSwapWith;
-    private TACGameState _state;
+    private TACGameState _state, _initialState;
     private List<TACCard> _initialHand = new List<TACCard>();
     private List<TACCard> _hand = new List<TACCard>();
     private TACCard _swappableCard;
@@ -95,7 +95,7 @@ public class TACScript : MonoBehaviour
         #endregion
     };
     private static readonly Quaternion[] cardRotations = new[] {
-        #region Quarternions
+        #region Quaternions
         Quaternion.Euler(-90, 0, 0),
         Quaternion.Euler(-90, 0, 0),
         Quaternion.Euler(-90, 0, 0),
@@ -125,7 +125,7 @@ public class TACScript : MonoBehaviour
 
         #region Decide the player colors
         colorsIxShuffle.Shuffle();
-        defuserColor = Random.Range(0, 4);
+        var defuserColor = Random.Range(0, 4);
 
         for (int i = 0; i < LEDs.Length; i++)
         {
@@ -140,6 +140,7 @@ public class TACScript : MonoBehaviour
     tryAgain:
         _hand = Enumerable.Range(0, 5).Select(_ => cards[Random.Range(0, cards.Length)]).ToList();
         _state = TACGameState.FinalState(defuserColor, new TACPos(Random.Range(0, 32)));
+
 
         var numSwappableCards = _hand.Count;
         for (var cardIx = 0; cardIx < _hand.Count; cardIx++)
@@ -195,6 +196,7 @@ public class TACScript : MonoBehaviour
         #endregion
 
         _initialHand = _hand.ToList();
+        _initialState = _state.Clone();
 
         for (int i = 0; i < _hand.Count; i++)
         {
@@ -205,7 +207,7 @@ public class TACScript : MonoBehaviour
             Cards[5].sharedMaterial = CardImages.First(x => x.name == _swappableCard.MaterialName);
         }
 
-        PawnObject.transform.localPosition = boardPositions[(int)_state.PlayerPosition];
+        PawnObject.transform.localPosition = _state.PlayerPosition.Vector(_state);
 
         ChoiceButtons[0].transform.localPosition = choiceButtonsStart;
         ChoiceButtons[1].transform.localPosition = choiceButtonsStart;
@@ -380,6 +382,51 @@ public class TACScript : MonoBehaviour
         }
     }
 
+    private IEnumerator MoveLED(GameObject led)
+    {
+        _buttonsMoving = true;
+        yield return MoveObjectSmooth(led.transform, new Vector3(led.transform.localPosition.x, led.transform.localPosition.y - 0.002f, led.transform.localPosition.z), Quaternion.Euler(-90, 0, 180), .5f, 0f, false);
+        _buttonsMoving = false;
+    }
+
+    private IEnumerator ResetLEDPositions()
+    {
+        _buttonsMoving = true;
+        yield return MoveObjectsSmooth(
+            LEDObjects.Select(x => x.transform).ToArray(),
+            ledStartPositions.ToArray(),
+            new[] { Quaternion.Euler(-90, 0, 180), Quaternion.Euler(-90, 0, 180), Quaternion.Euler(-90, 0, 180), Quaternion.Euler(-90, 0, 180) },
+            .5f,
+            new[] { 0f, 0f, 0f, 0f },
+            false
+            );
+        _buttonsMoving = false;
+    }
+
+    private IEnumerator TurnLEDOff(MeshRenderer led)
+    {
+        var onColor = led.sharedMaterial.color;
+        var offColor = new Color(led.sharedMaterial.color.r * 0.5f, led.sharedMaterial.color.g * 0.5f, led.sharedMaterial.color.b * 0.5f);
+
+        led.sharedMaterial.color = offColor;
+        yield return new WaitForSeconds(0.05f);
+        led.sharedMaterial.color = onColor;
+        yield return new WaitForSeconds(0.1f);
+        led.sharedMaterial.color = offColor;
+        yield return new WaitForSeconds(0.05f);
+        led.sharedMaterial.color = onColor;
+        yield return new WaitForSeconds(0.2f);
+        led.sharedMaterial.color = offColor;
+    }
+
+    private void ResetLEDColors()
+    {
+        for (int i = 0; i < LEDs.Length; i++)
+        {
+            LEDs[i].sharedMaterial.color = hexColors[colorsIxShuffle[i]];
+        }
+    }
+
     private IEnumerator MoveButtons()
     {
         _buttonsMoving = true;
@@ -419,6 +466,42 @@ public class TACScript : MonoBehaviour
                 ChoiceButtons[0].sharedMaterial = ButtonImagePassHomeBackwards;
                 ChoiceButtons[1].sharedMaterial = ButtonImageEnterHome;
                 yield return MoveButtons();
+            }
+        }
+    }
+
+    private IEnumerator MovePawn(TACPos endPos, bool isSwap = false)
+    {
+        var obj = PawnObject.transform;
+        var endPosition = endPos.Vector(_state);
+        var endRotation = Quaternion.Euler(-90, 0, 180);
+        var duration = 1f;
+        if (isSwap)
+            yield return MoveObjectSmooth(obj, endPosition, endRotation, duration);
+        else
+        {
+            List<TACPos> corners = new List<TACPos>();
+            List<int> numStepsForCorner = new List<int>();
+
+            TACPos posCheck = _state.PlayerPosition + 1;
+            int steps = 1;
+            while (posCheck != endPos)
+            {
+                if (posCheck.IsCorner)
+                {
+                    corners.Add(posCheck);
+                    numStepsForCorner.Add(steps);
+                    steps = 0;
+                }
+                posCheck++;
+                steps++;
+            }
+            corners.Add(endPos);
+            numStepsForCorner.Add(steps);
+            var totalSteps = numStepsForCorner.Sum();
+            for (int i = 0; i < corners.Count; i++)
+            {
+                yield return MoveObjectSmooth(obj, corners[i].Vector(_state), endRotation, duration / totalSteps * numStepsForCorner[i], 0, false);
             }
         }
     }
@@ -463,21 +546,33 @@ public class TACScript : MonoBehaviour
     {
         if (!_moduleSolved)
             Module.HandleStrike();
-        PawnObject.transform.localPosition = boardPositions[(int)_state.PlayerPosition];
+        PawnObject.transform.localPosition = _state.PlayerPosition.Vector(_state);
 
         _hasSwapped = false;
 
         StartCoroutine(ResetState());
     }
 
+
+
     private IEnumerator ResetState()
     {
         _gameResetting = true;
 
         yield return ResetButtonPositions();
-        yield return ResetLEDColors();
         yield return ResetCardPositions();
+        yield return ResetLEDPositions();
+        ResetLEDColors();
+        yield return MovePawn(new TACPos(0), true);
 
+        #region ResetPawnPosition
+        if (_state.PlayerPosition != _initialState.PlayerPosition)
+        {
+
+        }
+        #endregion
+
+        #region ResetSwap
         if (_hasSwapped)
         {
             yield return MoveObjectsSmooth(
@@ -498,8 +593,10 @@ public class TACScript : MonoBehaviour
 
             _hasSwapped = false;
         }
+        #endregion
 
         _hand = _initialHand.ToList();
+        _state = _initialState.Clone();
 
         _cardsPlayedCounter = 0;
 
@@ -530,15 +627,6 @@ public class TACScript : MonoBehaviour
             }
         }
         yield return CardObjects;
-    }
-
-    private IEnumerator ResetLEDColors()
-    {
-        LEDColors[0].color = hexColors[0];
-        LEDColors[1].color = hexColors[1];
-        LEDColors[2].color = hexColors[2];
-        LEDColors[3].color = hexColors[3];
-        yield return LEDColors;
     }
 
     private IEnumerator InitiateSwap()

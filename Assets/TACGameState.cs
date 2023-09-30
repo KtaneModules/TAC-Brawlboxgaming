@@ -2,7 +2,7 @@
 
 namespace Assets
 {
-    class TACGameState
+    public class TACGameState
     {
         // Pieces[0] is player, Pieces[2] is partner, all other indexes are enemies
         public TACPos?[] Pieces;
