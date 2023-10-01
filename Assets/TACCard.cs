@@ -14,13 +14,11 @@ namespace Assets
     }
     abstract class TACCard
     {
-        public abstract IEnumerable<TACGameState> Execute(TACGameState state);
+        public abstract TACGameState Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions);
         public abstract IEnumerable<TACGameState> Unexecute(TACGameState state);
         public abstract TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions);
 
-        public abstract string MaterialName
-        { get; }
-        public bool IsPlayed { get; set; }
+        public abstract string MaterialName { get; }
     }
 
     class TACCardNumber : TACCard
@@ -37,32 +35,40 @@ namespace Assets
 
         public override string MaterialName => $"{Number}{(Direction == -1 ? "back" : "")}{(IsDiscard ? "discard" : "")}";
 
-        public override IEnumerable<TACGameState> Execute(TACGameState state)
+        public override TACGameState Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
         {
-            if (IsDiscard)
-                yield return state;
-
-            for (var i = 1; i < Number; i++)
-                if (state.HasPieceOn(state.PlayerPosition + i * Direction))
-                    yield break;
-            var newState = state.Clone();
-            var newPosition = state.PlayerPosition + Number * Direction;
-
-            // Option to move into home
-            if (newPosition == TACPos.GetStart(state.PlayerSeat) + Direction)
+            foreach (var option in currentOptions)
             {
-                newState = newState.Clone();
-                newState.SetPlayerPosition(TACPos.Home);
-                yield return newState;
+                if (option.Key == TACCardOption.Discard && option.Value)
+                {
+                    return state;
+                }
+                else if ((option.Key == TACCardOption.EnterHome || option.Key == TACCardOption.EnterHomeBackwards) && option.Value)
+                {
+                    for (var i = 1; i < Number; i++)
+                        if (state.HasPieceOn(state.PlayerPosition + i * Direction))
+                            return null;
+                    var newState = state.Clone();
+                    newState.SetPlayerPosition(TACPos.Home);
+                    return newState;
+                }
+                else
+                {
+                    for (var i = 1; i < Number; i++)
+                        if (state.HasPieceOn(state.PlayerPosition + i * Direction))
+                            return null;
+                    if (!state.IsPartnerOn(state.PlayerPosition + Number * Direction))
+                    {
+                        // Option to move past home
+                        var newState = state.Clone();
+                        var newPosition = state.PlayerPosition + Number * Direction;
+                        newState.RemoveEnemyPieceIfPresent(newPosition);
+                        newState.SetPlayerPosition(newPosition);
+                        return newState;
+                    }
+                }
             }
-
-            if (!state.IsPartnerOn(state.PlayerPosition + Number * Direction))
-            {
-                // Option to move past home
-                newState.RemoveEnemyPieceIfPresent(newPosition);
-                newState.SetPlayerPosition(newPosition);
-                yield return newState;
-            }
+            return null;
         }
 
         public override IEnumerable<TACGameState> Unexecute(TACGameState state)
@@ -125,28 +131,36 @@ namespace Assets
         public TACCardSingleStep(int number) { Number = number; }
         public override string MaterialName => $"{Number}single";
 
-        public override IEnumerable<TACGameState> Execute(TACGameState state)
+        public override TACGameState Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
         {
-            var newState = state.Clone();
-            for (var i = 1; i < Number; i++)
+            foreach (var option in currentOptions)
             {
-                if (newState.PartnerPosition == state.PlayerPosition + i)
-                    yield break;
-                newState.RemoveEnemyPieceIfPresent(state.PlayerPosition + i);
-            }
-            var newPosition = state.PlayerPosition + Number;
+                if ((option.Key == TACCardOption.EnterHome || option.Key == TACCardOption.EnterHomeBackwards) && option.Value)
+                {
+                    for (var i = 1; i < Number; i++)
+                        if (state.HasPieceOn(state.PlayerPosition + i))
+                            return null;
+                    var newState = state.Clone();
+                    newState.SetPlayerPosition(TACPos.Home);
+                    return newState;
+                }
+                else
+                {
+                    var newState = state.Clone();
+                    for (var i = 1; i < Number; i++)
+                    {
+                        if (newState.PartnerPosition == state.PlayerPosition + i)
+                            return null;
+                        newState.RemoveEnemyPieceIfPresent(state.PlayerPosition + i);
+                    }
+                    var newPosition = state.PlayerPosition + Number;
 
-            // Option to move into home
-            if (newPosition == TACPos.GetStart(state.PlayerSeat) + 1)
-            {
-                newState = newState.Clone();
-                newState.SetPlayerPosition(TACPos.Home);
-                yield return newState;
+                    newState.RemoveEnemyPieceIfPresent(newPosition);
+                    newState.SetPlayerPosition(newPosition);
+                    return newState;
+                }
             }
-
-            newState.RemoveEnemyPieceIfPresent(newPosition);
-            newState.SetPlayerPosition(newPosition);
-            yield return newState;
+            return null;
         }
 
         public override IEnumerable<TACGameState> Unexecute(TACGameState state)
@@ -206,22 +220,26 @@ namespace Assets
     class TACCardTrickster : TACCard
     {
         public override string MaterialName => "Trickster";
-        public override IEnumerable<TACGameState> Execute(TACGameState state)
+        public override TACGameState Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
         {
-            for (var p1 = 0; p1 < state.Pieces.Length; p1++)
-                if (state.Pieces[p1] != null)
-                    for (var p2 = p1 + 1; p2 < state.Pieces.Length; p2++)
-                        if (state.Pieces[p2] != null)
-                        {
-                            var newState = state.Clone();
-                            newState.SwapPieces(p1, p2);
-                            yield return newState;
-                        }
+            return state;
         }
 
         public override IEnumerable<TACGameState> Unexecute(TACGameState state)
         {
-            return state.PlayerInHome ? Enumerable.Empty<TACGameState>() : Execute(state);
+            if (state.PlayerInHome) yield break;
+            else
+            {
+                for (var p1 = 0; p1 < state.Pieces.Length; p1++)
+                    if (state.Pieces[p1] != null)
+                        for (var p2 = p1 + 1; p2 < state.Pieces.Length; p2++)
+                            if (state.Pieces[p2] != null)
+                            {
+                                var newState = state.Clone();
+                                newState.SwapPieces(p1, p2);
+                                yield return newState;
+                            }
+            }
         }
 
         public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
@@ -238,19 +256,19 @@ namespace Assets
     class TACCardWarrior : TACCard
     {
         public override string MaterialName => "Warrior";
-        public override IEnumerable<TACGameState> Execute(TACGameState state)
+        public override TACGameState Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
         {
             var destination = state.PlayerPosition + 1;
             while (!state.HasPieceOn(destination))
                 destination++;
 
             if (state.PartnerPosition == destination)
-                yield break;
+                return state; //Strike
 
             var newState = state.Clone();
             newState.RemoveEnemyPieceIfPresent(destination);
             newState.SetPlayerPosition(destination);
-            yield return newState;
+            return newState;
         }
 
         public override IEnumerable<TACGameState> Unexecute(TACGameState state)
