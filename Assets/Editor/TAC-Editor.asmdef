@@ -1,0 +1,10 @@
+{
+  "name": "TAC-Editor",
+  "references": [
+    "TAC"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": []
+}

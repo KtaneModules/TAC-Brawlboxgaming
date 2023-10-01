@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets;
+using System.Reflection;
 using KModkit;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using TAC;
 using UnityEngine;
 
 using Random = UnityEngine.Random;
@@ -23,6 +24,8 @@ public class TACScript : MonoBehaviour
     public GameObject[] CardObjects, ChoiceButtonObjects, LEDObjects;
     public Material[] PawnColors, LEDColors, CardImages, ButtonImagesMove;
     public Material ButtonImageDiscard, ButtonImageEnterHome, ButtonImagePassHome, ButtonImagePassHomeBackwards;
+    public Color[] LedOnColors;
+    public Color[] LedOffColors;
 
     public KMSelectable TacSel, LeftSel, RightSel;
     public KMSelectable[] CardSels, LEDSels;
@@ -30,20 +33,13 @@ public class TACScript : MonoBehaviour
 
     private static int _moduleIdCounter = 1;
     private static int _cardsPlayedCounter = 0;
-    private int _moduleId, _ledsChosen;
-    private bool _moduleSolved, _cardMoving, _pieceMoving, _gameResetting, _buttonsMoving, _hasSwapped, _canSwapPieces;
-    private int? _mustSwapWith;
+    private int _moduleId, _swapPieceWith2;
+    private bool _moduleSolved, _cardMoving, _gameResetting, _buttonsMoving, _hasSwapped, _canSwapPieces;
+    private int? _mustSwapWith, _swapPieceWith1;
     private TACGameState _state, _initialState;
     private List<TACCard> _initialHand = new List<TACCard>();
     private List<TACCard> _hand = new List<TACCard>();
     private TACCard _swappableCard;
-
-    private static readonly Color[] hexColors = new Color[] {
-        new Color(1.0f, 0.15f, 0.15f),
-        new Color(1.0f, 1.0f, 0.3f),
-        new Color(0.3f, 1.0f, 0.2f),
-        new Color(0.0f, 0.2f, 1.0f)
-    };
 
     private static readonly TACCard[] cards = new TACCard[]
     {
@@ -104,6 +100,7 @@ public class TACScript : MonoBehaviour
         Quaternion.Euler(90, 0, 180)
         #endregion
     };
+    private static Vector3[] ledOrigPositions;
 
     private bool _tacButtonHeld = true;
 
@@ -116,11 +113,13 @@ public class TACScript : MonoBehaviour
     void Start()
     {
         _moduleId = _moduleIdCounter++;
+        ledOrigPositions = LEDObjects.Select(obj => obj.transform.localPosition).ToArray();
 
         #region Rule seed
         var rnd = RuleSeedable.GetRNG();
         Debug.Log($"[TAC #{_moduleId}] Using rule seed: {rnd.Seed}.");
         _names = rnd.ShuffleFisherYates(_allNames.ToArray());
+        Debug.Log($"<TAC #{_moduleId}> Names order: {_names.Join(", ")}");
         #endregion
 
         #region Decide the player colors
@@ -130,25 +129,26 @@ public class TACScript : MonoBehaviour
         for (int i = 0; i < LEDs.Length; i++)
         {
             LEDs[i].material = LEDColors[colorsIxShuffle[i]];
-            PlayerNames[i].color = hexColors[colorsIxShuffle[i]];
+            PlayerNames[i].color = LedOnColors[colorsIxShuffle[i]];
             if (i == defuserColor)
-                Pawn.material = PawnColors[colorsIxShuffle[i]];
+                Pawn.sharedMaterial = PawnColors[colorsIxShuffle[i]];
         }
-    #endregion
+        #endregion
 
-    #region Decide on cards in player’s hand
-    tryAgain:
+        #region Decide on cards in player’s hand
+        var mustSwap = Random.Range(0, 2) != 0;
+        tryAgain:
+        var logging = new List<string>();
         _hand = Enumerable.Range(0, 5).Select(_ => cards[Random.Range(0, cards.Length)]).ToList();
         _state = TACGameState.FinalState(defuserColor, new TACPos(Random.Range(0, 32)));
         _canSwapPieces = false;
-        _ledsChosen = 0;
-
 
         var numSwappableCards = _hand.Count;
+        var intendedStates = new List<TACGameState> { _state };
         for (var cardIx = 0; cardIx < _hand.Count; cardIx++)
         {
-        tryThisAgain:
-            var possibleUndos = _hand[cardIx].Unexecute(_state).ToList();
+            tryThisAgain:
+            var possibleUndos = _hand[cardIx].UnexecuteAll(_state).ToList();
 
             if (cardIx == _hand.Count - 1)
             {
@@ -169,11 +169,15 @@ public class TACScript : MonoBehaviour
 
             var pickIx = Random.Range(0, possibleUndos.Count);
             _state = possibleUndos[pickIx];
+            intendedStates.Add(_state);
         }
+        logging.Add($"[TAC #{_moduleId}] Intended gameplay:");
+        for (var i = _hand.Count - 1; i >= 0; i--)
+            logging.Add($"[TAC #{_moduleId}] {JsonForLogging($"Play {_hand[i]}, yielding:", intendedStates[i])}");
 
         _hand.Shuffle();
 
-        if (Random.Range(0, 2) != 0)
+        if (mustSwap)
         {
             var swapCardWith = cards[Random.Range(0, cards.Length)];
             var cardOrder = Enumerable.Range(0, 5).ToArray().Shuffle();
@@ -194,8 +198,14 @@ public class TACScript : MonoBehaviour
             _mustSwapWith = null;
             goto tryAgain;
         }
-    done:
+        done:
+
+        if (!_hand.Any(c => c is TACCardTrickster) && !(_swappableCard is TACCardTrickster))
+            goto tryAgain;
         #endregion
+
+        foreach (var log in logging)
+            Debug.Log(log);
 
         _initialHand = _hand.ToList();
         _initialState = _state.Clone();
@@ -219,56 +229,53 @@ public class TACScript : MonoBehaviour
 
         var serialNumber = BombInfo.GetSerialNumber().Select(ch => ch >= '0' && ch <= '9' ? ch - '0' : ch - 'A' + 1).ToArray();
 
-        var enemy1 = new TACPos(serialNumber[0] + serialNumber[5]);
-        PlayerNames[(_state.PlayerSeat + 1) % 4].text = _names[_state.Pieces[1].Value - enemy1];
+        var enemy1Offset = _state.PlayerPosition + serialNumber[0] + serialNumber[5];
+        PlayerNames[(_state.PlayerSeat + 1) % 4].text = _names[_state.Pieces[1].Value - enemy1Offset];
 
-        var partner = new TACPos(serialNumber[1] + serialNumber[4]);
-        while (enemy1 == partner)
-            partner++;
-        PlayerNames[(_state.PlayerSeat + 2) % 4].text = _names[_state.Pieces[2].Value - partner];
+        var partnerOffset = _state.Pieces[1].Value + serialNumber[1] + serialNumber[4];
+        PlayerNames[(_state.PlayerSeat + 2) % 4].text = _names[_state.Pieces[2].Value - partnerOffset];
 
-        var enemy2 = new TACPos(serialNumber[2] + serialNumber[3]);
-        while (enemy2 == partner || enemy2 == enemy1)
-            enemy2++;
-        PlayerNames[(_state.PlayerSeat + 3) % 4].text = _names[_state.Pieces[3].Value - enemy2];
+        var enemy2Offset = _state.Pieces[2].Value + serialNumber[2] + serialNumber[3];
+        PlayerNames[(_state.PlayerSeat + 3) % 4].text = _names[_state.Pieces[3].Value - enemy2Offset];
         #endregion
 
-        Debug.Log($"[TAC #{_moduleId}] Player names (clockwise from You): {Enumerable.Range(1, 3).Select(ix => PlayerNames[(_state.PlayerSeat + ix) % 4].text).Join(", ")}");
-        Debug.Log($"[TAC #{_moduleId}] {JsonForLogging()}");
+        Debug.Log($"[TAC #{_moduleId}] {JsonForLogging($"Player names (clockwise from You): {Enumerable.Range(1, 3).Select(ix => PlayerNames[(_state.PlayerSeat + ix) % 4].text).Join(", ")}", _state)}");
         Debug.Log($"[TAC #{_moduleId}] Initial hand: {_hand.Join(", ")}");
-        Debug.Log($"[TAC #{_moduleId}] {(_mustSwapWith != null ? "You must swap a card." : "You must not swap a card.")}");
-
-        for (int i = 0; i < CardSels.Length; i++)
+        if (_mustSwapWith == null)
+            Debug.Log($"[TAC #{_moduleId}] You must not swap a card.");
+        else
         {
-            int j = i;
-            CardSels[i].OnInteract += delegate ()
-            {
-                CardHandler(j);
-                return false;
-            };
+            Debug.Log($"[TAC #{_moduleId}] You must swap a card.");
+            Debug.Log($"[TAC #{_moduleId}] Hand after swap: {Enumerable.Range(0, _hand.Count).Select(ix => ix == _mustSwapWith.Value ? _swappableCard : _hand[ix]).Join(", ")}");
         }
+
+        for (var i = 0; i < CardSels.Length; i++)
+            CardSels[i].OnInteract += CardHandler(i);
+
+        for (var i = 0; i < LEDSels.Length; i++)
+            LEDSels[i].OnInteract += LEDHandler(i);
 
         Coroutine tacButtonCoroutine = null;
 
         TacSel.OnInteract += delegate ()
         {
-            if (!_gameResetting)
-            {
-                _tacButtonHeld = true;
-                tacButtonCoroutine = StartCoroutine(CheckTACButtonReleased());
-            }
+            if (_gameResetting || _moduleSolved)
+                return false;
+
+            _tacButtonHeld = true;
+            tacButtonCoroutine = StartCoroutine(CheckTACButtonReleased());
             return false;
         };
 
         TacSel.OnInteractEnded += delegate ()
         {
-            if (!_gameResetting)
+            if (_gameResetting || _moduleSolved)
+                return;
+
+            if (_tacButtonHeld)
             {
-                if (_tacButtonHeld)
-                {
-                    StopCoroutine(tacButtonCoroutine);
-                    TACButtonHandler();
-                }
+                StopCoroutine(tacButtonCoroutine);
+                TACButtonHandler();
             }
             _tacButtonHeld = false;
         };
@@ -284,6 +291,70 @@ public class TACScript : MonoBehaviour
         {
             currentOptions[currentChoice] = true;
             StartCoroutine(HandleCard());
+            return false;
+        };
+    }
+
+    private KMSelectable.OnInteractHandler LEDHandler(int ix)
+    {
+        return delegate
+        {
+            if (!_canSwapPieces || _buttonsMoving || _moduleSolved)
+                return false;
+
+            if (_swapPieceWith1 == null)
+            {
+                // User selected the first LED for swapping
+                _swapPieceWith1 = ix;
+                StartCoroutine(MoveLED(ix, down: true));
+            }
+            else if (_swapPieceWith1 == ix)
+            {
+                // User selected the same LED a second time ⇒ unselect it
+                _swapPieceWith1 = null;
+                StartCoroutine(MoveLED(ix, down: false));
+            }
+            else
+            {
+                // User selected the second LED: perform the swap
+                StartCoroutine(MoveLED(_swapPieceWith1.Value, down: false));
+                _swapPieceWith2 = ix;
+                currentOptions[TACCardOption.Swap] = true;
+                _canSwapPieces = false;
+                StartCoroutine(HandleCard());
+            }
+
+            return false;
+        };
+    }
+
+    private KMSelectable.OnInteractHandler CardHandler(int ix)
+    {
+        return delegate
+        {
+            if (_moduleSolved)
+                return false;
+
+            if (_mustSwapWith != null && !_hasSwapped)
+            {
+                Debug.Log($"[TAC #{_moduleId}] You tried to play a card at the start of the round, but you needed to swap first. Strike!");
+                Strike();
+                return false;
+            }
+
+            if (_canSwapPieces)
+            {
+                StartCoroutine(BlinkLEDs());
+                return false;
+            }
+
+            if (!_cardMoving && !_gameResetting && !_buttonsMoving && currentCardChoice == null)
+            {
+                currentCardChoice = ix;
+                currentOptions = new Dictionary<TACCardOption, bool>();
+                StartCoroutine(HandleCard());
+            }
+
             return false;
         };
     }
@@ -309,14 +380,55 @@ public class TACScript : MonoBehaviour
         action(toValue);
     }
 
-    private IEnumerator PlayCard(Transform obj)
+    private IEnumerator PlayCard()
     {
+        var obj = CardObjects[currentCardChoice.Value].transform;
+        var card = _hand[currentCardChoice.Value];
+        _hand[currentCardChoice.Value] = null;
+
         _cardMoving = true;
         yield return MoveObjectSmooth(obj, new Vector3(-0.06409124f, 0.0081f + (_cardsPlayedCounter * 0.0004f), 0.052f), Quaternion.Euler(-90, 0, 0), 1f);
         _cardMoving = false;
-        _cardsPlayedCounter++;
-        currentOptions = null;
-        currentCardChoice = null;
+        var execResult = card.Execute(_state, currentOptions, _swapPieceWith1 ?? -1, _swapPieceWith2);
+
+        if (execResult is TACCardExecuteStrike)
+        {
+            Debug.Log($"[TAC #{_moduleId}] {((TACCardExecuteStrike) execResult).LoggingMessage} Strike!");
+            Strike();
+        }
+        else
+        {
+            var newState = ((TACCardExecuteSuccess) execResult).State;
+
+            if (newState.PlayerPosition != _state.PlayerPosition)
+                yield return MovePawn(newState.PlayerPosition, card.MoveType);
+
+            for (var ix = 0; ix < 4; ix++)
+                if (newState.Pieces[ix] == null && _state.Pieces[ix] != null)
+                    yield return TurnLEDOff((ix + _state.PlayerSeat) % 4);
+
+            _state = newState;
+            _canSwapPieces = false;
+            _cardsPlayedCounter++;
+            currentOptions = null;
+            currentCardChoice = null;
+
+            if (_state.PlayerInHome && _hand.Any(c => c != null))
+            {
+                Debug.Log($"[TAC #{_moduleId}] You entered your home with cards still in your hand. Strike!");
+                Strike();
+            }
+            else if (_state.PlayerInHome)
+            {
+                Debug.Log($"[TAC #{_moduleId}] You entered your home and your hand is empty. Module solved!");
+                Module.HandlePass();
+            }
+            else if (_hand.All(c => c == null))
+            {
+                Debug.Log($"[TAC #{_moduleId}] Your hand is empty, but you did not enter your home. Strike!");
+                Strike();
+            }
+        }
     }
 
     private IEnumerator MoveObjectSmooth(Transform obj, Vector3 endPosition, Quaternion endRotation, float duration, float height = .47f, bool extraRotation = true)
@@ -348,53 +460,39 @@ public class TACScript : MonoBehaviour
         });
     }
 
-    private void CardHandler(int ix)
-    {
-        if (!_moduleSolved)
-        {
-            if (_mustSwapWith != null && !_hasSwapped)
-            {
-                Strike();
-                return;
-            }
-            if (!_cardMoving && !_gameResetting && !_pieceMoving && !_buttonsMoving && !_canSwapPieces && currentCardChoice == null)
-            {
-                if (currentCardChoice != null) return;
-                currentCardChoice = ix;
-                currentOptions = new Dictionary<TACCardOption, bool>();
-                StartCoroutine(HandleCard());
-            }
-        }
-    }
-
     private void TACButtonHandler()
     {
-        if (currentCardChoice != null)
-        {
-            currentOptions = null;
-            currentCardChoice = null;
-            StartCoroutine(ResetButtonPositions());
-            return;
-        }
-        if (!_moduleSolved && !_hasSwapped)
+        StartCoroutine(ResetLEDPositions());
+        StartCoroutine(ResetButtonPositions());
+
+        if (currentCardChoice != null && _canSwapPieces)
+            StartCoroutine(BlinkLEDs());
+
+        if (currentCardChoice == null && !_hasSwapped && _cardsPlayedCounter == 0)
         {
             if (_mustSwapWith == null)
             {
-                if (_cardsPlayedCounter == 0)
-                {
-                    Strike();
-                }
-                return;
+                Debug.Log($"[TAC #{_moduleId}] You pressed the TAC button at the start of the round, but no swap was required. Strike!");
+                Strike();
             }
-            StartCoroutine(InitiateSwap());
-            _hasSwapped = true;
+            else
+            {
+                StartCoroutine(InitiateSwap());
+                _hasSwapped = true;
+            }
         }
+
+        _canSwapPieces = false;
+        currentOptions = null;
+        currentCardChoice = null;
     }
 
-    private IEnumerator MoveLED(GameObject led)
+    private IEnumerator MoveLED(int ledIx, bool down)
     {
         _buttonsMoving = true;
-        yield return MoveObjectSmooth(led.transform, new Vector3(led.transform.localPosition.x, led.transform.localPosition.y - 0.002f, led.transform.localPosition.z), Quaternion.Euler(-90, 0, 180), .5f, 0f, false);
+        yield return MoveObjectSmooth(LEDObjects[ledIx].transform,
+            new Vector3(ledOrigPositions[ledIx].x, ledOrigPositions[ledIx].y + (down ? -.002f : 0), ledOrigPositions[ledIx].z),
+            Quaternion.Euler(-90, 0, 180), .5f, 0f, false);
         _buttonsMoving = false;
     }
 
@@ -403,37 +501,52 @@ public class TACScript : MonoBehaviour
         _buttonsMoving = true;
         yield return MoveObjectsSmooth(
             LEDObjects.Select(x => x.transform).ToArray(),
-            ledStartPositions.ToArray(),
+            ledStartPositions,
             new[] { Quaternion.Euler(-90, 0, 180), Quaternion.Euler(-90, 0, 180), Quaternion.Euler(-90, 0, 180), Quaternion.Euler(-90, 0, 180) },
             .5f,
             new[] { 0f, 0f, 0f, 0f },
-            false
-            );
+            false);
         _buttonsMoving = false;
     }
 
-    private IEnumerator TurnLEDOff(MeshRenderer led)
+    private IEnumerator TurnLEDOff(int ledIx)
     {
-        var onColor = led.sharedMaterial.color;
-        var offColor = new Color(led.sharedMaterial.color.r * 0.5f, led.sharedMaterial.color.g * 0.5f, led.sharedMaterial.color.b * 0.5f);
+        var onColor = LedOnColors[colorsIxShuffle[ledIx]];
+        var offColor = LedOffColors[colorsIxShuffle[ledIx]];
 
-        led.sharedMaterial.color = offColor;
+        LEDs[ledIx].material.color = offColor;
         yield return new WaitForSeconds(0.05f);
-        led.sharedMaterial.color = onColor;
+        LEDs[ledIx].material.color = onColor;
         yield return new WaitForSeconds(0.1f);
-        led.sharedMaterial.color = offColor;
+        LEDs[ledIx].material.color = offColor;
         yield return new WaitForSeconds(0.05f);
-        led.sharedMaterial.color = onColor;
+        LEDs[ledIx].material.color = onColor;
         yield return new WaitForSeconds(0.2f);
-        led.sharedMaterial.color = offColor;
+        LEDs[ledIx].material.color = offColor;
+    }
+
+    private IEnumerator BlinkLEDs()
+    {
+        for (var i = 0; i < LEDs.Length; i++)
+            LEDs[i].material.color = LedOffColors[colorsIxShuffle[i]];
+        yield return new WaitForSeconds(0.1f);
+        for (var i = 0; i < LEDs.Length; i++)
+            LEDs[i].material.color = LedOnColors[colorsIxShuffle[i]];
+        yield return new WaitForSeconds(0.1f);
+        for (var i = 0; i < LEDs.Length; i++)
+            LEDs[i].material.color = LedOffColors[colorsIxShuffle[i]];
+        yield return new WaitForSeconds(0.1f);
+        for (var i = 0; i < LEDs.Length; i++)
+            LEDs[i].material.color = LedOnColors[colorsIxShuffle[i]];
+        yield return new WaitForSeconds(0.1f);
+        for (var i = 0; i < LEDs.Length; i++)
+            LEDs[i].material.color = _state.Pieces[(i + 4 - _state.PlayerSeat) % 4] == null ? LedOffColors[colorsIxShuffle[i]] : LedOnColors[colorsIxShuffle[i]];
     }
 
     private void ResetLEDColors()
     {
         for (int i = 0; i < LEDs.Length; i++)
-        {
-            LEDs[i].sharedMaterial.color = hexColors[colorsIxShuffle[i]];
-        }
+            LEDs[i].material.color = LedOnColors[colorsIxShuffle[i]];
     }
 
     private IEnumerator MoveButtons()
@@ -445,8 +558,7 @@ public class TACScript : MonoBehaviour
             new[] { Quaternion.Euler(-90, 0, 180), Quaternion.Euler(-90, 0, 180) },
             1f,
             new[] { 0f, 0f },
-            false
-            );
+            false);
         _buttonsMoving = false;
     }
 
@@ -456,87 +568,116 @@ public class TACScript : MonoBehaviour
         var option = _hand[currentCardChoice.Value].GetOption(_state, currentOptions);
         if (option == TACCardOption.None)
         {
-            _hand[currentCardChoice.Value] = null;
-            yield return PlayCard(CardObjects[currentCardChoice.Value].transform);
+            yield return PlayCard();
+            yield break;
         }
-        else
+
+        currentChoice = option;
+        switch (option)
         {
-            currentChoice = option;
-            if (option == TACCardOption.Discard)
-            {
+            case TACCardOption.Discard:
                 ChoiceButtons[0].sharedMaterial = ButtonImagesMove[0]; // To-do: ruleseed
                 ChoiceButtons[1].sharedMaterial = ButtonImageDiscard;
                 yield return MoveButtons();
-            }
-            else if (option == TACCardOption.EnterHome)
-            {
+                break;
+
+            case TACCardOption.EnterHome:
                 ChoiceButtons[0].sharedMaterial = ButtonImagePassHome;
                 ChoiceButtons[1].sharedMaterial = ButtonImageEnterHome;
                 yield return MoveButtons();
-            }
-            else if (option == TACCardOption.EnterHomeBackwards)
-            {
+                break;
+
+            case TACCardOption.EnterHomeBackwards:
                 ChoiceButtons[0].sharedMaterial = ButtonImagePassHomeBackwards;
                 ChoiceButtons[1].sharedMaterial = ButtonImageEnterHome;
                 yield return MoveButtons();
-            }
-            else if (option == TACCardOption.Swap) yield return _canSwapPieces = true;
+                break;
+
+            case TACCardOption.Swap:
+                _canSwapPieces = true;
+                _swapPieceWith1 = null;
+                yield return BlinkLEDs();
+                break;
         }
     }
 
-    private IEnumerator MovePawn(TACPos endPos, bool isSwap = false)
+    private IEnumerator MovePawn(TACPos endPos, TACPawnMove moveType)
     {
         var obj = PawnObject.transform;
         var endPosition = endPos.Vector(_state);
         var endRotation = Quaternion.Euler(-90, 0, 180);
         var duration = 1f;
-        if (isSwap)
+        if (moveType == TACPawnMove.Teleport)
             yield return MoveObjectSmooth(obj, endPosition, endRotation, duration);
         else
         {
-            List<TACPos> corners = new List<TACPos>();
-            List<int> numStepsForCorner = new List<int>();
-
-            TACPos posCheck = _state.PlayerPosition + 1;
-            int steps = 1;
-            while (posCheck != endPos)
+            var corners = new List<TACPos>();
+            var numStepsForCorner = new List<int>();
+            if (endPos.IsHome && _state.PlayerPosition == TACPos.GetStart(_state.PlayerSeat))
             {
-                if (posCheck.IsCorner)
+                corners.Add(endPos);
+                numStepsForCorner.Add(1);
+            }
+            else if (moveType == TACPawnMove.Backwards && _state.PlayerInHome && endPos == TACPos.GetStart(_state.PlayerSeat))
+            {
+                corners.Add(endPos);
+                numStepsForCorner.Add(1);
+            }
+            else
+            {
+                var direction = moveType == TACPawnMove.Forwards ? 1 : -1;
+                var posCheck = moveType == TACPawnMove.Backwards && _state.PlayerInHome ? TACPos.GetStart(_state.PlayerSeat) : _state.PlayerPosition + direction;
+                var steps = 1;
+                if (direction < 0 && _state.PlayerInHome)
                 {
+                    posCheck = TACPos.GetStart(_state.PlayerSeat);
                     corners.Add(posCheck);
-                    numStepsForCorner.Add(steps);
+                    numStepsForCorner.Add(1);
                     steps = 0;
                 }
-                posCheck++;
-                steps++;
+                while (posCheck != endPos)
+                {
+                    if (posCheck.IsCorner)
+                    {
+                        corners.Add(posCheck);
+                        numStepsForCorner.Add(steps);
+                        steps = 0;
+                        posCheck += direction;
+                    }
+                    else if (endPos.IsHome && posCheck == TACPos.GetStart(_state.PlayerSeat))
+                    {
+                        corners.Add(posCheck);
+                        numStepsForCorner.Add(steps);
+                        steps = 0;
+                        posCheck = TACPos.Home;
+                    }
+                    else
+                        posCheck += direction;
+                    steps++;
+                }
+                corners.Add(endPos);
+                numStepsForCorner.Add(steps);
             }
-            corners.Add(endPos);
-            numStepsForCorner.Add(steps);
             var totalSteps = numStepsForCorner.Sum();
-            for (int i = 0; i < corners.Count; i++)
-            {
+            for (var i = 0; i < corners.Count; i++)
                 yield return MoveObjectSmooth(obj, corners[i].Vector(_state), endRotation, duration / totalSteps * numStepsForCorner[i], 0, false);
-            }
         }
     }
 
-    private bool isSolvable()
-    {
-        return solve(_state, _hand.ToArray()).Any();
-    }
+    private bool isSolvable() => solve(_state, _hand.ToArray()).Any();
 
     private IEnumerable<TACGameState> solve(TACGameState state, TACCard[] hand)
     {
-        //if (hand.Length == 0)
-        //{
-        //    if (state.PlayerInHome)
-        //        yield return state;
+        if (hand.Length == 0)
+        {
+            if (state.PlayerInHome)
+                yield return state;
             yield break;
-        //}
-        //for (var i = 0; i < hand.Length; i++)
-        //    foreach (var newState in hand[i].Execute(state))
-        //        foreach (var result in solve(newState, remove(hand, i)))
-        //            yield return result;
+        }
+        for (var i = 0; i < hand.Length; i++)
+            foreach (var newState in hand[i].ExecuteAll(state))
+                foreach (var result in solve(newState, remove(hand, i)))
+                    yield return result;
     }
 
     private static T[] remove<T>(T[] array, int ix)
@@ -547,12 +688,13 @@ public class TACScript : MonoBehaviour
         return newArray;
     }
 
-    private string JsonForLogging(bool isStrike = false)
+    private string JsonForLogging(string message, TACGameState state)
     {
         var j = new JObject();
+        j["message"] = message;
         j["colors"] = new JArray(colorsIxShuffle);
-        j["playerseat"] = _state.PlayerSeat;
-        j["positions"] = new JArray(_state.Pieces.Select(p => (int?)p).ToArray());
+        j["playerseat"] = state.PlayerSeat;
+        j["positions"] = new JArray(state.Pieces.Select(p => (int?) p).ToArray());
         return j.ToString(Formatting.None);
     }
 
@@ -560,14 +702,9 @@ public class TACScript : MonoBehaviour
     {
         if (!_moduleSolved)
             Module.HandleStrike();
-        PawnObject.transform.localPosition = _state.PlayerPosition.Vector(_state);
-
-        _hasSwapped = false;
 
         StartCoroutine(ResetState());
     }
-
-
 
     private IEnumerator ResetState()
     {
@@ -578,31 +715,26 @@ public class TACScript : MonoBehaviour
         yield return ResetLEDPositions();
         ResetLEDColors();
 
-        #region ResetPawnPosition
         if (_state.PlayerPosition != _initialState.PlayerPosition)
-        {
-
-        }
-        #endregion
+            yield return MovePawn(_initialState.PlayerPosition, TACPawnMove.Backwards);
 
         #region ResetSwap
         if (_hasSwapped)
         {
             yield return MoveObjectsSmooth(
-            new[] { CardObjects[5].transform, CardObjects[(int)_mustSwapWith].transform },
-            new[] { cardPositions[(int)_mustSwapWith], cardPositions[5] },
-            new[] { cardRotations[(int)_mustSwapWith], cardRotations[5] },
-            1f,
-            new[] { .23f, .5f }
-            );
+                new[] { CardObjects[5].transform, CardObjects[(int) _mustSwapWith].transform },
+                new[] { cardPositions[(int) _mustSwapWith], cardPositions[5] },
+                new[] { cardRotations[(int) _mustSwapWith], cardRotations[5] },
+                1f,
+                new[] { .23f, .5f });
 
             Cards[5].sharedMaterial = CardImages.First(x => x.name == _swappableCard.MaterialName);
-            Cards[(int)_mustSwapWith].sharedMaterial = CardImages.First(x => x.name == _initialHand[(int)_mustSwapWith].MaterialName);
+            Cards[(int) _mustSwapWith].sharedMaterial = CardImages.First(x => x.name == _initialHand[(int) _mustSwapWith].MaterialName);
 
             CardObjects[5].transform.localPosition = cardPositions[5];
-            CardObjects[(int)_mustSwapWith].transform.localPosition = cardPositions[(int)_mustSwapWith];
+            CardObjects[(int) _mustSwapWith].transform.localPosition = cardPositions[(int) _mustSwapWith];
             CardObjects[5].transform.localRotation = cardRotations[5];
-            CardObjects[(int)_mustSwapWith].transform.localRotation = cardRotations[(int)_mustSwapWith];
+            CardObjects[(int) _mustSwapWith].transform.localRotation = cardRotations[(int) _mustSwapWith];
 
             _hasSwapped = false;
         }
@@ -613,53 +745,45 @@ public class TACScript : MonoBehaviour
 
         _cardsPlayedCounter = 0;
 
+        _canSwapPieces = false;
         _gameResetting = false;
         currentOptions = null;
         currentCardChoice = null;
     }
 
-    private IEnumerator ResetButtonPositions()
-    {
-        yield return StartCoroutine(MoveObjectsSmooth(
+    private IEnumerator ResetButtonPositions() => MoveObjectsSmooth(
             new[] { ChoiceButtons[0].transform, ChoiceButtons[1].transform },
             new[] { choiceButtonsStart, choiceButtonsStart },
             new[] { Quaternion.Euler(-90, 0, 180), Quaternion.Euler(-90, 0, 180) },
             1f,
             new[] { 0f, 0f },
-            false
-            ));
-    }
+            false);
 
     private IEnumerator ResetCardPositions()
     {
         for (int i = 0; i < CardObjects.Length; i++)
-        {
             if (CardObjects[i].transform.localPosition != cardPositions[i])
-            {
                 StartCoroutine(MoveObjectSmooth(CardObjects[i].transform, cardPositions[i], cardRotations[i], 1f));
-            }
-        }
         yield return CardObjects;
     }
 
     private IEnumerator InitiateSwap()
     {
         yield return MoveObjectsSmooth(
-            new[] { CardObjects[5].transform, CardObjects[(int)_mustSwapWith].transform },
-            new[] { cardPositions[(int)_mustSwapWith], cardPositions[5] },
-            new[] { cardRotations[(int)_mustSwapWith], cardRotations[5] },
+            new[] { CardObjects[5].transform, CardObjects[(int) _mustSwapWith].transform },
+            new[] { cardPositions[(int) _mustSwapWith], cardPositions[5] },
+            new[] { cardRotations[(int) _mustSwapWith], cardRotations[5] },
             1f,
-            new[] { .23f, .5f }
-            );
+            new[] { .23f, .5f });
 
-        Cards[5].sharedMaterial = CardImages.First(x => x.name == _hand[(int)_mustSwapWith].MaterialName);
-        Cards[(int)_mustSwapWith].sharedMaterial = CardImages.First(x => x.name == _swappableCard.MaterialName);
+        Cards[5].sharedMaterial = CardImages.First(x => x.name == _hand[(int) _mustSwapWith].MaterialName);
+        Cards[(int) _mustSwapWith].sharedMaterial = CardImages.First(x => x.name == _swappableCard.MaterialName);
 
         CardObjects[5].transform.localPosition = cardPositions[5];
-        CardObjects[(int)_mustSwapWith].transform.localPosition = cardPositions[(int)_mustSwapWith];
+        CardObjects[(int) _mustSwapWith].transform.localPosition = cardPositions[(int) _mustSwapWith];
         CardObjects[5].transform.localRotation = cardRotations[5];
-        CardObjects[(int)_mustSwapWith].transform.localRotation = cardRotations[(int)_mustSwapWith];
+        CardObjects[(int) _mustSwapWith].transform.localRotation = cardRotations[(int) _mustSwapWith];
 
-        _hand[(int)_mustSwapWith] = _swappableCard;
+        _hand[(int) _mustSwapWith] = _swappableCard;
     }
 }

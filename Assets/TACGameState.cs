@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Assets
+namespace TAC
 {
     public class TACGameState
     {

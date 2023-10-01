@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Assets
+namespace TAC
 {
     enum TACCardOption
     {
@@ -12,11 +11,14 @@ namespace Assets
         EnterHomeBackwards,
         Swap
     }
+
     abstract class TACCard
     {
-        public abstract TACGameState Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions);
-        public abstract IEnumerable<TACGameState> Unexecute(TACGameState state);
+        public abstract TACCardExecuteResult Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions, int swap1, int swap2);
+        public abstract IEnumerable<TACGameState> ExecuteAll(TACGameState state);
+        public abstract IEnumerable<TACGameState> UnexecuteAll(TACGameState state);
         public abstract TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions);
+        public abstract TACPawnMove MoveType { get; }
 
         public abstract string MaterialName { get; }
     }
@@ -35,62 +37,89 @@ namespace Assets
 
         public override string MaterialName => $"{Number}{(Direction == -1 ? "back" : "")}{(IsDiscard ? "discard" : "")}";
 
-        public override TACGameState Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
+        public override TACCardExecuteResult Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions, int swap1, int swap2)
         {
-            foreach (var option in currentOptions)
+            bool opt;
+
+            // Option to use the card as a discard
+            if (currentOptions.TryGetValue(TACCardOption.Discard, out opt) && opt)
+                return state;
+
+            // Strike if this would move across another piece
+            for (var i = 1; i < Number; i++)
+                if (state.HasPieceOn(state.PlayerPosition + i * Direction))
+                    return $"Moving {Number} would move across another piece.";
+
+            var newState = state.Clone();
+
+            // Option to move into home
+            if (currentOptions.TryGetValue(Direction < 0 ? TACCardOption.EnterHomeBackwards : TACCardOption.EnterHome, out opt) && opt)
             {
-                if (option.Key == TACCardOption.Discard && option.Value)
-                {
-                    return state;
-                }
-                else if ((option.Key == TACCardOption.EnterHome || option.Key == TACCardOption.EnterHomeBackwards) && option.Value)
-                {
-                    for (var i = 1; i < Number; i++)
-                        if (state.HasPieceOn(state.PlayerPosition + i * Direction))
-                            return null;
-                    var newState = state.Clone();
-                    newState.SetPlayerPosition(TACPos.Home);
-                    return newState;
-                }
-                else
-                {
-                    for (var i = 1; i < Number; i++)
-                        if (state.HasPieceOn(state.PlayerPosition + i * Direction))
-                            return null;
-                    if (!state.IsPartnerOn(state.PlayerPosition + Number * Direction))
-                    {
-                        // Option to move past home
-                        var newState = state.Clone();
-                        var newPosition = state.PlayerPosition + Number * Direction;
-                        newState.RemoveEnemyPieceIfPresent(newPosition);
-                        newState.SetPlayerPosition(newPosition);
-                        return newState;
-                    }
-                }
+                newState.SetPlayerPosition(TACPos.Home);
+                return newState;
             }
-            return null;
+
+            // Strike if this would capture your partner
+            if (state.IsPartnerOn(state.PlayerPosition + Number * Direction))
+                return $"Moving {Number} would capture your partner.";
+
+            // Move normally (incl. move past home)
+            var newPosition = state.PlayerPosition + Number * Direction;
+            newState.RemoveEnemyPieceIfPresent(newPosition);
+            newState.SetPlayerPosition(newPosition);
+            return newState;
         }
 
-        public override IEnumerable<TACGameState> Unexecute(TACGameState state)
+        public override IEnumerable<TACGameState> ExecuteAll(TACGameState state)
+        {
+            // Option to use the card as a discard
+            yield return state;
+
+            // Stop if this would move across another piece
+            for (var i = 1; i < Number; i++)
+                if (state.HasPieceOn(state.PlayerPosition + i * Direction))
+                    yield break;
+
+            var newState = state.Clone();
+
+            // Option to move into home
+            newState.SetPlayerPosition(TACPos.Home);
+            yield return newState;
+
+            // Stop if this would capture your partner
+            if (state.IsPartnerOn(state.PlayerPosition + Number * Direction))
+                yield break;
+
+            // Move normally (incl. move past home)
+            newState = state.Clone();
+            var newPosition = state.PlayerPosition + Number * Direction;
+            newState.RemoveEnemyPieceIfPresent(newPosition);
+            newState.SetPlayerPosition(newPosition);
+            yield return newState;
+        }
+
+        public override IEnumerable<TACGameState> UnexecuteAll(TACGameState state)
         {
             if (IsDiscard)
                 yield return state;
 
+            // Can we move backwards this many steps?
+            var checkPos = state.PlayerInHome ? TACPos.GetStart(state.PlayerSeat) : state.PlayerPosition - Direction;
+            for (var i = 1; i <= Number; i++, checkPos -= Direction)
+                if (state.HasPieceOn(checkPos))
+                    yield break;
+            checkPos += Direction;
+
             if (state.PlayerInHome)
             {
                 var newState = state.Clone();
-                newState.SetPlayerPosition(TACPos.GetStart(state.PlayerSeat) - (Number - 1) * Direction);
+                newState.SetPlayerPosition(checkPos);
                 yield return newState;
                 yield break;
             }
 
-            // Can we move backwards this many steps?
-            for (var i = 1; i <= Number; i++)
-                if (state.HasPieceOn(state.PlayerPosition - i * Direction))
-                    yield break;
-
             var stateNoCapture = state.Clone();
-            stateNoCapture.SetPlayerPosition(state.PlayerPosition - Number * Direction);
+            stateNoCapture.SetPlayerPosition(checkPos);
             yield return stateNoCapture;
 
             for (var i = 1; i <= 3; i += 2)
@@ -119,10 +148,8 @@ namespace Assets
             }
         }
 
-        public override string ToString()
-        {
-            return string.Format("{0}{1}{2}", Number, IsDiscard ? "◊" : "", Direction < 0 ? "⏪" : "");
-        }
+        public override TACPawnMove MoveType => Direction < 0 ? TACPawnMove.Backwards : TACPawnMove.Forwards;
+        public override string ToString() => string.Format("{0}{1}{2}", Number, IsDiscard ? "◊" : "", Direction < 0 ? "⏪" : "");
     }
 
     class TACCardSingleStep : TACCard
@@ -131,69 +158,103 @@ namespace Assets
         public TACCardSingleStep(int number) { Number = number; }
         public override string MaterialName => $"{Number}single";
 
-        public override TACGameState Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
+        public override TACCardExecuteResult Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions, int swap1, int swap2)
         {
-            foreach (var option in currentOptions)
-            {
-                if ((option.Key == TACCardOption.EnterHome || option.Key == TACCardOption.EnterHomeBackwards) && option.Value)
-                {
-                    for (var i = 1; i < Number; i++)
-                        if (state.HasPieceOn(state.PlayerPosition + i))
-                            return null;
-                    var newState = state.Clone();
-                    newState.SetPlayerPosition(TACPos.Home);
-                    return newState;
-                }
-                else
-                {
-                    var newState = state.Clone();
-                    for (var i = 1; i < Number; i++)
-                    {
-                        if (newState.PartnerPosition == state.PlayerPosition + i)
-                            return null;
-                        newState.RemoveEnemyPieceIfPresent(state.PlayerPosition + i);
-                    }
-                    var newPosition = state.PlayerPosition + Number;
+            bool opt;
+            var newState = state.Clone();
 
-                    newState.RemoveEnemyPieceIfPresent(newPosition);
-                    newState.SetPlayerPosition(newPosition);
-                    return newState;
-                }
+            for (var i = 1; i < Number; i++)
+            {
+                // Strike if this would capture your partner
+                if (state.PartnerPosition == state.PlayerPosition + i)
+                    return $"Moving {Number} single steps would capture your partner.";
+
+                // Bulldoze enemy pieces
+                newState.RemoveEnemyPieceIfPresent(state.PlayerPosition + i);
             }
-            return null;
+
+            // Option to move into home
+            if (currentOptions.TryGetValue(TACCardOption.EnterHome, out opt) && opt)
+            {
+                newState.SetPlayerPosition(TACPos.Home);
+                return newState;
+            }
+
+            // Strike if this would capture the partner
+            if (state.IsPartnerOn(state.PlayerPosition + Number))
+                return $"Moving {Number} would capture your partner.";
+
+            // Move normally (incl. move past home)
+            var newPosition = state.PlayerPosition + Number;
+            newState.RemoveEnemyPieceIfPresent(newPosition);
+            newState.SetPlayerPosition(newPosition);
+            return newState;
         }
 
-        public override IEnumerable<TACGameState> Unexecute(TACGameState state)
+        public override IEnumerable<TACGameState> ExecuteAll(TACGameState state)
         {
-            for (var i = 1; i <= Number; i++)
-                if (state.HasPieceOn(state.PlayerPosition - i))
+            var newState = state.Clone();
+
+            for (var i = 1; i < Number; i++)
+            {
+                // Stop if this would capture the partner
+                if (state.PartnerPosition == state.PlayerPosition + i)
                     yield break;
 
+                // Bulldoze enemy pieces
+                newState.RemoveEnemyPieceIfPresent(state.PlayerPosition + i);
+            }
+
+            // Option to move into home
+            newState.SetPlayerPosition(TACPos.Home);
+            yield return newState;
+
+            // Stop if this would capture the partner
+            if (state.IsPartnerOn(state.PlayerPosition + Number))
+                yield break;
+
+            // Move normally (incl. move past home)
+            newState = newState.Clone();
+            var newPosition = state.PlayerPosition + Number;
+            newState.RemoveEnemyPieceIfPresent(newPosition);
+            newState.SetPlayerPosition(newPosition);
+            yield return newState;
+        }
+
+        public override IEnumerable<TACGameState> UnexecuteAll(TACGameState state)
+        {
+            var checkPos = state.PlayerInHome ? TACPos.GetStart(state.PlayerSeat) : state.PlayerPosition - 1;
+            for (var i = 1; i <= Number; i++, checkPos--)
+                if (state.HasPieceOn(checkPos))
+                    yield break;
+            checkPos++;
+
             var s1 = state.Clone();
-            s1.SetPlayerPosition(state.PlayerPosition - Number);
+            s1.SetPlayerPosition(checkPos);
             yield return s1;
+            var upTo = state.PlayerInHome ? Number - 1 : Number;
             if (state.Pieces[1] == null)
             {
-                for (var j = 0; j < Number; j++)
+                for (var j = 1; j <= upTo; j++)
                 {
                     var s2 = s1.Clone();
-                    s2.Pieces[1] = state.PlayerPosition - j;
+                    s2.Pieces[1] = checkPos + j;
                     yield return s2;
                 }
             }
             if (state.Pieces[3] == null)
             {
-                for (var j = 0; j < Number; j++)
+                for (var j = 1; j <= upTo; j++)
                 {
                     var s2 = s1.Clone();
-                    s2.Pieces[3] = state.PlayerPosition - j;
+                    s2.Pieces[3] = checkPos + j;
                     yield return s2;
 
-                    for (var k = 0; k < Number; k++)
+                    for (var k = 1; k <= upTo; k++)
                         if (k != j)
                         {
                             var s3 = s2.Clone();
-                            s3.Pieces[1] = state.PlayerPosition - k;
+                            s3.Pieces[1] = checkPos + k;
                             yield return s3;
                         }
                 }
@@ -211,59 +272,68 @@ namespace Assets
             return TACCardOption.None;
         }
 
-        public override string ToString()
-        {
-            return string.Format("{0}∴", Number);
-        }
+        public override TACPawnMove MoveType => TACPawnMove.Forwards;
+        public override string ToString() => string.Format("{0}∴", Number);
     }
 
     class TACCardTrickster : TACCard
     {
         public override string MaterialName => "Trickster";
-        public override TACGameState Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
+
+        public override TACCardExecuteResult Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions, int seat1, int seat2)
         {
-            return state;
+            var ix1 = (seat1 + 4 - state.PlayerSeat) % 4;
+            var ix2 = (seat2 + 4 - state.PlayerSeat) % 4;
+
+            // Strike if the user tries to swap pieces that have already been captured
+            if (state.Pieces[ix1] == null || state.Pieces[ix2] == null)
+                return "You tried to swap a piece that has already been captured.";
+
+            // Swap pieces
+            var newState = state.Clone();
+            var t = newState.Pieces[ix1].Value;
+            newState.Pieces[ix1] = newState.Pieces[ix2].Value;
+            newState.Pieces[ix2] = t;
+            return newState;
         }
 
-        public override IEnumerable<TACGameState> Unexecute(TACGameState state)
+        public override IEnumerable<TACGameState> ExecuteAll(TACGameState state) => UnexecuteAll(state);
+
+        public override IEnumerable<TACGameState> UnexecuteAll(TACGameState state)
         {
-            if (state.PlayerInHome) yield break;
-            else
-            {
-                for (var p1 = 0; p1 < state.Pieces.Length; p1++)
-                    if (state.Pieces[p1] != null)
-                        for (var p2 = p1 + 1; p2 < state.Pieces.Length; p2++)
-                            if (state.Pieces[p2] != null)
-                            {
-                                var newState = state.Clone();
-                                newState.SwapPieces(p1, p2);
-                                yield return newState;
-                            }
-            }
+            if (state.PlayerInHome)
+                yield break;
+
+            for (var p1 = 0; p1 < state.Pieces.Length; p1++)
+                if (state.Pieces[p1] != null)
+                    for (var p2 = p1 + 1; p2 < state.Pieces.Length; p2++)
+                        if (state.Pieces[p2] != null)
+                        {
+                            var newState = state.Clone();
+                            newState.SwapPieces(p1, p2);
+                            yield return newState;
+                        }
         }
 
-        public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
-        {
-            return !currentOptions.ContainsKey(TACCardOption.Swap) ? TACCardOption.Swap : TACCardOption.None;
-        }
+        public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions) =>
+            !currentOptions.ContainsKey(TACCardOption.Swap) ? TACCardOption.Swap : TACCardOption.None;
 
-        public override string ToString()
-        {
-            return "Trickster";
-        }
+        public override TACPawnMove MoveType => TACPawnMove.Teleport;
+        public override string ToString() => "Trickster";
     }
 
     class TACCardWarrior : TACCard
     {
         public override string MaterialName => "Warrior";
-        public override TACGameState Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
+        public override TACCardExecuteResult Execute(TACGameState state, Dictionary<TACCardOption, bool> currentOptions, int swap1, int swap2)
         {
             var destination = state.PlayerPosition + 1;
             while (!state.HasPieceOn(destination))
                 destination++;
 
+            // Strike if this would capture the partner
             if (state.PartnerPosition == destination)
-                return state; //Strike
+                return "Using the Warrior would capture your partner.";
 
             var newState = state.Clone();
             newState.RemoveEnemyPieceIfPresent(destination);
@@ -271,7 +341,13 @@ namespace Assets
             return newState;
         }
 
-        public override IEnumerable<TACGameState> Unexecute(TACGameState state)
+        public override IEnumerable<TACGameState> ExecuteAll(TACGameState state)
+        {
+            var result = Execute(state, new Dictionary<TACCardOption, bool>(), 0, 0);
+            return result is TACCardExecuteStrike ? Enumerable.Empty<TACGameState>() : new[] { ((TACCardExecuteSuccess) result).State };
+        }
+
+        public override IEnumerable<TACGameState> UnexecuteAll(TACGameState state)
         {
             if (state.PlayerInHome)
                 yield break;
@@ -295,14 +371,8 @@ namespace Assets
             }
         }
 
-        public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions)
-        {
-            return TACCardOption.None;
-        }
-
-        public override string ToString()
-        {
-            return "Warrior";
-        }
+        public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions) => TACCardOption.None;
+        public override TACPawnMove MoveType => TACPawnMove.Forwards;
+        public override string ToString() => "Warrior";
     }
 }

@@ -1,20 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets
+namespace TAC
 {
     public struct TACPos : IEquatable<TACPos>
     {
         private static readonly Vector3[] boardPositions = new[] {
             #region Vectors
-            new Vector3(-0.04433801f, 0.01470134f, 0.02188657f),
-            new Vector3(-0.03333801f, 0.01470134f, 0.02188657f),
-            new Vector3(-0.02243801f, 0.01470134f, 0.02188657f),
-            new Vector3(-0.01153801f, 0.01470134f, 0.02188657f),
-            new Vector3(-0.00063801f, 0.01470134f, 0.02188657f),
-            new Vector3(0.01056199f, 0.01470134f, 0.02188657f),
-            new Vector3(0.02146199f, 0.01470134f, 0.02188657f),
-            new Vector3(0.03246199f, 0.01470134f, 0.02188657f),
             new Vector3(0.04346199f, 0.01470134f, 0.02188657f),
             new Vector3(0.05436199f, 0.01470134f, 0.02188657f),
             new Vector3(0.06536199f, 0.01470134f, 0.02188657f),
@@ -39,6 +31,14 @@ namespace Assets
             new Vector3(-0.06623801f, 0.01470134f, 0.01088657f),
             new Vector3(-0.06623801f, 0.01470134f, 0.02188657f),
             new Vector3(-0.05523801f, 0.01470134f, 0.02188657f),
+            new Vector3(-0.04433801f, 0.01470134f, 0.02188657f),
+            new Vector3(-0.03333801f, 0.01470134f, 0.02188657f),
+            new Vector3(-0.02243801f, 0.01470134f, 0.02188657f),
+            new Vector3(-0.01153801f, 0.01470134f, 0.02188657f),
+            new Vector3(-0.00063801f, 0.01470134f, 0.02188657f),
+            new Vector3(0.01056199f, 0.01470134f, 0.02188657f),
+            new Vector3(0.02146199f, 0.01470134f, 0.02188657f),
+            new Vector3(0.03246199f, 0.01470134f, 0.02188657f),
             #endregion
         };
         private static readonly Vector3[] homePositions = new[] {
@@ -58,7 +58,7 @@ namespace Assets
 
         public TACPos(int pos) { _pos = (pos % 32 + 32) % 32; }
         public bool IsHome => _pos == -1;
-        public bool IsCorner => _pos == 10 || _pos == 14 || _pos == 26 || _pos == 30;
+        public bool IsCorner => _pos == 2 || _pos == 6 || _pos == 18 || _pos == 22;
         public Vector3 Vector(TACGameState state) => IsHome ? homePositions[state.PlayerSeat] : boardPositions[_pos];
 
         public static TACPos GetStart(int seat) => new TACPos(8 * seat);
@@ -77,7 +77,7 @@ namespace Assets
         public static explicit operator int(TACPos pos) => pos._pos;
 
         public bool Equals(TACPos other) => other._pos == _pos;
-        public override bool Equals(object obj) => obj is TACPos && ((TACPos)obj)._pos == _pos;
+        public override bool Equals(object obj) => obj is TACPos && ((TACPos) obj)._pos == _pos;
         public override int GetHashCode() => _pos.GetHashCode();
         public override string ToString() => _pos == -1 ? "Home" : _pos.ToString();
     }
