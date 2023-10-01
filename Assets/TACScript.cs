@@ -58,7 +58,6 @@ public class TACScript : MonoBehaviour
         new TACCardTrickster(),
         new TACCardWarrior()
     };
-    private static readonly string[] _colorNames = new[] { "Red", "Yellow", "Green", "Blue" };
 
     private static readonly string[] _allNames = { "Sam", "Tom", "Zoe", "Adam", "Alex", "Andy", "Anna", "Bill", "Carl", "Fred", "Kate", "Lucy", "Ryan", "Toby", "Will", "Zach", "Chris", "Craig", "David", "Emily", "Felix", "Harry", "James", "Jenny", "Julia", "Kevin", "Molly", "Peter", "Sally", "Sarah", "Steve", "Susan" };
     private string[] _names;
@@ -442,6 +441,7 @@ public class TACScript : MonoBehaviour
             {
                 Debug.Log($"[TAC #{_moduleId}] You entered your home and your hand is empty. Module solved!");
                 Module.HandlePass();
+                _moduleSolved = true;
                 Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.CorrectChime, transform);
             }
             else if (_hand.All(c => c == null))
@@ -474,7 +474,6 @@ public class TACScript : MonoBehaviour
             for (int i = 0; i < objs.Length; i++)
             {
                 var curve = j * (j - 1) * (j - 1);
-                Quaternion extraRotationOffset = extraRotation ? Quaternion.Euler(-curve * 180, 0, 0) : Quaternion.Euler(0, 0, 0);
                 objs[i].transform.localRotation = Quaternion.Slerp(startRotations[i], endRotations[i], Easing.OutQuad(j, 0, 1, 1));
                 objs[i].transform.localPosition = Vector3.Lerp(startPositions[i], endPositions[i], -j * (j - 2)) + new Vector3(0, curve * heights[i], 0);
             }
