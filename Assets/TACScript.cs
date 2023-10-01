@@ -413,6 +413,8 @@ public class TACScript : MonoBehaviour
             currentOptions = null;
             currentCardChoice = null;
 
+            Debug.Log($"[TAC #{_moduleId}] {JsonForLogging($"After playing {card}, board looks like this:", _state)}");
+
             if (_state.PlayerInHome && _hand.Any(c => c != null))
             {
                 Debug.Log($"[TAC #{_moduleId}] You entered your home with cards still in your hand. Strike!");
