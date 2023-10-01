@@ -30,8 +30,8 @@ public class TACScript : MonoBehaviour
 
     private static int _moduleIdCounter = 1;
     private static int _cardsPlayedCounter = 0;
-    private int _moduleId;
-    private bool _moduleSolved, _cardMoving, _pieceMoving, _gameResetting, _buttonsMoving, _hasSwapped;
+    private int _moduleId, _ledsChosen;
+    private bool _moduleSolved, _cardMoving, _pieceMoving, _gameResetting, _buttonsMoving, _hasSwapped, _canSwapPieces;
     private int? _mustSwapWith;
     private TACGameState _state, _initialState;
     private List<TACCard> _initialHand = new List<TACCard>();
@@ -140,6 +140,8 @@ public class TACScript : MonoBehaviour
     tryAgain:
         _hand = Enumerable.Range(0, 5).Select(_ => cards[Random.Range(0, cards.Length)]).ToList();
         _state = TACGameState.FinalState(defuserColor, new TACPos(Random.Range(0, 32)));
+        _canSwapPieces = false;
+        _ledsChosen = 0;
 
 
         var numSwappableCards = _hand.Count;
@@ -311,8 +313,8 @@ public class TACScript : MonoBehaviour
     {
         _cardMoving = true;
         yield return MoveObjectSmooth(obj, new Vector3(-0.06409124f, 0.0081f + (_cardsPlayedCounter * 0.0004f), 0.052f), Quaternion.Euler(-90, 0, 0), 1f);
-        _cardsPlayedCounter++;
         _cardMoving = false;
+        _cardsPlayedCounter++;
         currentOptions = null;
         currentCardChoice = null;
     }
@@ -355,7 +357,7 @@ public class TACScript : MonoBehaviour
                 Strike();
                 return;
             }
-            if (!_cardMoving && !_gameResetting && !_pieceMoving && !_buttonsMoving)
+            if (!_cardMoving && !_gameResetting && !_pieceMoving && !_buttonsMoving && !_canSwapPieces && currentCardChoice == null)
             {
                 if (currentCardChoice != null) return;
                 currentCardChoice = ix;
@@ -367,6 +369,13 @@ public class TACScript : MonoBehaviour
 
     private void TACButtonHandler()
     {
+        if (currentCardChoice != null)
+        {
+            currentOptions = null;
+            currentCardChoice = null;
+            StartCoroutine(ResetButtonPositions());
+            return;
+        }
         if (!_moduleSolved && !_hasSwapped)
         {
             if (_mustSwapWith == null)
@@ -445,7 +454,11 @@ public class TACScript : MonoBehaviour
     {
         if (currentOptions != null && currentOptions.Count > 0) yield return ResetButtonPositions();
         var option = _hand[currentCardChoice.Value].GetOption(_state, currentOptions);
-        if (option == TACCardOption.None) yield return PlayCard(CardObjects[currentCardChoice.Value].transform);
+        if (option == TACCardOption.None)
+        {
+            _hand[currentCardChoice.Value] = null;
+            yield return PlayCard(CardObjects[currentCardChoice.Value].transform);
+        }
         else
         {
             currentChoice = option;
@@ -467,6 +480,7 @@ public class TACScript : MonoBehaviour
                 ChoiceButtons[1].sharedMaterial = ButtonImageEnterHome;
                 yield return MoveButtons();
             }
+            else if (option == TACCardOption.Swap) yield return _canSwapPieces = true;
         }
     }
 
@@ -513,16 +527,16 @@ public class TACScript : MonoBehaviour
 
     private IEnumerable<TACGameState> solve(TACGameState state, TACCard[] hand)
     {
-        if (hand.Length == 0)
-        {
-            if (state.PlayerInHome)
-                yield return state;
+        //if (hand.Length == 0)
+        //{
+        //    if (state.PlayerInHome)
+        //        yield return state;
             yield break;
-        }
-        for (var i = 0; i < hand.Length; i++)
-            foreach (var newState in hand[i].Execute(state))
-                foreach (var result in solve(newState, remove(hand, i)))
-                    yield return result;
+        //}
+        //for (var i = 0; i < hand.Length; i++)
+        //    foreach (var newState in hand[i].Execute(state))
+        //        foreach (var result in solve(newState, remove(hand, i)))
+        //            yield return result;
     }
 
     private static T[] remove<T>(T[] array, int ix)
@@ -563,7 +577,6 @@ public class TACScript : MonoBehaviour
         yield return ResetCardPositions();
         yield return ResetLEDPositions();
         ResetLEDColors();
-        yield return MovePawn(new TACPos(0), true);
 
         #region ResetPawnPosition
         if (_state.PlayerPosition != _initialState.PlayerPosition)
