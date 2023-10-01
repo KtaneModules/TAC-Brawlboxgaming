@@ -25,4 +25,4 @@ MonoBehaviour:
     [url=http://ktane.timwi.de/HTML/TAC.html]Manual HTML[/url]'
   version: 1.0
   outputFolder: build
-  previewImage: {fileID: 2800000, guid: 926487e5cf73fa64db176e43ee1e27ff, type: 3}
+  previewImage: {fileID: 2800000, guid: 3f900c2dc48a1b046b17fa7390087c17, type: 3}
