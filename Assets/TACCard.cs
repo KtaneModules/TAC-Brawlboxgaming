@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TAC
@@ -19,7 +20,7 @@ namespace TAC
         public abstract IEnumerable<TACGameState> UnexecuteAll(TACGameState state);
         public abstract TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions);
         public abstract TACPawnMove MoveType { get; }
-
+        public abstract int ButtonMoveImageIndex { get; }
         public abstract string MaterialName { get; }
     }
 
@@ -33,6 +34,16 @@ namespace TAC
             Number = number;
             Direction = direction;
             IsDiscard = isDiscard;
+        }
+
+        public override int ButtonMoveImageIndex
+        {
+            get
+            {
+                if (Number < 8 || Number > 10)
+                    throw new NotImplementedException($"Discard cards with number {Number} not implemented.");
+                return Number - 8;
+            }
         }
 
         public override string MaterialName => $"{Number}{(Direction == -1 ? "back" : "")}{(IsDiscard ? "discard" : "")}";
@@ -272,6 +283,7 @@ namespace TAC
             return TACCardOption.None;
         }
 
+        public override int ButtonMoveImageIndex { get { throw new NotImplementedException("Single-step cards cannot have the discard option."); } }
         public override TACPawnMove MoveType => TACPawnMove.Forwards;
         public override string ToString() => string.Format("{0}∴", Number);
     }
@@ -318,6 +330,7 @@ namespace TAC
         public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions) =>
             !currentOptions.ContainsKey(TACCardOption.Swap) ? TACCardOption.Swap : TACCardOption.None;
 
+        public override int ButtonMoveImageIndex { get { throw new NotImplementedException("Trickster cards cannot have the discard option."); } }
         public override TACPawnMove MoveType => TACPawnMove.Teleport;
         public override string ToString() => "Trickster";
     }
@@ -371,6 +384,7 @@ namespace TAC
             }
         }
 
+        public override int ButtonMoveImageIndex { get { throw new NotImplementedException("Warrior cards cannot have the discard option."); } }
         public override TACCardOption GetOption(TACGameState state, Dictionary<TACCardOption, bool> currentOptions) => TACCardOption.None;
         public override TACPawnMove MoveType => TACPawnMove.Forwards;
         public override string ToString() => "Warrior";

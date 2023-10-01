@@ -41,7 +41,7 @@ public class TACScript : MonoBehaviour
     private List<TACCard> _hand = new List<TACCard>();
     private TACCard _swappableCard;
 
-    private static readonly TACCard[] cards = new TACCard[]
+    private static readonly TACCard[] _cards = new TACCard[]
     {
         new TACCardNumber(1),
         new TACCardNumber(2),
@@ -119,7 +119,21 @@ public class TACScript : MonoBehaviour
         var rnd = RuleSeedable.GetRNG();
         Debug.Log($"[TAC #{_moduleId}] Using rule seed: {rnd.Seed}.");
         _names = rnd.ShuffleFisherYates(_allNames.ToArray());
-        Debug.Log($"<TAC #{_moduleId}> Names order: {_names.Join(", ")}");
+        var cards = _cards;
+        if (rnd.Seed != 1)
+        {
+            Debug.Log($"<TAC #{_moduleId}> Names order: {_names.Join(", ")}");
+            var backwards = rnd.Next(3, 6);
+            var singleStep = rnd.Next(6, 8);
+            var discarder = rnd.Next(8, 11);
+            var missingCandidates = Enumerable.Range(1, 13).Except(new[] { backwards, singleStep, discarder }).ToArray();
+            var missing = missingCandidates[rnd.Next(0, missingCandidates.Length)];
+            cards = Enumerable.Range(1, 13).Where(i => i != missing)
+                .Select(i => i == singleStep ? (TACCard) new TACCardSingleStep(i) : new TACCardNumber(i, direction: i == backwards ? -1 : 1, isDiscard: i == discarder))
+                .Concat(new TACCard[] { new TACCardTrickster(), new TACCardWarrior() })
+                .ToArray();
+            Debug.Log($"<TAC #{_moduleId}> Deck: {cards.Join(", ")}");
+        }
         #endregion
 
         #region Decide the player colors
@@ -138,7 +152,8 @@ public class TACScript : MonoBehaviour
         #region Decide on cards in player’s hand
         var mustSwap = Random.Range(0, 2) != 0;
         tryAgain:
-        var logging = new List<string>();
+        var intendedPlayLogging = new[] { new { State = (TACGameState) null, Message = (string) null } }.ToList();
+        intendedPlayLogging.Clear();
         _hand = Enumerable.Range(0, 5).Select(_ => cards[Random.Range(0, cards.Length)]).ToList();
         _state = TACGameState.FinalState(defuserColor, new TACPos(Random.Range(0, 32)));
         _canSwapPieces = false;
@@ -171,9 +186,9 @@ public class TACScript : MonoBehaviour
             _state = possibleUndos[pickIx];
             intendedStates.Add(_state);
         }
-        logging.Add($"[TAC #{_moduleId}] Intended gameplay:");
+        intendedPlayLogging.Add(new { State = (TACGameState) null, Message = $"[TAC #{_moduleId}] Intended gameplay:" });
         for (var i = _hand.Count - 1; i >= 0; i--)
-            logging.Add($"[TAC #{_moduleId}] {JsonForLogging($"Play {_hand[i]}, yielding:", intendedStates[i])}");
+            intendedPlayLogging.Add(new { State = intendedStates[i], Message = $"Play {_hand[i]}, yielding:" });
 
         _hand.Shuffle();
 
@@ -199,13 +214,7 @@ public class TACScript : MonoBehaviour
             goto tryAgain;
         }
         done:
-
-        if (!_hand.Any(c => c is TACCardTrickster) && !(_swappableCard is TACCardTrickster))
-            goto tryAgain;
         #endregion
-
-        foreach (var log in logging)
-            Debug.Log(log);
 
         _initialHand = _hand.ToList();
         _initialState = _state.Clone();
@@ -239,7 +248,6 @@ public class TACScript : MonoBehaviour
         PlayerNames[(_state.PlayerSeat + 3) % 4].text = _names[_state.Pieces[3].Value - enemy2Offset];
         #endregion
 
-        Debug.Log($"[TAC #{_moduleId}] {JsonForLogging($"Player names (clockwise from You): {Enumerable.Range(1, 3).Select(ix => PlayerNames[(_state.PlayerSeat + ix) % 4].text).Join(", ")}", _state)}");
         Debug.Log($"[TAC #{_moduleId}] Initial hand: {_hand.Join(", ")}");
         if (_mustSwapWith == null)
             Debug.Log($"[TAC #{_moduleId}] You must not swap a card.");
@@ -248,6 +256,10 @@ public class TACScript : MonoBehaviour
             Debug.Log($"[TAC #{_moduleId}] You must swap a card.");
             Debug.Log($"[TAC #{_moduleId}] Hand after swap: {Enumerable.Range(0, _hand.Count).Select(ix => ix == _mustSwapWith.Value ? _swappableCard : _hand[ix]).Join(", ")}");
         }
+        Debug.Log($"[TAC #{_moduleId}] {JsonForLogging("Initial board:", _state)}");
+
+        foreach (var log in intendedPlayLogging)
+            Debug.Log(log.State == null ? log.Message : $"[TAC #{_moduleId}] {JsonForLogging(log.Message, log.State)}");
 
         for (var i = 0; i < CardSels.Length; i++)
             CardSels[i].OnInteract += CardHandler(i);
@@ -578,7 +590,7 @@ public class TACScript : MonoBehaviour
         switch (option)
         {
             case TACCardOption.Discard:
-                ChoiceButtons[0].sharedMaterial = ButtonImagesMove[0]; // To-do: ruleseed
+                ChoiceButtons[0].sharedMaterial = ButtonImagesMove[_hand[currentCardChoice.Value].ButtonMoveImageIndex];
                 ChoiceButtons[1].sharedMaterial = ButtonImageDiscard;
                 yield return MoveButtons();
                 break;
@@ -697,6 +709,7 @@ public class TACScript : MonoBehaviour
         j["colors"] = new JArray(colorsIxShuffle);
         j["playerseat"] = state.PlayerSeat;
         j["positions"] = new JArray(state.Pieces.Select(p => (int?) p).ToArray());
+        j["names"] = new JArray(Enumerable.Range(1, 3).Select(ix => PlayerNames[(_state.PlayerSeat + ix) % 4].text));
         return j.ToString(Formatting.None);
     }
 
