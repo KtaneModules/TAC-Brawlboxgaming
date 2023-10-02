@@ -32,7 +32,7 @@ public class TACScript : MonoBehaviour
     public TextMesh[] PlayerNames;
 
     private static int _moduleIdCounter = 1;
-    private static int _cardsPlayedCounter = 0;
+    private int _cardsPlayedCounter = 0;
     private int _moduleId, _swapPieceWith2;
     private bool _moduleSolved, _inputBlocked, _hasSwapped, _canSwapPieces, _tpStrike;
     private int? _mustSwapWith, _swapPieceWith1;
@@ -888,10 +888,7 @@ public class TACScript : MonoBehaviour
                 yield return new WaitForSeconds(.1f);
             }
             else if (result is KMSelectable)
-            {
-                Debug.Log($"<> Pressing {((KMSelectable) result).gameObject.name} / {result}");
                 yield return new[] { (KMSelectable) result };
-            }
             else
             {
                 yield return $"sendtochaterror {{0}}, {result}";
