@@ -682,29 +682,82 @@ public class TACScript : MonoBehaviour
         }
     }
 
-    private bool isSolvable() => solve(_state, _hand.ToArray()).Any();
+    private bool isSolvable() => solve(new SolveStep[0], _state, _hand.ToArray()).Any();
 
-    private IEnumerable<TACGameState> solve(TACGameState state, TACCard[] hand)
+    struct SolveStep
     {
-        if (hand.Length == 0)
+        public int CardToPlay;
+        public Dictionary<TACCardOption, bool> Options;
+        public int Swap1;
+        public int Swap2;
+    }
+
+    private IEnumerable<SolveStep[]> solve(SolveStep[] sofar, TACGameState state, TACCard[] hand)
+    {
+        if (hand.All(c => c == null))
         {
             if (state.PlayerInHome)
-                yield return state;
+                yield return sofar;
             yield break;
         }
         else if (state.PlayerInHome)
             yield break;
+
         for (var i = 0; i < hand.Length; i++)
-            foreach (var newState in hand[i].ExecuteAll(state))
-                foreach (var result in solve(newState, remove(hand, i)))
+            if (hand[i] != null)
+                foreach (var result in solveCard(sofar, state, hand, i, new Dictionary<TACCardOption, bool>(), 0, 0))
                     yield return result;
     }
-
-    private static T[] remove<T>(T[] array, int ix)
+    private IEnumerable<SolveStep[]> solveCard(SolveStep[] sofar, TACGameState state, TACCard[] hand, int cardIx, Dictionary<TACCardOption, bool> options, int swap1, int swap2)
     {
-        var newArray = new T[array.Length - 1];
-        Array.Copy(array, 0, newArray, 0, ix);
-        Array.Copy(array, ix + 1, newArray, ix, newArray.Length - ix);
+        Dictionary<TACCardOption, bool> newOptions;
+        var option = hand[cardIx].GetOption(state, options);
+        switch (option)
+        {
+            case TACCardOption.None:
+                var newState = hand[cardIx].Execute(state, options, swap1, swap2);
+                if (newState is TACCardExecuteStrike)
+                    yield break;
+                foreach (var result in solve(
+                        sofar: append(sofar, new SolveStep { CardToPlay = cardIx, Options = options, Swap1 = swap1, Swap2 = swap2 }),
+                        state: ((TACCardExecuteSuccess) newState).State,
+                        hand: nullOut(hand, cardIx)))
+                    yield return result;
+                break;
+
+            case TACCardOption.Swap:
+                newOptions = new Dictionary<TACCardOption, bool>(options);
+                newOptions[TACCardOption.Swap] = true;
+                for (var sw1 = 0; sw1 < 4; sw1++)
+                    for (var sw2 = sw1 + 1; sw2 < 4; sw2++)
+                        foreach (var result in solveCard(sofar, state, hand, cardIx, newOptions, sw1, sw2))
+                            yield return result;
+                break;
+
+            default:
+                newOptions = new Dictionary<TACCardOption, bool>(options);
+                foreach (var opt in new[] { false, true })
+                {
+                    newOptions[option] = opt;
+                    foreach (var result in solveCard(sofar, state, hand, cardIx, newOptions, swap1, swap2))
+                        yield return result;
+                }
+                break;
+        }
+    }
+
+    private static T[] nullOut<T>(T[] array, int ix) where T : class
+    {
+        var newArray = array.ToArray();
+        newArray[ix] = null;
+        return newArray;
+    }
+
+    private static T[] append<T>(T[] array, T element)
+    {
+        var newArray = new T[array.Length + 1];
+        Array.Copy(array, newArray, array.Length);
+        newArray[array.Length] = element;
         return newArray;
     }
 
@@ -798,6 +851,7 @@ public class TACScript : MonoBehaviour
 
     private IEnumerator InitiateSwap()
     {
+        _inputBlocked = true;
         Audio.PlaySoundAtTransform("cardPickup", transform);
         yield return MoveObjectsSmooth(
             new[] { CardObjects[5].transform, CardObjects[(int) _mustSwapWith].transform },
@@ -816,6 +870,7 @@ public class TACScript : MonoBehaviour
         CardObjects[(int) _mustSwapWith].transform.localRotation = cardRotations[(int) _mustSwapWith];
 
         _hand[(int) _mustSwapWith] = _swappableCard;
+        _inputBlocked = false;
     }
 
 #pragma warning disable 414
@@ -895,5 +950,79 @@ public class TACScript : MonoBehaviour
                 yield break;
             }
         }
+    }
+
+    IEnumerator TwitchHandleForcedSolve()
+    {
+        restart:
+        Debug.Log($"<> 1");
+        while (_inputBlocked)
+            yield return true;
+
+        if (currentCardChoice != null)
+        {
+            Debug.Log($"<> cancel card");
+            TacSel.OnInteract();
+            yield return new WaitForSeconds(.1f);
+            TacSel.OnInteractEnded();
+            while (_inputBlocked)
+                yield return true;
+        }
+
+        if (_cardsPlayedCounter == 0 && !_hasSwapped && _mustSwapWith != null)
+        {
+            Debug.Log($"<> swap");
+            TacSel.OnInteract();
+            yield return new WaitForSeconds(.1f);
+            TacSel.OnInteractEnded();
+            while (_inputBlocked)
+                yield return true;
+        }
+
+        Debug.Log($"<> _state={_state}; _hand=[{_hand.Join(", ")}]");
+
+        var solution = solve(new SolveStep[0], _state, _hand.ToArray()).FirstOrDefault();
+        if (solution == null)
+        {
+            // The player has made some moves that painted themselves in the corner — reset the module
+            Debug.Log($"<> reset");
+            TacSel.OnInteract();
+            yield return new WaitForSeconds(1.5f);
+            TacSel.OnInteractEnded();
+            goto restart;
+        }
+
+        foreach (var step in solution)
+        {
+            Debug.Log($"<> execute step: card {step.CardToPlay}={_hand[step.CardToPlay]}; {step.Options.Select(kvp => $"{kvp.Key}={kvp.Value}").Join(", ")}; {step.Swap1}, {step.Swap2}");
+
+            // Select the card
+            CardSels[step.CardToPlay].OnInteract();
+            while (_inputBlocked)
+                yield return true;
+
+            while (_hand[step.CardToPlay] != null)
+            {
+                var opt = _hand[step.CardToPlay].GetOption(_state, currentOptions);
+                if (opt == TACCardOption.Swap)
+                {
+                    LEDSels[step.Swap1].OnInteract();
+                    while (_inputBlocked)
+                        yield return true;
+                    LEDSels[step.Swap2].OnInteract();
+                    while (_inputBlocked)
+                        yield return true;
+                }
+                else
+                {
+                    (step.Options[opt] ? RightSel : LeftSel).OnInteract();
+                    while (_inputBlocked)
+                        yield return true;
+                }
+            }
+        }
+
+        while (!_moduleSolved)
+            yield return true;
     }
 }
