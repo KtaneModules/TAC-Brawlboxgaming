@@ -111,7 +111,7 @@ namespace TAC
 
         public override IEnumerable<TACGameState> UnexecuteAll(TACGameState state)
         {
-            if (IsDiscard)
+            if (IsDiscard && !state.PlayerInHome)
                 yield return state;
 
             // Can we move backwards this many steps?
