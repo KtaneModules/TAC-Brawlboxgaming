@@ -26,6 +26,7 @@ public class TACScript : MonoBehaviour
     public Material ButtonImageDiscard, ButtonImageEnterHome, ButtonImagePassHome, ButtonImagePassHomeBackwards;
     public Color[] LedOnColors;
     public Color[] LedOffColors;
+    public Color[] LedLightColors;
 
     public KMSelectable TacSel, LeftSel, RightSel;
     public KMSelectable[] CardSels, LEDSels;
@@ -325,18 +326,18 @@ public class TACScript : MonoBehaviour
             {
                 // User selected the first LED for swapping
                 _swapPieceWith1 = ix;
-                StartCoroutine(MoveLED(ix, down: true));
+                StartCoroutine(ToggleLED(ix, down: true));
             }
             else if (_swapPieceWith1 == ix)
             {
                 // User selected the same LED a second time ⇒ unselect it
                 _swapPieceWith1 = null;
-                StartCoroutine(MoveLED(ix, down: false));
+                StartCoroutine(ToggleLED(ix, down: false));
             }
             else
             {
                 // User selected the second LED: perform the swap
-                StartCoroutine(MoveLED(_swapPieceWith1.Value, down: false));
+                StartCoroutine(ToggleLED(_swapPieceWith1.Value, down: false));
                 _swapPieceWith2 = ix;
                 currentOptions[TACCardOption.Swap] = true;
                 _canSwapPieces = false;
@@ -509,9 +510,21 @@ public class TACScript : MonoBehaviour
         currentCardChoice = null;
     }
 
-    private IEnumerator MoveLED(int ledIx, bool down) => MoveObjectSmooth(LEDObjects[ledIx].transform,
-            new Vector3(ledOrigPositions[ledIx].x, ledOrigPositions[ledIx].y + (down ? -.002f : 0), ledOrigPositions[ledIx].z),
-            Quaternion.Euler(-90, 0, 180), .5f, 0f, false);
+    private IEnumerator ToggleLED(int ledIx, bool down)
+    {
+        var x = ledOrigPositions[ledIx].x;
+        var startY = ledOrigPositions[ledIx].y + (down ? 0 : -.002f);
+        var endY = ledOrigPositions[ledIx].y + (down ? -.002f : 0);
+        var z = ledOrigPositions[ledIx].z;
+        var startColor = (down ? LedOnColors : LedLightColors)[colorsIxShuffle[ledIx]];
+        var endColor = (down ? LedLightColors : LedOnColors)[colorsIxShuffle[ledIx]];
+
+        return AnimationLoop(0, 1, 1f, j =>
+        {
+            LEDObjects[ledIx].transform.localPosition = Vector3.Lerp(new Vector3(x, startY, z), new Vector3(x, endY, z), Easing.InOutQuad(j, 0, 1, 1));
+            LEDs[ledIx].material.color = Color.Lerp(startColor, endColor, j);
+        });
+    }
 
     private IEnumerator ResetLEDPositions() => MoveObjectsSmooth(
             LEDObjects.Select(x => x.transform).ToArray(),
@@ -552,7 +565,10 @@ public class TACScript : MonoBehaviour
             LEDs[i].material.color = LedOnColors[colorsIxShuffle[i]];
         yield return new WaitForSeconds(0.1f);
         for (var i = 0; i < LEDs.Length; i++)
-            LEDs[i].material.color = _state.Pieces[(i + 4 - _state.PlayerSeat) % 4] == null ? LedOffColors[colorsIxShuffle[i]] : LedOnColors[colorsIxShuffle[i]];
+            LEDs[i].material.color = (
+                _state.Pieces[(i + 4 - _state.PlayerSeat) % 4] == null ? LedOffColors :
+                _canSwapPieces && _swapPieceWith1 == i ? LedLightColors :
+                LedOnColors)[colorsIxShuffle[i]];
     }
 
     private void ResetLEDColors()
