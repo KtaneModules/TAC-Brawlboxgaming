@@ -352,7 +352,7 @@ public class TACScript : MonoBehaviour
     {
         return delegate
         {
-            if (_inputBlocked || _moduleSolved)
+            if (_inputBlocked || _moduleSolved || _hand[ix] == null)
                 return false;
 
             if (_mustSwapWith != null && !_hasSwapped)
